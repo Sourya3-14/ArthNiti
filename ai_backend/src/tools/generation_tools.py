@@ -448,8 +448,67 @@ def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> li
                 "error": f"Failed to generate profile and recommendations: {str(exc)}"
             }
 
+    @tool
+    async def get_analysis_pipeline_status() -> dict:
+        """
+        Checks the analysis progression and pipeline milestones for the current business.
+        Returns whether 'feasibility_analysis', 'financial_analysis', and
+        'government_schemes' stages are 'done' or 'not done'.
+        """
+        # 1. Check Feasibility Analysis
+        stmt_feasibility = (
+            select(BusinessAnalysis.id)
+            .where(BusinessAnalysis.business_id == business_id)
+            .limit(1)
+        )
+        res_feasibility = await db.execute(stmt_feasibility)
+        feasibility_done = res_feasibility.scalar_one_or_none() is not None
+
+        # 2. Check Financial Analysis
+        stmt_financial = (
+            select(FinancialAnalysis.id)
+            .where(FinancialAnalysis.business_id == business_id)
+            .limit(1)
+        )
+        res_financial = await db.execute(stmt_financial)
+        financial_done = res_financial.scalar_one_or_none() is not None
+
+        # 3. Check Government Schemes (checks recommended_schemes in BusinessProfile)
+        stmt_profile = (
+            select(BusinessProfile.recommended_schemes)
+            .where(BusinessProfile.business_id == business_id)
+            .limit(1)
+        )
+        res_profile = await db.execute(stmt_profile)
+        schemes_data = res_profile.scalar_one_or_none()
+        schemes_done = bool(schemes_data)
+
+        stages = {
+            "feasibility_analysis": "done" if feasibility_done else "not done",
+            "financial_analysis": "done" if financial_done else "not done",
+            "government_schemes": "done" if schemes_done else "not done",
+        }
+
+        # Determine highest completed pipeline stage for quick agent reasoning
+        if schemes_done:
+            last_completed = "government_schemes"
+        elif financial_done:
+            last_completed = "financial_analysis"
+        elif feasibility_done:
+            last_completed = "feasibility_analysis"
+        else:
+            last_completed = "none"
+
+        return {
+            "business_id": business_id,
+            "stages": stages,
+            "last_completed_stage": last_completed,
+            "is_fully_completed": all(status == "done" for status in stages.values()),
+        }
+
     return [
         generate_feasibility_report_tool,
         generate_financial_plan_tool,
         generate_government_schemes_profile_tool,
+        get_analysis_pipeline_status,
     ]
