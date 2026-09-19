@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Main API for authentication, user data, profiles, etc.
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -11,7 +11,7 @@ const api = axios.create({
 
 // Blockchain API for payments, donations, token rewards, etc.
 const aiApi = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
   },

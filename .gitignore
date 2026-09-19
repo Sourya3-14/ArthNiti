@@ -1,6 +1,11 @@
 venv
 .env
+
+.vscode
+*.bat
+*.log
+
 __pycache__
 data_cache
-.uut
+
 node_modules

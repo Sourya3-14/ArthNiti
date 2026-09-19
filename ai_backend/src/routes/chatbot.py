@@ -23,7 +23,7 @@ from src.schema.user import User
 router = APIRouter()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-KB_FILE_PATH = Path("E:/Hackathon/Finance Assistant/ai_backend/data/chunks.json")
+KB_FILE_PATH = Path("E:/Hackathon/Finance_Assistant/ai_backend/data/chunks.json")
 EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 # Initialize Chat Model with LangChain (.invoke ready)
