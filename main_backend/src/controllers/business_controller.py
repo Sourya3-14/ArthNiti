@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 import asyncio
 from fastapi import HTTPException, status
 
@@ -39,12 +43,15 @@ MULTILINGUAL_BUSINESS_FIELDS = [
 
 LANG_NORMALIZER = {
     "english": "en",
+    "English": "en",
     "en": "en",
     "eng": "en",
     "bengali": "bn",
+    "Bengali": "bn",
     "bng": "bn",
     "bn": "bn",
     "hindi": "hi",
+    "Hindi": "hi",
     "hin": "hi",
     "hi": "hi",
 }
@@ -1041,6 +1048,7 @@ async def search_other_businesses(
                 Business.business_name, name, lang_code, en_terms.get("name")
             )
         )
+
     if category:
         filters.append(
             _build_multilingual_fuzzy_filter(
@@ -1049,36 +1057,42 @@ async def search_other_businesses(
         )
     if status:
         filters.append(Business.status == status)
+
     if village:
         filters.append(
             _build_multilingual_fuzzy_filter(
                 Business.village, village, lang_code, en_terms.get("village")
             )
         )
+
     if district:
         filters.append(
             _build_multilingual_fuzzy_filter(
                 Business.district, district, lang_code, en_terms.get("district")
             )
         )
+
     if city:
         filters.append(
             _build_multilingual_fuzzy_filter(
                 Business.city, city, lang_code, en_terms.get("city")
             )
         )
+
     if state:
         filters.append(
             _build_multilingual_fuzzy_filter(
                 Business.state, state, lang_code, en_terms.get("state")
             )
         )
+
     if country:
         filters.append(
             _build_multilingual_fuzzy_filter(
                 Business.country, country, lang_code, en_terms.get("country")
             )
         )
+
     if pincode:
         filters.append(Business.pincode.ilike(f"%{pincode.strip()}%"))
 
@@ -1094,6 +1108,9 @@ async def search_other_businesses(
 
     if user_lat is None or user_lon is None:
         query = query.order_by(Business.created_at.desc())
+
+    print(query)
+    logger.warning("QUERY: %s", query)
 
     result = await db.execute(query)
     businesses = result.scalars().all()

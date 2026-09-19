@@ -23,7 +23,7 @@ from src.models.business_request import (
     BusinessOwnerContactResponse,
     BusinessImagesResponse,
     BusinessImagesUpdateRequest,
-    BusinessUpdateRequest
+    BusinessUpdateRequest,
 )
 from src.schema.business import BusinessStatus
 
@@ -117,17 +117,18 @@ async def search_businesses_route(
 # =========================================================
 # OTHER BUSINESSES
 # =========================================================
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 
 # Optional token resolver helper:
 async def get_optional_user_id(
-    authorization: str | None = Header(default=None),
+    credentials: HTTPAuthorizationCredentials | None = None,
 ) -> str | None:
-    if not authorization:
+    if not credentials:
         return None
     try:
         # If your verify_token accepts the raw header string:
-        return await verify_token(authorization)
+        return await verify_token(credentials)
     except HTTPException:
         # Invalid/expired token falls back to anonymous
         return None
@@ -164,7 +165,7 @@ async def search_other_businesses_route(
         state=state,
         country=country,
         pincode=pincode,
-        user_id=user_id,
+        user_id=None,
     )
 
 
@@ -313,8 +314,6 @@ async def clear_business_images_route(
     )
 
 
-
-
 @router.patch("/{business_id}/update", response_model=BusinessResponse)
 async def patch_business(
     business_id: str,
@@ -330,6 +329,7 @@ async def patch_business(
         language=accept_language,
         db=db,
     )
+
 
 @router.get(
     "/{business_id}",
