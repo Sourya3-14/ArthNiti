@@ -205,7 +205,6 @@ async def generate_report(
             provided_category=request.business_type,
             description=request.business_description,
         )
-        
 
         business = Business(
             owner_id=entrepreneur.user_id,
@@ -221,8 +220,6 @@ async def generate_report(
             state={lang_code: request.state},
             country={lang_code: request.country},
             pincode=request.pincode,
-            latitude=0.0,
-            longitude=0.0,
             status=BusinessStatus.pending,
         )
         db.add(business)
@@ -233,7 +230,7 @@ async def generate_report(
             target_language=lang_code,
             db=db,
         )
-        
+
     request.business_id = business.id
     request.business_name = business.business_name.get("en", "")
     request.business_type = business.category.get("en", "")
@@ -245,7 +242,6 @@ async def generate_report(
     request.city = business.city.get("en", "")
     request.village = business.village.get("en", "")
     request.pincode = business.pincode
-
     request.margin_capital = business.margin_capital
 
     if force:
@@ -257,19 +253,7 @@ async def generate_report(
         analysis_ids = analysis_ids_result.scalars().all()
 
         if analysis_ids:
-            # Delete translations
-            await db.execute(
-                delete(ReportTranslation).where(
-                    ReportTranslation.report_id.in_(analysis_ids)
-                )
-            )
-            # Delete chunks before deleting analysis due to cascading/foreign keys
-            await db.execute(
-                delete(BusinessReportChunk).where(
-                    BusinessReportChunk.business_analysis_id.in_(analysis_ids)
-                )
-            )
-            # Delete analysis
+            # Delete analysis only translation and chunks has cascading
             await db.execute(
                 delete(BusinessAnalysis).where(BusinessAnalysis.id.in_(analysis_ids))
             )
@@ -295,53 +279,6 @@ async def generate_report(
             "transportation": existing_analysis.transportation_payload,
             "seasonality": existing_analysis.seasonality_payload,
         }
-
-        # ========================================================
-        # Lazy Chunk Backfill (Creates chunks for older legacy reports)
-        # ========================================================
-
-        # 1. Check if this existing report has any chunks saved
-        chunk_check_result = await db.execute(
-            select(BusinessReportChunk.id)
-            .where(BusinessReportChunk.business_analysis_id == existing_analysis.id)
-            .limit(1)
-        )
-        has_chunks = chunk_check_result.scalar_one_or_none() is not None
-
-        # 2. If no chunks exist, generate and save them right now
-        if not has_chunks:
-            try:
-                sections = parse_report_sections(existing_analysis.report_markdown)
-                chunks_to_insert = []
-                for section in sections:
-                    text_chunks = split_text_recursively(
-                        section["content"], max_chars=1500, overlap=150
-                    )
-                    for chunk_idx, chunk_text in enumerate(text_chunks):
-                        embedding_text = f"Section {section['number']}: {section['title']}\n\n{chunk_text}"
-                        embedding_vector = generate_embedding(embedding_text)
-
-                        chunks_to_insert.append(
-                            BusinessReportChunk(
-                                business_id=business.id,
-                                business_analysis_id=existing_analysis.id,
-                                version=existing_analysis.version,
-                                section_number=section["number"],
-                                section_title=section["title"],
-                                chunk_index=chunk_idx,
-                                content=chunk_text,
-                                embedding_text=embedding_text,
-                                embedding=embedding_vector,
-                            )
-                        )
-                if chunks_to_insert:
-                    db.add_all(chunks_to_insert)
-                    await db.commit()  # Save the new chunks for the old report!
-            except Exception as e:
-                await db.rollback()
-                raise HTTPException(
-                    status_code=500, detail=f"Failed to backfill chunks: {str(e)}"
-                )
 
         if language == "english":
             return ReportResponse(
@@ -380,7 +317,7 @@ async def generate_report(
             )
 
         try:
-            translated_result = translate_feasibility_report(
+            translated_result = await translate_feasibility_report(
                 report_markdown=existing_analysis.report_markdown,
                 raw_evidence=original_evidence,
                 target_language=language,
@@ -416,7 +353,7 @@ async def generate_report(
     # Generate report
     # ========================================================
     try:
-        result = generate_feasibility_report(
+        result = await generate_feasibility_report(
             business_name=request.business_name,
             business_type=request.business_type,
             business_description=request.business_description,
@@ -426,6 +363,8 @@ async def generate_report(
             city=request.city,
             village=request.village,
             pincode=request.pincode,
+            latitude=business.latitude,
+            longitude=business.longitude,
             margin_capital=request.margin_capital,
             radius_km=request.radius_km,
             language=request.language,

@@ -1,5 +1,6 @@
 import json
 import logging
+import asyncio
 from typing import Any, Optional
 from google.genai import types
 
@@ -33,11 +34,30 @@ def safe_json(data: Any) -> Any:
         return str(data)
 
 
-def safe_execute(name: str, function, **kwargs) -> dict:
-    """Execute one data-analysis module safely and return standardized status."""
+# def safe_execute(name: str, function, **kwargs) -> dict:
+#     """Execute one data-analysis module safely and return standardized status."""
+#     logger.info(f"[{name}] STARTING")
+#     try:
+#         result = function(**kwargs)
+#         logger.info(f"[{name}] ✅ SUCCESS")
+#         return {
+#             "status": "success",
+#             "data_available": True,
+#             "data": safe_json(result),
+#             "error": None,
+#         }
+#     except Exception as e:
+#         logger.error(f"[{name}] ❌ FAILED: {str(e)}")
+#         return {
+#             "status": "failed",
+#             "data_available": False,
+#             "data": None,
+#             "error": str(e),
+#         }
+async def safe_execute(name: str, function, **kwargs) -> dict:
     logger.info(f"[{name}] STARTING")
     try:
-        result = function(**kwargs)
+        result = await asyncio.to_thread(function, **kwargs)
         logger.info(f"[{name}] ✅ SUCCESS")
         return {
             "status": "success",
@@ -100,12 +120,7 @@ def build_analysis_location(
     district: str,
     city: str | None,
 ) -> str:
-    parts = [
-        country,
-        state,
-        district,
-        city,
-    ]
+    parts = [country, state, district, city]
 
     return ", ".join(part.strip() for part in parts if part and part.strip())
 
@@ -194,7 +209,7 @@ OUTPUT FORMAT (Strictly use this markdown structure)
 # ============================================================
 # ORCHESTRATOR
 # ============================================================
-def generate_feasibility_report(
+async def generate_feasibility_report(
     business_name: str,
     business_type: str,
     business_description: str | None,
@@ -204,6 +219,8 @@ def generate_feasibility_report(
     city: str | None,
     village: str | None,
     pincode: str | None,
+    latitude: float | None,
+    longitude: float | None,
     margin_capital: float,
     radius_km: float = 10.0,
     language: str = "english",
@@ -220,7 +237,7 @@ def generate_feasibility_report(
     # 1. POPULATION
     # ========================================================
 
-    population_result = safe_execute(
+    population_result = await safe_execute(
         "POPULATION",
         analyze_market_reach,
         location=analysis_location,
@@ -228,81 +245,104 @@ def generate_feasibility_report(
         year=2025,
     )
 
-    population_latitude, population_longitude = extract_coordinates(population_result)
+    if latitude and longitude:
+        latitude, longitude = extract_coordinates(population_result)
 
     population = extract_population(population_result)
 
-    analysis_latitude = population_latitude
-
-    analysis_longitude = population_longitude
-
     # ========================================================
     # 2. COMPETITORS
+    # 3. MARKET PRICE
+    # 4. SUPPLY CHAIN
+    # 5. TRANSPORTATION
+    # 6. SEASONALITY
     # ========================================================
 
-    if analysis_latitude is not None and analysis_longitude is not None:
-        competitor_result = safe_execute(
-            "COMPETITOR",
-            analyze_competitors,
-            latitude=analysis_latitude,
-            longitude=analysis_longitude,
-            population=int(population) if population else 0,
-            business_type=business_type,
-            radius_km=radius_km,
+    if latitude is not None and longitude is not None:
+        (
+            competitor_result,
+            market_price_result,
+            supply_chain_result,
+            transportation_result,
+            seasonality_result,
+        ) = await asyncio.gather(
+            safe_execute(
+                "COMPETITOR",
+                analyze_competitors,
+                latitude=latitude,
+                longitude=longitude,
+                population=int(population) if population else 0,
+                business_type=business_type,
+                radius_km=radius_km,
+            ),
+            safe_execute(
+                "MARKET PRICE",
+                analyze_market_price,
+                business_type=business_type,
+                state=state,
+            ),
+            safe_execute(
+                "SUPPLY CHAIN",
+                evaluate_supply_chain,
+                location_name=analysis_location,
+                business_type=business_type,
+            ),
+            safe_execute(
+                "TRANSPORTATION",
+                run_supply_chain_and_transportation_analysis,
+                origin_location=analysis_location,
+                business_type=business_type,
+                search_radius_meters=30000,
+            ),
+            safe_execute(
+                "SEASONALITY",
+                generate_dynamic_advisory_report,
+                location_name=analysis_location,
+                business_type=business_type,
+                sample_12m_mandi_prices=None,
+            ),
         )
     else:
         competitor_result = {
             "status": "failed",
             "data_available": False,
             "data": None,
-            "error": ("Coordinates unavailable from population module and business."),
+            "error": "Coordinates unavailable from population module and business.",
         }
 
-    # ========================================================
-    # 3. MARKET PRICE
-    # ========================================================
-
-    market_price_result = safe_execute(
-        "MARKET PRICE",
-        analyze_market_price,
-        business_type=business_type,
-        state=state,
-    )
-
-    # ========================================================
-    # 4. SUPPLY CHAIN
-    # ========================================================
-
-    supply_chain_result = safe_execute(
-        "SUPPLY CHAIN",
-        evaluate_supply_chain,
-        location_name=analysis_location,
-        business_type=business_type,
-    )
-
-    # ========================================================
-    # 5. TRANSPORTATION
-    # ========================================================
-
-    transportation_result = safe_execute(
-        "TRANSPORTATION",
-        run_supply_chain_and_transportation_analysis,
-        origin_location=analysis_location,
-        business_type=business_type,
-        search_radius_meters=30000,
-    )
-
-    # ========================================================
-    # 6. SEASONALITY
-    # ========================================================
-
-    seasonality_result = safe_execute(
-        "SEASONALITY",
-        generate_dynamic_advisory_report,
-        location_name=analysis_location,
-        business_type=business_type,
-        sample_12m_mandi_prices=None,
-    )
+        (
+            market_price_result,
+            supply_chain_result,
+            transportation_result,
+            seasonality_result,
+        ) = await asyncio.gather(
+            safe_execute(
+                "MARKET PRICE",
+                analyze_market_price,
+                business_type=business_type,
+                state=state,
+            ),
+            safe_execute(
+                "SUPPLY CHAIN",
+                evaluate_supply_chain,
+                location_name=analysis_location,
+                business_type=business_type,
+            ),
+            safe_execute(
+                "TRANSPORTATION",
+                run_supply_chain_and_transportation_analysis,
+                origin_location=analysis_location,
+                business_type=business_type,
+                search_radius_meters=30000,
+            ),
+            safe_execute(
+                "SEASONALITY",
+                generate_dynamic_advisory_report,
+                location_name=analysis_location,
+                business_type=business_type,
+                sample_12m_mandi_prices=None,
+            ),
+        )
 
     # ========================================================
     # 7. COMPILE EVIDENCE
@@ -373,7 +413,7 @@ from the system instructions.
     client = get_gemini_client()
 
     try:
-        response = client.models.generate_content(
+        response = await client.aio.models.generate_content(
             model=GEMINI_MODEL_NAME,
             contents=[
                 SYSTEM_PROMPT,
@@ -393,7 +433,7 @@ from the system instructions.
 
     # ========================================================
     # 9. RETURN ORIGINAL ENGLISH OR TRANSLATED RESULT
-    # ========================================================
+    # ================================================= =======
 
     if language == "english":
         return {
@@ -401,20 +441,18 @@ from the system instructions.
             "language": "english",
             "report_markdown": report_markdown,
             "raw_evidence": evidence_payload,
-            
             # Keep the original English report available
             "original_report_markdown": report_markdown,
             "original_evidence": evidence_payload,
-
-            "analysis_latitude": analysis_latitude,
-            "analysis_longitude": analysis_longitude,
+            "analysis_latitude": latitude,
+            "analysis_longitude": longitude,
         }
 
     # --------------------------------------------------------
     # Translation
     # --------------------------------------------------------
 
-    translated = translate_feasibility_report(
+    translated = await translate_feasibility_report(
         report_markdown=report_markdown,
         raw_evidence=evidence_payload,
         target_language=language,
@@ -428,6 +466,6 @@ from the system instructions.
         "raw_evidence": translated["raw_evidence"],
         "original_report_markdown": report_markdown,
         "original_evidence": evidence_payload,
-        "analysis_latitude": analysis_latitude,
-        "analysis_longitude": analysis_longitude,
+        "analysis_latitude": latitude,
+        "analysis_longitude": longitude,
     }
