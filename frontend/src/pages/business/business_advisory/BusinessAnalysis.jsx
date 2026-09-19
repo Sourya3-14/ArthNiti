@@ -250,6 +250,45 @@ const normalizeLanguage = (value) => {
   return "english";
 };
 
+const GENERATING_STORAGE_PREFIX = "business_analysis_generating_";
+
+const getGeneratingState = (id) => {
+  if (!id) return null;
+  try {
+    const raw = sessionStorage.getItem(`${GENERATING_STORAGE_PREFIX}${id}`);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Date.now() - parsed.timestamp > 15 * 60 * 1000) {
+      sessionStorage.removeItem(`${GENERATING_STORAGE_PREFIX}${id}`);
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+};
+
+const setGeneratingState = (id, data = {}) => {
+  if (!id) return;
+  try {
+    sessionStorage.setItem(
+      `${GENERATING_STORAGE_PREFIX}${id}`,
+      JSON.stringify({ ...data, timestamp: Date.now() }),
+    );
+  } catch (e) {
+    console.warn("Could not set generating state in sessionStorage:", e);
+  }
+};
+
+const clearGeneratingState = (id) => {
+  if (!id) return;
+  try {
+    sessionStorage.removeItem(`${GENERATING_STORAGE_PREFIX}${id}`);
+  } catch (e) {
+    console.warn("Could not clear generating state in sessionStorage:", e);
+  }
+};
+
 const BusinessAnalysis = () => {
   const { businessId } = useParams();
   const navigate = useNavigate();
@@ -284,13 +323,80 @@ const BusinessAnalysis = () => {
         `api/v1/businesses/${businessId}/report/status`,
       );
       const data = res?.data || res;
+      const exists = Boolean(data?.exists);
       const isStale = Boolean(data?.needs_regeneration);
       setNeedsRegeneration(isStale);
-      return isStale;
+      return {
+        exists,
+        needsRegeneration: isStale,
+        analysisId: data?.analysis_id,
+        version: data?.version,
+        analysisUpdatedAt: data?.analysis_updated_at,
+        businessUpdatedAt: data?.business_updated_at,
+        data,
+      };
     } catch (e) {
       console.warn("Could not check report staleness status:", e);
-      return false;
+      return null;
     }
+  };
+
+  const stopBackgroundPolling = () => {
+    if (pollIntervalRef.current) {
+      clearInterval(pollIntervalRef.current);
+      pollIntervalRef.current = null;
+    }
+  };
+
+  const startBackgroundPolling = (prevAnalysisId = null) => {
+    stopBackgroundPolling();
+
+    const startTime = Date.now();
+    const maxPollTimeMs = 15 * 60 * 1000;
+
+    pollIntervalRef.current = setInterval(async () => {
+      if (Date.now() - startTime > maxPollTimeMs) {
+        stopBackgroundPolling();
+        clearGeneratingState(businessId);
+        setGenerating(false);
+        setError(t.generationFailed);
+        return;
+      }
+
+      try {
+        const status = await checkReportStatus();
+        if (!status) return;
+
+        const isFinished =
+          status.exists &&
+          (!prevAnalysisId || status.analysisId !== prevAnalysisId);
+
+        if (isFinished) {
+          stopBackgroundPolling();
+          clearGeneratingState(businessId);
+
+          try {
+            const response = await aiApi.get(
+              `api/v1/businesses/${businessId}/report?language=${getApiLanguage()}`,
+            );
+            const reportData = response.data || response;
+            setReport(reportData);
+            setNeedsRegeneration(
+              Boolean(
+                status.needsRegeneration || reportData?.needs_regeneration,
+              ),
+            );
+            setGenerating(false);
+            setShowConfigModal(false);
+            setError("");
+          } catch (fetchErr) {
+            console.error("Failed to load completed report after polling:", fetchErr);
+          }
+        }
+      } catch (pollErr) {
+        console.warn("Polling error checking report status:", pollErr);
+      }
+    }, 5000);
   };
 
   const loadReport = async (silent = false) => {
@@ -298,39 +404,79 @@ const BusinessAnalysis = () => {
       if (!silent) setLoading(true);
       setError("");
 
-      const response = await aiApi.get(
-        `api/v1/businesses/${businessId}/report?language=${getApiLanguage()}`,
-      );
-      const reportData = response.data || response;
-      setReport(reportData);
-      setShowConfigModal(false);
-      setGenerating(false);
+      const status = await checkReportStatus();
+      const generatingInfo = getGeneratingState(businessId);
 
-      if (pollIntervalRef.current) {
-        clearInterval(pollIntervalRef.current);
-        pollIntervalRef.current = null;
+      if (status?.exists) {
+        if (
+          generatingInfo?.prevAnalysisId &&
+          status.analysisId === generatingInfo.prevAnalysisId
+        ) {
+          setGenerating(true);
+          setShowConfigModal(false);
+          startBackgroundPolling(generatingInfo.prevAnalysisId);
+          return null;
+        }
+
+        const response = await aiApi.get(
+          `api/v1/businesses/${businessId}/report?language=${getApiLanguage()}`,
+        );
+        const reportData = response.data || response;
+        setReport(reportData);
+        setNeedsRegeneration(
+          Boolean(status.needsRegeneration || reportData?.needs_regeneration),
+        );
+        setShowConfigModal(false);
+        setGenerating(false);
+        clearGeneratingState(businessId);
+        stopBackgroundPolling();
+        return reportData;
       }
 
-      const isStale = await checkReportStatus();
-      if (!isStale && Boolean(reportData?.needs_regeneration)) {
-        setNeedsRegeneration(true);
+      setReport(null);
+
+      if (generatingInfo) {
+        setGenerating(true);
+        setShowConfigModal(false);
+        startBackgroundPolling(generatingInfo.prevAnalysisId);
+      } else {
+        setGenerating(false);
+        stopBackgroundPolling();
+        if (!silent) {
+          try {
+            const business = await fetchBusinessProfile();
+            setBusinessData(business);
+            setShowConfigModal(true);
+          } catch (fetchErr) {
+            setError(
+              fetchErr?.response?.data?.detail ||
+                fetchErr.message ||
+                t.noAnalysisError,
+            );
+          }
+        }
       }
+      return null;
     } catch (err) {
       if (err?.response?.status === 404) {
         setReport(null);
-        setError("");
-        try {
-          const business = await fetchBusinessProfile();
-          setBusinessData(business);
-          if (!generating) {
+        const generatingInfo = getGeneratingState(businessId);
+        if (generatingInfo) {
+          setGenerating(true);
+          setShowConfigModal(false);
+          startBackgroundPolling(generatingInfo.prevAnalysisId);
+        } else if (!silent) {
+          try {
+            const business = await fetchBusinessProfile();
+            setBusinessData(business);
             setShowConfigModal(true);
+          } catch (fetchErr) {
+            setError(
+              fetchErr?.response?.data?.detail ||
+                fetchErr.message ||
+                t.noAnalysisError,
+            );
           }
-        } catch (fetchErr) {
-          setError(
-            fetchErr?.response?.data?.detail ||
-              fetchErr.message ||
-              t.noAnalysisError,
-          );
         }
       } else {
         if (!silent) {
@@ -339,6 +485,7 @@ const BusinessAnalysis = () => {
           );
         }
       }
+      return null;
     } finally {
       if (!silent) setLoading(false);
     }
@@ -349,24 +496,13 @@ const BusinessAnalysis = () => {
       loadReport();
     }
     return () => {
-      setReport(null);
-      setNeedsRegeneration(false);
-      if (pollIntervalRef.current) {
-        clearInterval(pollIntervalRef.current);
-      }
+      stopBackgroundPolling();
     };
   }, [businessId, language]);
 
-  const startBackgroundPolling = () => {
-    if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
-    pollIntervalRef.current = setInterval(() => {
-      loadReport(true);
-    }, 15000);
-  };
-
   const handleOpenConfig = async () => {
     try {
-      const business = await fetchBusinessProfile();
+      const business = businessData || (await fetchBusinessProfile());
       setBusinessData(business);
       setShowConfigModal(true);
     } catch (err) {
@@ -410,27 +546,53 @@ const BusinessAnalysis = () => {
         language: getApiLanguage(),
       };
 
-      startBackgroundPolling();
+      const prevId = report?.analysis_id || null;
+      setGeneratingState(businessId, { prevAnalysisId: prevId });
+      startBackgroundPolling(prevId);
 
       const endpoint = report
         ? "api/v1/report/generate?force=true"
         : "api/v1/report/generate";
 
-      const response = await aiApi.post(endpoint, requestBody);
-      const generatedReport = response.data || response;
-
-      setReport(generatedReport);
-      setShowConfigModal(false);
-      setGenerating(false);
-      setNeedsRegeneration(false);
-
-      if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+      aiApi
+        .post(endpoint, requestBody)
+        .then((response) => {
+          const generatedReport = response?.data || response;
+          if (generatedReport) {
+            setReport(generatedReport);
+            setShowConfigModal(false);
+            setGenerating(false);
+            setNeedsRegeneration(false);
+            stopBackgroundPolling();
+            clearGeneratingState(businessId);
+          }
+        })
+        .catch((postErr) => {
+          console.warn(
+            "POST generate request ended (status polling active):",
+            postErr?.message,
+          );
+          if (
+            postErr?.response?.status >= 400 &&
+            postErr?.response?.status < 500
+          ) {
+            setError(
+              postErr?.response?.data?.detail ||
+                postErr.message ||
+                t.generationFailed,
+            );
+            setGenerating(false);
+            stopBackgroundPolling();
+            clearGeneratingState(businessId);
+          }
+        });
     } catch (err) {
       setError(
         err?.response?.data?.detail || err?.message || t.generationFailed,
       );
       setGenerating(false);
-      if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
+      stopBackgroundPolling();
+      clearGeneratingState(businessId);
     }
   };
 
