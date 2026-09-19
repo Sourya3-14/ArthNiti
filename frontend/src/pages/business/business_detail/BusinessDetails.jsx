@@ -495,9 +495,9 @@ const BusinessDirectory = () => {
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <SearchField
                       label={t.businessName}
-                      value={filters.business_name}
+                      value={filters.name}
                       onChange={(value) =>
-                        handleFilterChange("business_name", value)
+                        handleFilterChange("name", value)
                       }
                     />
                     <SearchField
