@@ -13,14 +13,22 @@ logger = logging.getLogger(__name__)
 
 SUPPORTED_LANGUAGES = {
     "en": "English",
+    "eng": "English",
+    "english": "English",
+    "English": "English",
     "hi": "Hindi",
+    "hin": "Hindi",
+    "hindi": "Hindi",
+    "Hindi": "Hindi",
     "bn": "Bengali",
+    "ben": "Bengali",
+    "bengali": "Bengali",
+    "Bengali": "Bengali",
 }
 
 
 class TranslationError(Exception):
     """Raised when translation fails."""
-
     pass
 
 
@@ -284,14 +292,119 @@ JSON TO TRANSLATE:
         return response.strip()
 
 
+async def translate_async(
+    self,
+    text: str,
+    target_language: str,
+    source_language: str = "English",
+) -> str:
+    """
+    Translate text asynchronously using the native async Gemini client.
+    """
 
-def translate_entry(
+    if not text or not text.strip():
+        return text
+
+    target_language_name = self._resolve_language(target_language)
+
+    if source_language.lower() == target_language_name.lower():
+        return text
+
+    prompt = self._build_prompt(
+        text=text,
+        source_language=source_language,
+        target_language=target_language_name,
+    )
+
+    try:
+        response = await self.client.aio.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.1,
+                max_output_tokens=60000,
+            ),
+        )
+
+        translated_text = response.text
+
+        if not translated_text:
+            raise TranslationError("Translation model returned an empty response.")
+
+        return translated_text.strip()
+
+    except Exception as exc:
+        logger.exception("Async translation failed")
+        raise TranslationError(f"Translation failed: {exc}") from exc
+
+
+async def translate_json_async(
+    self,
+    data: Any,
+    target_language: str,
+    source_language: str = "English",
+) -> Any:
+    """
+    Translate human-readable JSON values asynchronously while
+    preserving the JSON structure.
+    """
+
+    if data is None:
+        return None
+
+    target_language_name = self._resolve_language(target_language)
+
+    if source_language.lower() == target_language_name.lower():
+        return data
+
+    json_text = json.dumps(
+        data,
+        ensure_ascii=False,
+        indent=2,
+        default=str,
+    )
+
+    prompt = self._build_json_prompt(
+        json_text=json_text,
+        source_language=source_language,
+        target_language=target_language_name,
+    )
+
+    try:
+        response = await self.client.aio.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.1,
+                max_output_tokens=60000,
+            ),
+        )
+
+        translated_json = response.text
+
+        if not translated_json:
+            raise TranslationError("Translation model returned an empty response.")
+
+        translated_json = self._clean_json_response(translated_json)
+
+        return json.loads(translated_json)
+
+    except json.JSONDecodeError as exc:
+        logger.exception("Translated response is not valid JSON")
+        raise TranslationError(f"Translation returned invalid JSON: {exc}") from exc
+
+    except Exception as exc:
+        logger.exception("Async JSON translation failed")
+        raise TranslationError(f"JSON translation failed: {exc}") from exc
+
+    
+async def translate_entry(
     entry: dict[str, Any],
     target_language: str,
     source_language: str = "english",
 ) -> dict[str, Any]:
     """
-    Translate a JSON/dictionary entry into the specified language.
+    Translate a JSON/dictionary entry asynchronously.
 
     The structure and keys are preserved. Only human-readable
     text values are translated.
@@ -302,13 +415,11 @@ def translate_entry(
 
     translator = Translator()
 
-    return translator.translate_json(
+    return await translator.translate_json_async(
         data=entry,
         target_language=target_language,
         source_language=source_language,
     )
-
-import asyncio
 
 
 async def translate_text(
@@ -316,20 +427,25 @@ async def translate_text(
     target_language: str,
     source_language: str = "English",
 ) -> str:
-    """Translate a plain text string asynchronously with graceful fallback on error."""
+    """Translate a plain text string asynchronously with graceful fallback."""
+
     if not text or not text.strip() or target_language.lower() in ("en", "english"):
         return text
 
     try:
         translator = Translator()
-        return await asyncio.to_thread(
-            translator.translate,
+
+        return await translator.translate_async(
             text=text,
             target_language=target_language,
             source_language=source_language,
         )
+
     except Exception as exc:
         logger.warning(
-            "Failed to translate text '%s' to %s: %s", text, target_language, exc
+            "Failed to translate text '%s' to %s: %s",
+            text,
+            target_language,
+            exc,
         )
         return text

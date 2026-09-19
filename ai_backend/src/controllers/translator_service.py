@@ -1,24 +1,33 @@
 import logging
 from typing import Any
 
-from src.utils.translator_utils import Translator
+from src.utils.translator_utils import translate_async,translate_json_async
 
 logger = logging.getLogger(__name__)
 
+
 SUPPORTED_REPORT_LANGUAGES = {
+    "en": "en",
+    "eng": "en",
     "english": "en",
+    "English": "en",
+    "hi": "hi",
+    "hin": "hi",
     "hindi": "hi",
+    "Hindi": "hi",
+    "bn": "bn",
+    "ben": "bn",
     "bengali": "bn",
+    "Bengali": "bn",
 }
 
 
 class ReportTranslationError(Exception):
     """Raised when feasibility report translation fails."""
-
     pass
 
 
-def translate_feasibility_report(
+async def translate_feasibility_report(
     report_markdown: str,
     raw_evidence: dict[str, Any],
     target_language: str,
@@ -48,7 +57,6 @@ def translate_feasibility_report(
 
     target_language_code = SUPPORTED_REPORT_LANGUAGES[language]
 
-    translator = Translator()
 
     try:
         logger.info(
@@ -56,12 +64,12 @@ def translate_feasibility_report(
             language,
         )
 
-        translated_report = translator.translate(
+        translated_report = await translate_async(
             text=report_markdown,
             target_language=target_language_code,
         )
 
-        translated_evidence = translator.translate_json(
+        translated_evidence = await translate_json_async(
             data=raw_evidence,
             target_language=target_language_code,
         )
