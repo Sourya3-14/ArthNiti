@@ -28,6 +28,7 @@ class SendOtpRequest(BaseModel):
 class VerifyOtpRequest(BaseModel):
     email: EmailStr
     otp: str
+    
 @router.post("/send-otp")
 async def send_otp(data: SendOtpRequest):
     return await send_email_otp(data.email)
