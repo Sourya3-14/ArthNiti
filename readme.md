@@ -266,6 +266,7 @@ TAVILY_API_KEY=your_tavily_api_key
 UPSTASH_REDIS_REST_URL=https://<your-redis>.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your_upstash_token
 AGENT_DEBUG_MODE=false
+AGENT_LOGGING=true # Enables session-separated agent state & tool tracing in logs/sessions/
 ```
 
 #### 3. Frontend (`frontend/.env`)

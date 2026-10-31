@@ -4,11 +4,18 @@ from src.agents.agent_state import BusinessAgentState
 
 from src.config.config import GEMINI_MODEL_NAME
 
+from src.utils.agent_logger import get_session_logger
+
 # Use the absolute cheapest model for background summarization
 summary_llm = ChatGoogleGenerativeAI(model=GEMINI_MODEL_NAME, temperature=0.1)
 
 
 async def summarize_and_trim_memory(state: BusinessAgentState):
+    session_logger = get_session_logger()
+    session_logger.log_state_transition(
+        "memory_manager", "Summarizing and trimming long conversation memory"
+    )
+
     messages = state["messages"]
     summary = state.get("summary", "")
     vision_context = state.get("vision_context", "")
@@ -29,5 +36,11 @@ async def summarize_and_trim_memory(state: BusinessAgentState):
 
     response = await summary_llm.ainvoke([HumanMessage(content=summary_prompt)])
     new_summary = response.content
+
+    session_logger.log_memory_update(summary_preview=str(new_summary))
+    session_logger.log_state_completed(
+        "memory_manager",
+        summary=f"Memory summary updated ({len(str(new_summary))} chars)"
+    )
 
     return {"summary": new_summary}

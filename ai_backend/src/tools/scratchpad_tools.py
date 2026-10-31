@@ -5,6 +5,8 @@ from langchain.tools import tool, ToolRuntime
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 
+from src.utils.agent_logger import get_session_logger
+
 
 @tool
 def create_task_plan(
@@ -52,6 +54,8 @@ def create_task_plan(
             "overall_status": "in_progress",
         }
     )
+
+    get_session_logger().log_task_plan(goal=goal, tasks=normalized_tasks)
 
     return Command(
         update={
@@ -118,6 +122,10 @@ def update_task_progress(
 
     task["status"] = status
     task["result"] = result
+
+    get_session_logger().log_task_update(
+        task_id=str(task_id), status=status, result=result
+    )
 
     if all(item["status"] == "completed" for item in tasks):
         scratchpad["overall_status"] = "completed"

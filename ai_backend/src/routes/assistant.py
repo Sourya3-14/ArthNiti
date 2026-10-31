@@ -16,6 +16,12 @@ from src.schema.enterpreneur import Enterpreneur
 from src.schema.chat import ChatSession, ChatMessage, ChatMessageTranslation
 from src.utils.translator_utils import Translator
 from src.services.chat_summary_service import update_session_summary_background
+from src.utils.agent_logger import (
+    get_session_logger,
+    set_current_session_id,
+    AgentSessionCallbackHandler,
+    is_agent_logging_enabled,
+)
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -91,6 +97,16 @@ async def chat_with_agent(
             await db.flush()
             session_id = new_session.id
 
+        set_current_session_id(session_id)
+        session_logger = get_session_logger(session_id)
+        session_logger.log_session_start(
+            business_id=request.business_id,
+            user_id=entrepreneur.user_id,
+            message=request.message,
+            language=request.language,
+            has_image=bool(request.image_base64 or resolved_image_url),
+        )
+
         # 3. Persist original ENGLISH user message in DB
         user_message_record = ChatMessage(
             session_id=session_id,
@@ -120,9 +136,14 @@ async def chat_with_agent(
         vision_info = ""
         if image_source:
             logger.info("Image detected for chat. Running visual analysis...")
+            session_logger.log_state_transition("vision_node", "Extracting visual insights from attached image")
             vision_info = await analyze_user_image(
                 image_source=image_source,
                 user_text=english_user_message,
+            )
+            session_logger.log_state_completed(
+                "vision_node",
+                summary=f"Visual extraction complete ({len(vision_info)} chars)"
             )
 
         # Prepend visual analysis directly to the text given to the agent
@@ -145,9 +166,21 @@ async def chat_with_agent(
             raise RuntimeError("LangGraph checkpointer is not initialized")
 
         agent = workflow.compile(checkpointer=langgraph_config.checkpointer)
-        config = {"configurable": {"thread_id": session_id}}
+
+        callbacks = []
+        if is_agent_logging_enabled():
+            callbacks.append(AgentSessionCallbackHandler(session_id=session_id))
+
+        config = {
+            "configurable": {"thread_id": session_id},
+            "callbacks": callbacks,
+        }
 
         # 6. Execute Agent (Vision info is safely preserved in messages & checkpointer)
+        session_logger.log_state_transition(
+            "langgraph_workflow",
+            "Executing state graph pipeline (initialize_scratchpad -> agent -> memory_manager)"
+        )
         result = await agent.ainvoke(
             {
                 "messages": [("user", agent_input_message)],
@@ -155,6 +188,10 @@ async def chat_with_agent(
                 "entrepreneur_details": entrepreneur_details,
             },
             config=config,
+        )
+        session_logger.log_state_completed(
+            "langgraph_workflow",
+            "State graph pipeline finished execution"
         )
 
         raw_content = result["messages"][-1].content
@@ -203,6 +240,8 @@ async def chat_with_agent(
         # 9. Trigger background summarization without blocking user response
         background_tasks.add_task(update_session_summary_background, session_id)
 
+        session_logger.log_session_complete(final_response)
+
         return ChatResponse(
             response=final_response,
             session_id=session_id,
@@ -214,5 +253,7 @@ async def chat_with_agent(
     except Exception as e:
         await db.rollback()
         logger.exception("Error during chat_with_agent execution: %s", str(e))
+        if "session_logger" in locals():
+            session_logger.log_error("chat_with_agent", e)
         raise HTTPException(status_code=500, detail=str(e))
      
