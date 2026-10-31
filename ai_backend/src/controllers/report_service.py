@@ -33,27 +33,6 @@ def safe_json(data: Any) -> Any:
     except Exception:
         return str(data)
 
-
-# def safe_execute(name: str, function, **kwargs) -> dict:
-#     """Execute one data-analysis module safely and return standardized status."""
-#     logger.info(f"[{name}] STARTING")
-#     try:
-#         result = function(**kwargs)
-#         logger.info(f"[{name}] ✅ SUCCESS")
-#         return {
-#             "status": "success",
-#             "data_available": True,
-#             "data": safe_json(result),
-#             "error": None,
-#         }
-#     except Exception as e:
-#         logger.error(f"[{name}] ❌ FAILED: {str(e)}")
-#         return {
-#             "status": "failed",
-#             "data_available": False,
-#             "data": None,
-#             "error": str(e),
-#         }
 async def safe_execute(name: str, function, **kwargs) -> dict:
     logger.info(f"[{name}] STARTING")
     try:
