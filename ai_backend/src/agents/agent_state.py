@@ -1,4 +1,4 @@
-from typing import Annotated, TypedDict, Optional
+from typing import Annotated, TypedDict, Optional, Any
 from langchain_core.messages import BaseMessage
 from langgraph.graph.message import add_messages
 
@@ -6,6 +6,7 @@ from langgraph.graph.message import add_messages
 class BusinessAgentState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
     summary: str
-    image_url: Optional[str]
-    image_base64: Optional[str]
+    user_details: dict
+    entrepreneur_details: dict
     vision_context: Optional[str]
+    scratchpad: dict[str, Any]

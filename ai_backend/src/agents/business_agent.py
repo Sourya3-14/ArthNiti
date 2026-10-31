@@ -10,6 +10,12 @@ from src.agents.agent_state import BusinessAgentState
 from src.agents.memory_manager import summarize_and_trim_memory
 from src.tools.business_tools import get_business_agent_tools
 from src.tools.generation_tools import get_generation_tools
+from src.tools.scratchpad_tools import (
+    create_task_plan,
+    update_task_progress,
+)
+from src.agents.scratchpad import initialize_scratchpad
+
 from src.config.config import GEMINI_MODEL_NAME
 from src.schema.user import User
 from src.schema.enterpreneur import Enterpreneur
@@ -71,6 +77,25 @@ TOOL USAGE & CROSS-SESSION CONTEXT:
   3. Wait for their clear affirmative response ("Yes", "Confirm", "Go ahead") before executing the tool.
 - Under NO circumstances should this tool run speculatively, implicitly, or as a side-effect of a broader question.
 
+### TASK PLANNING AND SCRATCHPAD MANAGEMENT
+
+For complex requests involving multiple independent or dependent operations:
+
+1. Break the user's goal into smaller executable tasks.
+2. Create a task plan using create_task_plan.
+3. Include dependencies between tasks.
+4. Before executing a task, mark it as in_progress.
+5. After executing a task, update its status to completed and save its result.
+6. If a task fails, mark it as failed and record the reason.
+7. Never mark a task completed unless its execution has actually succeeded.
+8. Check task dependencies before proceeding.
+9. Continue executing pending tasks until the goal is completed or user input is required.
+10. Use previously stored scratchpad results instead of repeating completed work.
+
+For simple conversational questions, do not create a task plan.
+
+Never claim that the overall task is completed while required tasks remain pending, in progress, or failed.
+
 GUIDELINES FOR GENERATION TOOLS:
     1. Feasibility Report
     2. Financial Plan
@@ -117,6 +142,8 @@ def create_dynamic_system_prompt(
     @dynamic_prompt
     def dynamic_system_prompt(request) -> str:
         summary = request.state.get("summary", "")
+        scratchpad = request.state.get("scratchpad", {})
+
         security_rules = DEBUG_SECURITY_RULES if DEBUG_MODE else STRICT_SECURITY_RULES
 
         prompt = BASE_SYSTEM_PROMPT.format(
@@ -131,6 +158,13 @@ def create_dynamic_system_prompt(
                 f"{summary}\n\n"
                 "Use this summary together with the current conversation "
                 "to maintain continuity."
+            )
+
+        if scratchpad and scratchpad.get("tasks"):
+            prompt += (
+                "\n\nCURRENT TASK SCRATCHPAD:\n"
+                f"{scratchpad}\n"
+                "\nContinue unfinished tasks. Do not repeat completed tasks."
             )
 
         return prompt
@@ -220,6 +254,13 @@ async def get_business_agent(
         )
     )
 
+    tools.extend(
+        [
+            create_task_plan,
+            update_task_progress,
+        ]
+    )
+
     dynamic_system_prompt = create_dynamic_system_prompt(
         user_details,
         entrepreneur_details,
@@ -231,6 +272,7 @@ async def get_business_agent(
         middleware=[
             dynamic_system_prompt,
         ],
+        state_schema=BusinessAgentState,
     )
 
     workflow = StateGraph(BusinessAgentState)
@@ -238,8 +280,11 @@ async def get_business_agent(
     # Simplified clean pipeline: agent -> memory_manager
     workflow.add_node("agent", agent)
     workflow.add_node("memory_manager", summarize_and_trim_memory)
+    workflow.add_node("initialize_scratchpad", initialize_scratchpad)
 
-    workflow.add_edge(START, "agent")
+
+    workflow.add_edge(START, "initialize_scratchpad")
+    workflow.add_edge("initialize_scratchpad", "agent")
     workflow.add_edge("agent", "memory_manager")
     workflow.add_edge("memory_manager", END)
 
