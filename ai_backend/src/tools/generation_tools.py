@@ -24,6 +24,15 @@ from src.controllers.business_profile_service import process_profile_and_recomme
 from src.services.scheme_embedding import generate_embedding
 from src.utils.report_utils import parse_report_sections, split_text_recursively
 
+import asyncio
+
+from src.controllers.translator_service import (
+    ReportTranslationError,
+    translate_feasibility_report,
+)
+from src.utils.translator_utils import translate_entry
+from src.utils.business_category_verifier import normalize_and_validate_category
+
 language_codes = {
     "english": "en",
     "en": "en",
@@ -36,6 +45,88 @@ language_codes = {
     "hi": "hi",
 }
 
+MULTILINGUAL_BUSINESS_FIELDS = [
+    "business_name",
+    "category",
+    "description",
+    "village",
+    "district",
+    "city",
+    "state",
+    "country",
+]
+
+
+def get_available_source_language(
+    business: Business,
+    target_language: str,
+) -> str | None:
+    available_languages = set()
+
+    for field in MULTILINGUAL_BUSINESS_FIELDS:
+        value = getattr(business, field, None) or {}
+        if isinstance(value, dict):
+            available_languages.update(value.keys())
+
+    for lang in sorted(available_languages):
+        if lang != target_language:
+            return lang
+
+    if target_language in available_languages:
+        return target_language
+
+    return None
+
+
+async def ensure_business_language(
+    business: Business,
+    target_language: str,
+) -> None:
+    all_translated = all(
+        isinstance(getattr(business, field, None), dict)
+        and bool(getattr(business, field).get(target_language))
+        for field in MULTILINGUAL_BUSINESS_FIELDS
+    )
+
+    if all_translated:
+        return
+
+    source_language = get_available_source_language(
+        business,
+        target_language,
+    )
+
+    if not source_language:
+        raise ValueError("No source language is available for business translation.")
+
+    source_entry = {}
+
+    for field in MULTILINGUAL_BUSINESS_FIELDS:
+        value = getattr(business, field, None) or {}
+        if isinstance(value, dict) and value.get(source_language) is not None:
+            source_entry[field] = value[source_language]
+
+    if not source_entry:
+        raise ValueError("No translatable business data is available.")
+
+    translated_entry = await asyncio.to_thread(
+        translate_entry,
+        entry=source_entry,
+        target_language=target_language,
+        source_language=source_language,
+    )
+
+    for field in MULTILINGUAL_BUSINESS_FIELDS:
+        translated_value = translated_entry.get(field)
+
+        if translated_value is None:
+            continue
+
+        current_value = getattr(business, field, None) or {}
+        updated_value = dict(current_value)
+        updated_value[target_language] = translated_value
+
+        setattr(business, field, updated_value)
 
 def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> list:
     """
@@ -61,90 +152,278 @@ def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> li
     ) -> dict:
         """
         Generates the foundational Feasibility Report for the business.
-        Call this tool when the user provides the required business and location details
-        and explicitly wants to create or regenerate their Feasibility Analysis.
+
+        Reuses existing reports and cached translations whenever possible.
+        Generates a new version only when no existing analysis is available
+        or force=True.
 
         Args:
-            business_name: The name of the proposed business.
-            business_type: The category or industry (e.g., 'Poultry Farm').
-            country: The operating country.
-            state: The operating state.
-            district: The operating district.
-            margin_capital: The available startup capital in local currency (must be > 0).
-            business_description: Optional detailed description of the business.
-            city: Optional operating city.
-            village: Optional operating village.
-            pincode: Optional postal code.
-            radius_km: The market analysis radius (defaults to 10.0).
-            language: Target language for the report generation (default 'english').
-            force: If True, deletes existing report and generates a fresh one.
+            business_name: Name of the proposed business.
+            business_type: Business category.
+            country: Operating country.
+            state: Operating state.
+            district: Operating district.
+            margin_capital: Available startup capital.
+            business_description: Business description.
+            city: Operating city.
+            village: Operating village.
+            pincode: Postal code.
+            radius_km: Market analysis radius.
+            language: Requested report language.
+            force: Whether to delete existing analyses and regenerate.
         """
-        try:
-            req_lang = language.strip().lower()
-            lang_code = language_codes.get(req_lang, "en")
 
-            # 1. Fetch or Create the Business Record
+        try:
+            # --------------------------------------------------
+            # 1. Normalize requested language
+            # --------------------------------------------------
+
+            req_lang = language.strip().lower()
+            lang_code = language_codes.get(req_lang)
+
+            if not lang_code:
+                return {
+                    "error": f"Unsupported language: {language}. Supported languages: English, Bengali and Hindi."
+                }
+
+            # --------------------------------------------------
+            # 2. Fetch business and verify ownership
+            # --------------------------------------------------
+
             result = await db.execute(
                 select(Business).where(
                     Business.id == business_id,
                     Business.owner_id == user_id,
                 )
             )
+
             business = result.scalar_one_or_none()
 
+            # --------------------------------------------------
+            # 3. Create business if it does not exist
+            # --------------------------------------------------
+
             if not business:
-                # Store multilingual data using the correct JSONB key structure based on target lang code
+                validated_category = await normalize_and_validate_category(
+                    business_name=business_name,
+                    provided_category=business_type,
+                    description=business_description,
+                )
+
                 business = Business(
                     id=business_id,
                     owner_id=user_id,
                     business_name={lang_code: business_name},
-                    category={lang_code: business_type},
+                    category={lang_code: validated_category},
                     margin_capital=margin_capital,
                     description={lang_code: business_description}
-                    if business_description
-                    else {},
+                    if business_description else {},
                     village={lang_code: village} if village else {},
                     district={lang_code: district},
                     city={lang_code: city} if city else {},
                     state={lang_code: state},
                     country={lang_code: country},
                     pincode=pincode,
-                    latitude=0.0,
-                    longitude=0.0,
                     status=BusinessStatus.pending,
                 )
+
                 db.add(business)
                 await db.flush()
+
+            # --------------------------------------------------
+            # 4. Ensure canonical English and requested language
+            # --------------------------------------------------
+
+            await ensure_business_language(
+                business=business,
+                target_language="en",
+            )
+
+            if lang_code != "en":
+                await ensure_business_language(
+                    business=business,
+                    target_language=lang_code,
+                )
+
+            # --------------------------------------------------
+            # 5. Get canonical English business data
+            # --------------------------------------------------
+
+            def get_en(field):
+                if isinstance(field, dict):
+                    return field.get("en", "")
+                return str(field or "")
+
+            business_name = get_en(business.business_name)
+            business_type = get_en(business.category)
+            business_description = get_en(business.description)
+
+            country = get_en(business.country)
+            state = get_en(business.state)
+            district = get_en(business.district)
+            city = get_en(business.city)
+            village = get_en(business.village)
+
+            pincode = business.pincode
+            margin_capital = business.margin_capital
+
+            # --------------------------------------------------
+            # 6. Delete previous analyses if force=True
+            # --------------------------------------------------
 
             if force:
                 analysis_ids_result = await db.execute(
                     select(BusinessAnalysis.id).where(
-                        BusinessAnalysis.business_id == business_id
+                        BusinessAnalysis.business_id == business.id
                     )
                 )
+
                 analysis_ids = analysis_ids_result.scalars().all()
 
                 if analysis_ids:
-                    # Cascade delete translations, chunks, then analyses
                     await db.execute(
                         delete(ReportTranslation).where(
                             ReportTranslation.report_id.in_(analysis_ids)
                         )
                     )
+
                     await db.execute(
                         delete(BusinessReportChunk).where(
-                            BusinessReportChunk.business_analysis_id.in_(analysis_ids)
+                            BusinessReportChunk.business_analysis_id.in_(
+                                analysis_ids
+                            )
                         )
                     )
+
                     await db.execute(
                         delete(BusinessAnalysis).where(
                             BusinessAnalysis.id.in_(analysis_ids)
                         )
                     )
+
                 await db.flush()
 
-            # 2. Run the Orchestrator Pipeline
-            report_result = generate_feasibility_report(
+            # --------------------------------------------------
+            # 7. Check existing feasibility analysis
+            # --------------------------------------------------
+
+            latest_result = await db.execute(
+                select(BusinessAnalysis)
+                .where(
+                    BusinessAnalysis.business_id == business.id
+                )
+                .order_by(BusinessAnalysis.version.desc())
+                .limit(1)
+            )
+
+            existing_analysis = latest_result.scalar_one_or_none()
+
+            if existing_analysis:
+                original_evidence = {
+                    "population": existing_analysis.population_payload,
+                    "competitors": existing_analysis.competitor_payload,
+                    "market_price": existing_analysis.market_price_payload,
+                    "supply_chain": existing_analysis.supply_chain_payload,
+                    "transportation": existing_analysis.transportation_payload,
+                    "seasonality": existing_analysis.seasonality_payload,
+                }
+
+                # Return canonical English report
+                if lang_code == "en":
+                    return {
+                        "status": "success",
+                        "message": "Existing feasibility report retrieved successfully.",
+                        "analysis_id": existing_analysis.id,
+                        "version": existing_analysis.version,
+                        "language": "english",
+                        "report_markdown": existing_analysis.report_markdown,
+                        "raw_evidence": original_evidence,
+                        "reused_existing": True,
+                    }
+
+                # --------------------------------------------------
+                # 8. Check cached translation
+                # --------------------------------------------------
+
+                translation_result = await db.execute(
+                    select(ReportTranslation).where(
+                        ReportTranslation.report_id == existing_analysis.id,
+                        ReportTranslation.language == req_lang,
+                    )
+                )
+
+                existing_translation = translation_result.scalar_one_or_none()
+
+                if existing_translation:
+                    translated_evidence = {
+                        "population": existing_translation.population_payload,
+                        "competitors": existing_translation.competitor_payload,
+                        "market_price": existing_translation.market_price_payload,
+                        "supply_chain": existing_translation.supply_chain_payload,
+                        "transportation": existing_translation.transportation_payload,
+                        "seasonality": existing_translation.seasonality_payload,
+                    }
+
+                    return {
+                        "status": "success",
+                        "message": "Existing translated feasibility report retrieved successfully.",
+                        "analysis_id": existing_analysis.id,
+                        "version": existing_analysis.version,
+                        "language": req_lang,
+                        "report_markdown": existing_translation.content or "",
+                        "raw_evidence": translated_evidence,
+                        "reused_existing": True,
+                    }
+
+                # --------------------------------------------------
+                # 9. Generate missing translation
+                # --------------------------------------------------
+
+                try:
+                    translated_result = await translate_feasibility_report(
+                        report_markdown=existing_analysis.report_markdown,
+                        raw_evidence=original_evidence,
+                        target_language=req_lang,
+                    )
+
+                except ReportTranslationError as exc:
+                    raise ValueError(
+                        f"Failed to translate feasibility report: {str(exc)}"
+                    )
+
+                translated_evidence = translated_result["raw_evidence"]
+
+                translation = ReportTranslation(
+                    report_id=existing_analysis.id,
+                    language=req_lang,
+                    content=translated_result["report_markdown"],
+                    population_payload=translated_evidence.get("population"),
+                    competitor_payload=translated_evidence.get("competitors"),
+                    market_price_payload=translated_evidence.get("market_price"),
+                    supply_chain_payload=translated_evidence.get("supply_chain"),
+                    transportation_payload=translated_evidence.get("transportation"),
+                    seasonality_payload=translated_evidence.get("seasonality"),
+                )
+
+                db.add(translation)
+                await db.commit()
+
+                return {
+                    "status": "success",
+                    "message": "Feasibility report translated and cached successfully.",
+                    "analysis_id": existing_analysis.id,
+                    "version": existing_analysis.version,
+                    "language": req_lang,
+                    "report_markdown": translation.content,
+                    "raw_evidence": translated_evidence,
+                    "reused_existing": True,
+                }
+
+            # --------------------------------------------------
+            # 10. Generate a new feasibility report
+            # --------------------------------------------------
+
+            report_result = await generate_feasibility_report(
                 business_name=business_name,
                 business_type=business_type,
                 business_description=business_description,
@@ -154,12 +433,17 @@ def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> li
                 city=city,
                 village=village,
                 pincode=pincode,
+                latitude=business.latitude,
+                longitude=business.longitude,
                 margin_capital=margin_capital,
                 radius_km=radius_km,
                 language=req_lang,
             )
 
-            # 3. Update Coordinates based on Demographic Resolution
+            # --------------------------------------------------
+            # 11. Update business coordinates
+            # --------------------------------------------------
+
             latitude = report_result.get("analysis_latitude")
             longitude = report_result.get("analysis_longitude")
 
@@ -167,7 +451,10 @@ def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> li
                 business.latitude = latitude
                 business.longitude = longitude
 
-            # 4. Save Analysis to Database
+            # --------------------------------------------------
+            # 12. Persist analysis
+            # --------------------------------------------------
+
             analysis = await save_business_analysis(
                 db=db,
                 business_id=business.id,
@@ -176,23 +463,36 @@ def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> li
                 latitude=latitude,
                 longitude=longitude,
             )
+
             await db.flush()
 
-            # 5. Chunk and Vectorize the Report for RAG
-            # Always embed the canonical English text for consistency in vector searching
-            markdown_text = report_result.get(
-                "original_report_markdown", report_result.get("report_markdown")
-            )
+            # --------------------------------------------------
+            # 13. Chunk and generate embeddings
+            # --------------------------------------------------
+
+            markdown_text = report_result["original_report_markdown"]
+
             sections = parse_report_sections(markdown_text)
 
             chunks_to_insert = []
+
             for section in sections:
                 text_chunks = split_text_recursively(
-                    section["content"], max_chars=1500, overlap=150
+                    section["content"],
+                    max_chars=1500,
+                    overlap=150,
                 )
+
                 for chunk_idx, chunk_text in enumerate(text_chunks):
-                    embedding_text = f"Section {section['number']}: {section['title']}\n\n{chunk_text}"
-                    embedding_vector = generate_embedding(embedding_text)
+                    embedding_text = (
+                        f"Section {section['number']}: "
+                        f"{section['title']}\n\n{chunk_text}"
+                    )
+
+                    embedding_vector = await asyncio.to_thread(
+                        generate_embedding,
+                        embedding_text,
+                    )
 
                     chunks_to_insert.append(
                         BusinessReportChunk(
@@ -211,18 +511,29 @@ def get_generation_tools(db: AsyncSession, business_id: str, user_id: str) -> li
             if chunks_to_insert:
                 db.add_all(chunks_to_insert)
 
+            # --------------------------------------------------
+            # 14. Commit everything
+            # --------------------------------------------------
+
             await db.commit()
+            await db.refresh(analysis)
 
             return {
                 "status": "success",
-                "message": f"Feasibility Report generated ({language}) and indexed successfully.",
+                "message": f"Feasibility report generated ({req_lang}) and indexed successfully.",
                 "analysis_id": analysis.id,
                 "version": analysis.version,
+                "language": req_lang,
+                "report_markdown": report_result["report_markdown"],
+                "raw_evidence": report_result["raw_evidence"],
+                "reused_existing": False,
             }
 
         except Exception as e:
             await db.rollback()
-            return {"error": f"Failed to generate feasibility report: {str(e)}"}
+            return {
+                "error": f"Failed to generate feasibility report: {str(e)}"
+            }
 
     @tool
     async def generate_financial_plan_tool(
