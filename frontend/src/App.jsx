@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
 import { LanguageProvider } from "./context/LanguageContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import MainLayout from "./layouts/MainLayout";
 
@@ -10,6 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import UserProfile from "./pages/UserProfile";
+import Settings from "./pages/Settings";
 
 import MyBusinesses from "./pages/business/MyBusinesses";
 import BusinessWorkspace from "./pages/business/business_advisory/BusinessWorkspace";
@@ -32,9 +34,10 @@ export default function App() {
   return (
     <Router>
       <AuthProvider>
-        <LanguageProvider>
-          <MainLayout>
-            <Routes>
+        <ThemeProvider>
+          <LanguageProvider>
+            <MainLayout>
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
@@ -87,10 +90,12 @@ export default function App() {
               />
 
               <Route path="/businesses/details" element={<BusinessDetails />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </MainLayout>
         </LanguageProvider>
-      </AuthProvider>
-    </Router>
-  );
+      </ThemeProvider>
+    </AuthProvider>
+  </Router>
+);
 }

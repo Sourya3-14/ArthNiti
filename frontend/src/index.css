@@ -13,3 +13,126 @@
     transform: translateZ(24px);
   }
 }
+
+/* ==========================================================================
+   Root and Theme Color Schemes
+   ========================================================================== */
+:root {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Light Mode Dynamic Styles (applies when html does NOT have .dark class)
+   ========================================================================== */
+html:not(.dark) body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Background overrides for light theme */
+html:not(.dark) .bg-gray-950 {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) .bg-gray-950\/90,
+html:not(.dark) .bg-gray-950\/80,
+html:not(.dark) .bg-gray-950\/60,
+html:not(.dark) .bg-gray-950\/50,
+html:not(.dark) .bg-gray-950\/40 {
+  background-color: rgba(248, 250, 252, 0.88) !important;
+}
+
+html:not(.dark) .bg-gray-900 {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .bg-gray-900\/90,
+html:not(.dark) .bg-gray-900\/80,
+html:not(.dark) .bg-gray-900\/70,
+html:not(.dark) .bg-gray-900\/60,
+html:not(.dark) .bg-gray-900\/50,
+html:not(.dark) .bg-gray-900\/40 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+html:not(.dark) .bg-gray-800 {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) .bg-gray-800\/80,
+html:not(.dark) .bg-gray-800\/70,
+html:not(.dark) .bg-gray-800\/60,
+html:not(.dark) .bg-gray-800\/50,
+html:not(.dark) .bg-gray-800\/40 {
+  background-color: #e2e8f0 !important;
+}
+
+/* Border overrides */
+html:not(.dark) .border-gray-800,
+html:not(.dark) .border-gray-700 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Text overrides */
+html:not(.dark) .text-white {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .text-gray-100,
+html:not(.dark) .text-gray-200,
+html:not(.dark) .text-gray-300 {
+  color: #1e293b !important;
+}
+
+html:not(.dark) .text-gray-400 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .text-gray-500 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .text-gray-600 {
+  color: #94a3b8 !important;
+}
+
+/* Shadow adjustments */
+html:not(.dark) .shadow-\[0_15px_40px_rgba\(0\,0\,0\,0\.18\)\],
+html:not(.dark) .shadow-\[20px_0_50px_rgba\(0\,0\,0\,0\.5\)\] {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Preserve bright text colors for buttons with gradients or solid accent backgrounds */
+html:not(.dark) button[class*="bg-gradient-to"],
+html:not(.dark) a[class*="bg-gradient-to"],
+html:not(.dark) div[class*="bg-gradient-to"] > .text-white,
+html:not(.dark) .bg-blue-600,
+html:not(.dark) .bg-indigo-600,
+html:not(.dark) .bg-emerald-600,
+html:not(.dark) .bg-amber-500,
+html:not(.dark) .bg-red-500,
+html:not(.dark) .bg-red-600 {
+  color: #ffffff !important;
+}
+
+/* Input fields styling in light mode */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94a3b8 !important;
+}
