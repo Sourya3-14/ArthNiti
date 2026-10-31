@@ -594,11 +594,6 @@ const BusinessWorkspace = () => {
                 {t.workspaceHeading}
               </h1>
             </div>
-
-            <p className="text-xs text-gray-500">
-              {t.businessIdLabel}:{" "}
-              <span className="text-gray-400">{businessId}</span>
-            </p>
             <BusinessScopeBadge businessId={businessId} className="shrink-0" />
           </div>
         </div>

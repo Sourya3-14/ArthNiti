@@ -595,9 +595,6 @@ const FinancialAnalysis = () => {
               <h1 className="mt-1 text-3xl font-extrabold">
                 {t.financialAnalysis}
               </h1>
-              <p className="mt-1 text-sm text-gray-500">
-                {t.businessId}: {businessId}
-              </p>
             </div>
           </div>
 
