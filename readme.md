@@ -1,4 +1,4 @@
-# ArthNiti (अर्थनीति) — AI-Powered Rural Business Advisory & Financial Assistant
+# ArthNiti (অর্থনীতি) — AI-Powered Rural Business Advisory & Financial Assistant
 
 <p align="center">
   <strong>Build the Right Business. Backed by Local Data.</strong><br>
