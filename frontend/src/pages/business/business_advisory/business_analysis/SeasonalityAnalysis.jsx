@@ -355,13 +355,13 @@ const SeasonalityAnalysis = () => {
                   vulnerable.map((month) => (
                     <span
                       key={month}
-                      className="rounded-lg border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-bold text-rose-300"
+                      className="rounded-lg border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-bold text-rose-700 dark:text-rose-300"
                     >
                       {month}
                     </span>
                   ))
                 ) : (
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-slate-500 dark:text-gray-600">
                     {t.noVulnerableMonths}
                   </span>
                 )}
@@ -372,7 +372,7 @@ const SeasonalityAnalysis = () => {
           <div className="mt-5">
             <SectionCard title={t.monthlySeasonalityProfile} icon={TrendingUp}>
               <div className="mb-4 rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-4">
-                <p className="text-xs leading-6 text-gray-500">
+                <p className="text-xs leading-6 text-slate-600 dark:text-gray-500">
                   {t.indexDescription}
                 </p>
               </div>
@@ -380,7 +380,7 @@ const SeasonalityAnalysis = () => {
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[1050px] text-left">
                   <thead>
-                    <tr className="border-b border-gray-800 text-xs uppercase tracking-wider text-gray-600">
+                    <tr className="border-b border-slate-200 dark:border-gray-800 text-xs uppercase tracking-wider text-slate-500 dark:text-gray-600">
                       <th className="px-3 py-3">{t.month}</th>
                       <th className="px-3 py-3">{t.temp}</th>
                       <th className="px-3 py-3">{t.rainfall}</th>
@@ -406,40 +406,40 @@ const SeasonalityAnalysis = () => {
                       return (
                         <tr
                           key={month.month}
-                          className="border-b border-gray-900 text-sm"
+                          className="border-b border-slate-100 dark:border-gray-900 text-sm"
                         >
-                          <td className="px-3 py-4 font-bold text-gray-200">
+                          <td className="px-3 py-4 font-bold text-slate-900 dark:text-gray-200">
                             {month.month}
                           </td>
 
-                          <td className="px-3 py-4 text-gray-500">
+                          <td className="px-3 py-4 text-slate-500 dark:text-gray-500">
                             <span className="inline-flex items-center gap-1">
                               <Thermometer size={13} />
                               {month.avg_temp_c ?? "—"}°C
                             </span>
                           </td>
 
-                          <td className="px-3 py-4 text-gray-500">
+                          <td className="px-3 py-4 text-slate-500 dark:text-gray-500">
                             {month.rainfall_mm ?? "—"} mm
                           </td>
 
-                          <td className="px-3 py-4 font-semibold text-gray-300">
+                          <td className="px-3 py-4 font-semibold text-slate-700 dark:text-gray-300">
                             {formatPercent(month.price_index)}
                           </td>
 
-                          <td className="px-3 py-4 font-semibold text-emerald-400">
+                          <td className="px-3 py-4 font-semibold text-emerald-600 dark:text-emerald-400">
                             {formatPrice(estimatedPrice)}
                           </td>
 
-                          <td className="px-3 py-4 font-semibold text-blue-400">
+                          <td className="px-3 py-4 font-semibold text-blue-600 dark:text-blue-400">
                             {formatPercent(month.demand_index)}
                           </td>
 
-                          <td className="px-3 py-4 font-semibold text-violet-400">
+                          <td className="px-3 py-4 font-semibold text-violet-600 dark:text-violet-400">
                             {formatPercent(month.production_index)}
                           </td>
 
-                          <td className="px-3 py-4 text-gray-400">
+                          <td className="px-3 py-4 text-slate-600 dark:text-gray-400">
                             {formatPercent(month.heat_stress_factor)}
                           </td>
 
@@ -447,10 +447,10 @@ const SeasonalityAnalysis = () => {
                             <span
                               className={
                                 Number(month.monsoon_risk_factor) >= 0.8
-                                  ? "font-bold text-rose-400"
+                                  ? "font-bold text-rose-600 dark:text-rose-400"
                                   : Number(month.monsoon_risk_factor) >= 0.5
-                                    ? "font-semibold text-amber-400"
-                                    : "text-gray-500"
+                                    ? "font-semibold text-amber-600 dark:text-amber-400"
+                                    : "text-slate-500 dark:text-gray-500"
                               }
                             >
                               {month.monsoon_risk_factor ?? "—"}

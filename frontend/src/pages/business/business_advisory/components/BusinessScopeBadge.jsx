@@ -43,18 +43,18 @@ const BusinessScopeBadge = ({ businessId, className = "" }) => {
 
   return (
     <div
-      className={`flex max-w-full items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-right shadow-[0_8px_24px_rgba(245,158,11,0.08)] ${className}`}
+      className={`flex max-w-full items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-right shadow-sm ${className}`}
       aria-label={`${businessName || t.business}${category ? `, ${t.category}: ${category}` : ""}`}
     >
-      <Building2 size={16} className="shrink-0 text-amber-300" />
+      <Building2 size={16} className="shrink-0 text-amber-600 dark:text-amber-300" />
       <div className="min-w-0">
-        <p className="truncate text-sm font-extrabold text-white">
+        <p className="truncate text-sm font-extrabold text-slate-900 dark:text-white">
           {businessName || t.business}
         </p>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-amber-200">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-200">
           {t.category}
         </p>
-        <p className="truncate text-xs font-bold text-amber-50">
+        <p className="truncate text-xs font-bold text-amber-900 dark:text-amber-50">
           {category || "—"}
         </p>
       </div>

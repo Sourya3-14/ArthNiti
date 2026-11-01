@@ -114,16 +114,16 @@ const OnboardingChatbot = () => {
       {isOpen && (
         <section
           aria-label={t.assistant}
-          className="flex h-[min(600px,calc(100vh-110px))] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-blue-400/20 bg-gray-950/95 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+          className="flex h-[min(600px,calc(100vh-110px))] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-slate-200 dark:border-blue-400/20 bg-white dark:bg-gray-950/95 text-slate-900 dark:text-white shadow-2xl backdrop-blur-xl"
         >
-          <header className="flex items-center justify-between border-b border-white/10 bg-gradient-to-r from-blue-600/20 to-indigo-600/10 px-4 py-3">
+          <header className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 bg-gradient-to-r from-blue-600/10 to-indigo-600/5 dark:from-blue-600/20 dark:to-indigo-600/10 px-4 py-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/20 text-blue-600 dark:text-blue-300">
                 <Bot size={20} />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-white">{t.assistant}</h2>
-                <p className="text-xs text-emerald-300">● Online</p>
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white">{t.assistant}</h2>
+                <p className="text-xs text-emerald-600 dark:text-emerald-300">● Online</p>
               </div>
             </div>
             <button
@@ -131,7 +131,7 @@ const OnboardingChatbot = () => {
               onClick={() => setIsOpen(false)}
               aria-label={t.close}
               title={t.close}
-              className="rounded-lg p-2 text-gray-400 transition hover:bg-white/10 hover:text-white"
+              className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white"
             >
               <ChevronDown size={20} />
             </button>
@@ -142,7 +142,7 @@ const OnboardingChatbot = () => {
             aria-live="polite"
           >
             {messages.length === 0 && (
-              <div className="rounded-xl border border-blue-400/10 bg-blue-500/5 p-4 text-sm leading-6 text-gray-300">
+              <div className="rounded-xl border border-blue-400/20 bg-blue-50 dark:bg-blue-500/5 p-4 text-sm leading-6 text-slate-700 dark:text-gray-300">
                 {t.prompt}
               </div>
             )}
@@ -155,10 +155,10 @@ const OnboardingChatbot = () => {
                 <div
                   className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-sm leading-6 ${
                     item.role === "user"
-                      ? "rounded-br-md bg-blue-600 text-white"
+                      ? "rounded-br-md bg-blue-600 !text-white"
                       : item.isError
-                        ? "rounded-bl-md border border-red-400/20 bg-red-500/10 text-red-200"
-                        : "rounded-bl-md border border-white/10 bg-white/5 text-gray-200"
+                        ? "rounded-bl-md border border-red-400/20 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-200"
+                        : "rounded-bl-md border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-gray-200"
                   }`}
                 >
                   {item.role === "assistant" ? (
@@ -169,7 +169,7 @@ const OnboardingChatbot = () => {
                             {...props}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-blue-300 underline"
+                            className="text-blue-600 dark:text-blue-300 underline"
                           />
                         ),
                       }}
@@ -180,8 +180,8 @@ const OnboardingChatbot = () => {
                     item.content
                   )}
                   {item.sources?.length > 0 && (
-                    <div className="mt-3 border-t border-white/10 pt-2 text-xs text-gray-400">
-                      <p className="mb-1 font-semibold text-gray-300">
+                    <div className="mt-3 border-t border-slate-200 dark:border-white/10 pt-2 text-xs text-slate-500 dark:text-gray-400">
+                      <p className="mb-1 font-semibold text-slate-700 dark:text-gray-300">
                         {t.sources}
                       </p>
                       {item.sources.map((source) => (
@@ -194,23 +194,23 @@ const OnboardingChatbot = () => {
             ))}
 
             {isSending && (
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <Loader2 size={14} className="animate-spin" />
+              <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-gray-400">
+                <Loader2 size={14} className="animate-spin text-blue-500" />
                 {t.thinking}
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={sendMessage} className="border-t border-white/10 p-3">
-            <div className="flex items-center gap-2 rounded-xl border border-gray-700 bg-gray-900/80 p-1.5 focus-within:border-blue-500">
+          <form onSubmit={sendMessage} className="border-t border-slate-200 dark:border-white/10 p-3">
+            <div className="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-gray-700 bg-slate-50 dark:bg-gray-900/80 p-1.5 focus-within:border-blue-500">
               <input
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 placeholder={t.placeholder}
                 disabled={isSending}
                 aria-label={t.placeholder}
-                className="min-w-0 flex-1 bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-gray-500"
+                className="min-w-0 flex-1 bg-transparent px-2 py-2 text-sm text-slate-900 dark:text-white outline-none placeholder:text-slate-400 dark:placeholder:text-gray-500"
               />
               <button
                 type="submit"

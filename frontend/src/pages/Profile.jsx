@@ -110,17 +110,16 @@ const InfoItem = ({
   displayFallback,
 }) => (
   <div
-    className={`rounded-xl border border-gray-800 bg-gray-950/40 p-4 ${
-      fullWidth ? "sm:col-span-2" : ""
-    }`}
+    className={`rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/40 p-4 ${fullWidth ? "sm:col-span-2" : ""
+      }`}
   >
     <div className="flex items-start gap-3">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-800/70">
-        <Icon size={16} className="text-blue-400" />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-gray-800/70">
+        <Icon size={16} className="text-blue-600 dark:text-blue-400" />
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-600">
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-gray-500">
           {label}
         </p>
 
@@ -130,10 +129,10 @@ const InfoItem = ({
             value={editValue}
             onChange={(event) => onEditChange?.(field, event.target.value)}
             disabled={saving}
-            className="mt-2 w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm font-medium text-white outline-none transition placeholder:text-gray-600 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-2 w-full rounded-lg border border-slate-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm font-medium text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
           />
         ) : (
-          <p className="mt-1 break-words text-sm font-semibold text-gray-200">
+          <p className="mt-1 break-words text-sm font-semibold text-slate-800 dark:text-gray-200">
             {value || displayFallback}
           </p>
         )}
@@ -144,14 +143,14 @@ const InfoItem = ({
 
 // Extracted outside to preserve element tree stability
 const ProfileSection = ({ icon: Icon, title, headerAction, children }) => (
-  <section className="overflow-hidden rounded-2xl border border-gray-800 bg-gray-900/60 shadow-[0_15px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl">
-    <div className="flex items-center justify-between gap-3 border-b border-gray-800 px-6 py-5">
+  <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm dark:shadow-[0_15px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl">
+    <div className="flex items-center justify-between gap-3 border-b border-slate-200 dark:border-gray-800 px-6 py-5">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10">
-          <Icon size={19} className="text-blue-400" />
+          <Icon size={19} className="text-blue-600 dark:text-blue-400" />
         </div>
 
-        <h2 className="text-base font-bold text-white">{title}</h2>
+        <h2 className="text-base font-bold text-slate-900 dark:text-white">{title}</h2>
       </div>
 
       {headerAction}
@@ -174,7 +173,7 @@ const ProfileBusinessCard = ({ business, languageCode, t, onClick }) => {
       : getText(business.status, languageCode) || t.active;
 
   return (
-    <div className="group flex flex-col justify-between rounded-2xl border border-gray-800 bg-gray-950/50 p-5 shadow-lg backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-gray-900/60">
+    <div className="group flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/50 p-5 shadow-sm hover:shadow-md dark:shadow-lg backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-slate-100 dark:hover:bg-gray-900/60">
       <div
         role="button"
         tabIndex={0}
@@ -189,33 +188,33 @@ const ProfileBusinessCard = ({ business, languageCode, t, onClick }) => {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-400">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400">
               <Building2 size={20} />
             </div>
             <div className="min-w-0">
-              <h3 className="truncate text-base font-bold text-white transition group-hover:text-blue-300">
+              <h3 className="truncate text-base font-bold text-slate-900 dark:text-white transition group-hover:text-blue-600 dark:group-hover:text-blue-300">
                 {businessName}
               </h3>
-              <p className="mt-0.5 truncate text-xs font-medium text-blue-400/90">
+              <p className="mt-0.5 truncate text-xs font-semibold text-blue-600 dark:text-blue-400/90">
                 {category}
               </p>
             </div>
           </div>
 
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
             <CheckCircle2 size={12} />
             {statusText}
           </span>
         </div>
 
         <div className="mt-4 flex-1">
-          <p className="line-clamp-3 text-sm leading-relaxed text-gray-400">
+          <p className="line-clamp-3 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
             {description}
           </p>
         </div>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-gray-800/60">
+      <div className="mt-4 pt-3 border-t border-slate-200 dark:border-gray-800/60">
         <BusinessImageGallery
           businessId={business.id}
           title={t.businessImages}
@@ -716,8 +715,8 @@ const Profile = () => {
       console.error("Image upload failed:", err);
       setImageError(
         getLocalizedValue(err.response?.data?.detail) ||
-          err.message ||
-          t.imageUploadFailed,
+        err.message ||
+        t.imageUploadFailed,
       );
     } finally {
       setUploadingImage(false);
@@ -898,7 +897,7 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+      <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
           <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
@@ -906,10 +905,10 @@ const Profile = () => {
 
         <div className="relative z-10 flex min-h-screen items-center justify-center p-6">
           <div className="flex flex-col items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-              <Loader2 size={30} className="animate-spin text-blue-400" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
+              <Loader2 size={30} className="animate-spin text-blue-500" />
             </div>
-            <p className="text-sm font-medium text-gray-400">{t.loading}</p>
+            <p className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.loading}</p>
           </div>
         </div>
       </div>
@@ -918,7 +917,7 @@ const Profile = () => {
 
   if (error) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+      <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
           <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
@@ -928,19 +927,19 @@ const Profile = () => {
           <div className="w-full rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
             <div className="flex flex-col items-center text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-red-500/10">
-                <AlertCircle size={26} className="text-red-400" />
+                <AlertCircle size={26} className="text-red-500 dark:text-red-400" />
               </div>
 
-              <h2 className="mt-5 text-xl font-bold text-white">
+              <h2 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
                 {t.unableToLoad}
               </h2>
 
-              <p className="mt-2 text-sm leading-6 text-gray-400">{error}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">{error}</p>
 
               <button
                 type="button"
                 onClick={fetchProfile}
-                className="mt-6 inline-flex items-center gap-2 rounded-xl border border-gray-700 bg-gray-800/80 px-5 py-3 text-sm font-bold text-white transition hover:border-gray-600 hover:bg-gray-700"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-600 !text-white px-5 py-3 text-sm font-bold transition hover:bg-blue-500 shadow-sm"
               >
                 <RefreshCw size={16} />
                 {t.tryAgain}
@@ -964,7 +963,7 @@ const Profile = () => {
   const roleInfo = profile?.role_info || {};
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
         <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
@@ -980,10 +979,10 @@ const Profile = () => {
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              <h1 className="text-3xl font-extrabold tracking-tight text-slate-800 dark:text-white sm:text-4xl">
                 {t.profile}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-400 sm:text-base">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 dark:text-gray-400 sm:text-base">
                 {t.subtitle}
               </p>
             </div>
@@ -992,7 +991,7 @@ const Profile = () => {
               <button
                 type="button"
                 onClick={startEditing}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-700 bg-gray-900/80 px-5 py-3 text-sm font-bold text-white transition hover:border-blue-500/40 hover:bg-gray-800"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900/80 px-5 py-3 text-sm font-bold text-slate-800 dark:text-white transition hover:border-blue-500/40 hover:bg-slate-50 dark:hover:bg-gray-800 shadow-sm"
               >
                 <Pencil size={16} />
                 {t.editProfile}
@@ -1003,7 +1002,7 @@ const Profile = () => {
                   type="button"
                   onClick={cancelEditing}
                   disabled={savingProfile}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-700 bg-gray-900/80 px-5 py-3 text-sm font-bold text-gray-300 transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900/80 px-5 py-3 text-sm font-bold text-slate-700 dark:text-gray-300 transition hover:bg-slate-50 dark:hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 shadow-sm"
                 >
                   <X size={16} />
                   {t.cancel}
@@ -1013,7 +1012,7 @@ const Profile = () => {
                   type="button"
                   onClick={saveProfile}
                   disabled={savingProfile}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold !text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 shadow-md shadow-blue-500/20"
                 >
                   {savingProfile ? (
                     <Loader2 size={16} className="animate-spin" />
@@ -1028,27 +1027,27 @@ const Profile = () => {
         </div>
 
         {saveError && (
-          <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+          <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-500">
             <AlertCircle size={17} />
             <span>{saveError}</span>
           </div>
         )}
 
         {saveSuccess && (
-          <div className="mb-6 flex items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/5 px-4 py-3 text-sm text-green-400">
+          <div className="mb-6 flex items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/5 px-4 py-3 text-sm text-green-600 dark:text-green-400">
             <ShieldCheck size={17} />
             <span>{saveSuccess}</span>
           </div>
         )}
 
         {imageError && (
-          <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+          <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-500">
             <AlertCircle size={17} />
             <span>{imageError}</span>
           </div>
         )}
 
-        <div className="mb-6 overflow-hidden rounded-3xl border border-gray-800 bg-gray-900/70 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-xl">
+        <div className="mb-6 overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 shadow-sm dark:shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-xl">
           <div className="relative overflow-hidden p-6 sm:p-8">
             <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-600/10 blur-3xl" />
 
@@ -1064,25 +1063,24 @@ const Profile = () => {
                     <img
                       src={profileImage}
                       alt={`${firstName} ${lastName}`}
-                      className="h-24 w-24 rounded-2xl border border-gray-700 object-cover shadow-xl transition duration-200 group-hover:scale-105 sm:h-28 sm:w-28"
+                      className="h-24 w-24 rounded-2xl border border-slate-200 dark:border-gray-700 object-cover shadow-xl transition duration-200 group-hover:scale-105 sm:h-28 sm:w-28"
                       onError={(event) => {
                         event.currentTarget.style.display = "none";
                       }}
                     />
                   </button>
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-2xl font-extrabold text-blue-400 shadow-xl sm:h-28 sm:w-28 sm:text-3xl">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-2xl font-extrabold text-blue-600 dark:text-blue-400 shadow-xl sm:h-28 sm:w-28 sm:text-3xl">
                     {getInitials()}
                   </div>
                 )}
 
                 <label
                   htmlFor="profile-image-upload"
-                  className={`absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 bg-gray-900 text-gray-300 shadow-lg transition ${
-                    uploadingImage
+                  className={`absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-700 dark:text-gray-300 shadow-md transition ${uploadingImage
                       ? "cursor-not-allowed opacity-60"
-                      : "cursor-pointer hover:bg-gray-800 hover:text-white"
-                  }`}
+                      : "cursor-pointer hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white"
+                    }`}
                 >
                   {uploadingImage ? (
                     <Loader2 size={15} className="animate-spin" />
@@ -1104,13 +1102,13 @@ const Profile = () => {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h2 className="break-words text-2xl font-extrabold text-white sm:text-3xl">
+                    <h2 className="break-words text-2xl font-extrabold text-slate-900 dark:text-white sm:text-3xl">
                       {[firstName, lastName].filter(Boolean).join(" ") ||
                         "User"}
                     </h2>
 
                     <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-xs font-bold text-blue-400">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-xs font-bold text-blue-600 dark:text-blue-400">
                         <RoleIcon size={13} />
                         {getRoleLabel()}
                       </span>
@@ -1119,13 +1117,13 @@ const Profile = () => {
                 </div>
 
                 <div className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-                  <div className="flex min-w-0 items-center gap-2 text-gray-400">
-                    <Mail size={15} className="shrink-0 text-gray-600" />
+                  <div className="flex min-w-0 items-center gap-2 text-slate-600 dark:text-gray-400">
+                    <Mail size={15} className="shrink-0 text-slate-400 dark:text-gray-600" />
                     <span className="truncate">{displayValue(email)}</span>
                   </div>
 
-                  <div className="flex min-w-0 items-center gap-2 text-gray-400">
-                    <Phone size={15} className="shrink-0 text-gray-600" />
+                  <div className="flex min-w-0 items-center gap-2 text-slate-600 dark:text-gray-400">
+                    <Phone size={15} className="shrink-0 text-slate-400 dark:text-gray-600" />
                     <span className="truncate">{displayValue(phone)}</span>
                   </div>
                 </div>
@@ -1343,8 +1341,10 @@ const Profile = () => {
                       <BriefcaseBusiness size={22} className="text-blue-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-white">{t.entrepreneur}</h3>
-                      <p className="mt-2 text-sm leading-6 text-gray-400">
+                      <h3 className="font-bold text-slate-900 dark:text-white">
+                        {t.entrepreneur}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">
                         {t.entrepreneurDescription}
                       </p>
                     </div>
@@ -1373,20 +1373,20 @@ const Profile = () => {
                     </span>
                   </div>
                 ) : businesses.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-gray-800 bg-gray-950/30 p-8 text-center">
+                  <div className="rounded-2xl border border-dashed border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/30 p-8 text-center">
                     <Building2
                       size={36}
-                      className="mx-auto text-gray-600 mb-3"
+                      className="mx-auto text-slate-400 dark:text-gray-600 mb-3"
                     />
-                    <p className="text-sm font-semibold text-gray-300">
+                    <p className="text-sm font-semibold text-slate-800 dark:text-gray-300">
                       {t.noBusinessesAdded}
                     </p>
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="mt-1 text-xs text-slate-500 dark:text-gray-500">
                       {t.addFirstBusiness}
                     </p>
                     <Link
                       to="/businesses"
-                      className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-blue-500"
+                      className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold !text-white transition hover:bg-blue-500 shadow-sm"
                     >
                       <Plus size={14} />
                       <span>{t.manageMyBusinesses}</span>
@@ -1411,14 +1411,14 @@ const Profile = () => {
 
           {role === "buyer" && (
             <ProfileSection icon={ShoppingBag} title={t.roleInformation}>
-              <div className="rounded-2xl border border-purple-500/10 bg-purple-500/5 p-6">
+              <div className="rounded-2xl border border-purple-500/20 bg-purple-500/5 p-6">
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/10">
-                    <ShoppingBag size={22} className="text-purple-400" />
+                    <ShoppingBag size={22} className="text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white">{t.buyer}</h3>
-                    <p className="mt-2 text-sm leading-6 text-gray-400">
+                    <h3 className="font-bold text-slate-900 dark:text-white">{t.buyer}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">
                       {t.buyerDescription}
                     </p>
                   </div>
@@ -1433,14 +1433,14 @@ const Profile = () => {
             role !== "enterpreneur" &&
             role !== "buyer" && (
               <ProfileSection icon={ShieldCheck} title={t.roleInformation}>
-                <div className="rounded-xl border border-gray-800 bg-gray-950/40 p-5">
+                <div className="rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/40 p-5">
                   <div className="flex items-center gap-3">
-                    <RoleIcon size={20} className="text-blue-400" />
+                    <RoleIcon size={20} className="text-blue-600 dark:text-blue-400" />
                     <div>
-                      <p className="text-sm font-bold text-white">
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">
                         {getRoleLabel()}
                       </p>
-                      <p className="mt-1 text-xs text-gray-500">
+                      <p className="mt-1 text-xs text-slate-500 dark:text-gray-500">
                         {t.profileUpdated}
                       </p>
                     </div>

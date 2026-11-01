@@ -427,19 +427,19 @@ const BusinessDirectory = () => {
   }, [languageCode]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/40 to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-3 py-1.5 text-sm text-indigo-300">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1.5 text-sm text-indigo-600 dark:text-indigo-300">
               <Building2 size={16} />
               {t.allBusinesses}
             </div>
 
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               {t.title}
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400 sm:text-base">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">
               {t.subtitle}
             </p>
           </div>
@@ -448,13 +448,13 @@ const BusinessDirectory = () => {
             <button
               type="button"
               onClick={() => setSearchOpen((previous) => !previous)}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 font-medium text-white shadow-lg backdrop-blur-xl transition hover:border-indigo-400/40 hover:bg-white/15"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/10 px-5 py-3 font-medium text-slate-800 dark:text-white shadow-md dark:shadow-lg backdrop-blur-xl transition hover:border-indigo-400 hover:bg-slate-50 dark:hover:bg-white/15"
             >
               <Search size={18} />
               {t.search}
 
               {activeFilterCount > 0 && (
-                <span className="rounded-full bg-indigo-500 px-2 py-0.5 text-xs font-semibold">
+                <span className="rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white">
                   {activeFilterCount}
                 </span>
               )}
@@ -466,17 +466,17 @@ const BusinessDirectory = () => {
             </button>
 
             {searchOpen && (
-              <div className="absolute right-0 top-14 z-40 w-[min(92vw,680px)] rounded-2xl border border-white/10 bg-slate-900/95 p-5 shadow-2xl backdrop-blur-2xl">
+              <div className="absolute right-0 top-14 z-40 w-[min(92vw,680px)] rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-slate-900/95 p-5 shadow-2xl backdrop-blur-2xl text-slate-900 dark:text-white">
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
                       <SlidersHorizontal
                         size={18}
-                        className="text-indigo-400"
+                        className="text-indigo-600 dark:text-indigo-400"
                       />
-                      <h2 className="font-semibold">{t.searchBusinesses}</h2>
+                      <h2 className="font-semibold text-slate-900 dark:text-white">{t.searchBusinesses}</h2>
                     </div>
-                    <p className="mt-1 text-sm text-slate-400">
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                       {t.searchDescription}
                     </p>
                   </div>
@@ -484,7 +484,7 @@ const BusinessDirectory = () => {
                   <button
                     type="button"
                     onClick={() => setSearchOpen(false)}
-                    className="rounded-lg p-2 text-slate-400 transition hover:bg-white/10 hover:text-white"
+                    className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-800 dark:hover:text-white"
                     aria-label={t.close}
                   >
                     <X size={18} />
@@ -662,7 +662,7 @@ const BusinessDirectory = () => {
 
 const SearchField = ({ label, value, onChange }) => (
   <label className="block">
-    <span className="mb-1.5 block text-xs font-medium text-slate-400">
+    <span className="mb-1.5 block text-xs font-medium text-slate-600 dark:text-slate-400">
       {label}
     </span>
     <input
@@ -670,7 +670,7 @@ const SearchField = ({ label, value, onChange }) => (
       value={value}
       onChange={(event) => onChange(event.target.value)}
       placeholder={label}
-      className="w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-indigo-400/50 focus:bg-white/10"
+      className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-indigo-500 focus:bg-white dark:focus:bg-white/10"
     />
   </label>
 );
@@ -690,7 +690,7 @@ const BusinessCard = ({ business, languageCode, t, onClick }) => {
   ].filter(Boolean);
 
   return (
-    <div className="group flex min-h-64 flex-col rounded-2xl border border-white/10 bg-white/[0.06] p-5 text-left shadow-xl backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.09]">
+    <div className="group flex min-h-64 flex-col rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.06] p-5 text-left shadow-md hover:shadow-xl dark:shadow-xl backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-indigo-400/40 hover:bg-slate-50/80 dark:hover:bg-white/[0.09]">
       <button
         type="button"
         onClick={onClick}
@@ -698,52 +698,52 @@ const BusinessCard = ({ business, languageCode, t, onClick }) => {
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-300">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-300">
               <Building2 size={21} />
             </div>
             <div className="min-w-0">
-              <h2 className="truncate text-lg font-semibold text-white">
+              <h2 className="truncate text-lg font-semibold text-slate-900 dark:text-white">
                 {businessName}
               </h2>
-              <p className="mt-0.5 truncate text-sm text-indigo-300">
+              <p className="mt-0.5 truncate text-sm text-indigo-600 dark:text-indigo-300 font-medium">
                 {category}
               </p>
             </div>
           </div>
 
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300">
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-300">
             <CheckCircle2 size={13} />
             {t.active}
           </span>
         </div>
 
         <div className="mt-5 flex-1">
-          <p className="line-clamp-3 text-sm leading-6 text-slate-400">
+          <p className="line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
             {description}
           </p>
         </div>
 
-        <div className="mt-5 space-y-3 border-t border-white/10 pt-4">
+        <div className="mt-5 space-y-3 border-t border-slate-100 dark:border-white/10 pt-4">
           {locationParts.length > 0 && (
-            <div className="flex items-start gap-2 text-sm text-slate-400">
-              <MapPin size={16} className="mt-0.5 shrink-0 text-slate-500" />
+            <div className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+              <MapPin size={16} className="mt-0.5 shrink-0 text-slate-400 dark:text-slate-500" />
               <span className="line-clamp-2">{locationParts.join(", ")}</span>
             </div>
           )}
 
           {business.margin_capital !== null &&
             business.margin_capital !== undefined && (
-              <div className="flex items-center gap-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                 <CircleDollarSign
                   size={16}
-                  className="shrink-0 text-slate-500"
+                  className="shrink-0 text-slate-400 dark:text-slate-500"
                 />
-                <span>{formatCapital(business.margin_capital)}</span>
+                <span className="font-medium text-slate-800 dark:text-slate-300">{formatCapital(business.margin_capital)}</span>
               </div>
             )}
         </div>
 
-        <div className="mt-5 text-sm font-medium text-indigo-300 transition group-hover:text-indigo-200">
+        <div className="mt-5 text-sm font-semibold text-indigo-600 dark:text-indigo-300 transition group-hover:text-indigo-500 dark:group-hover:text-indigo-200">
           {t.viewDetails} →
         </div>
       </button>

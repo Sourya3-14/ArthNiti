@@ -106,15 +106,15 @@ const Login = () => {
         <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-md opacity-30 group-hover:opacity-60 transition duration-500"></div>
 
         {/* 3D Card Container */}
-        <div className="relative transform transition-all duration-500 hover:rotate-y-6 hover:-rotate-x-6 hover:scale-105 preserve-3d bg-gray-900 border border-gray-700/50 p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+        <div className="relative transform transition-all duration-500 hover:rotate-y-6 hover:-rotate-x-6 hover:scale-105 preserve-3d bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-700/50 p-8 rounded-3xl shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
           {/* Top light reflection */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl pointer-events-none border-t border-l border-white/10"></div>
 
           <div className="mb-8 text-center transform translate-z-10">
-            <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-blue-100 to-gray-400 drop-shadow-sm mb-2">
+            <h2 className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800 dark:from-white dark:via-blue-100 dark:to-gray-400 drop-shadow-sm mb-2">
               {t.welcome}
             </h2>
-            <p className="text-gray-400 text-sm">{t.subtitle}</p>
+            <p className="text-slate-600 dark:text-gray-400 text-sm">{t.subtitle}</p>
           </div>
 
           {error && (
@@ -129,7 +129,7 @@ const Login = () => {
           >
             <div className="relative group/input">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-gray-500 group-focus-within/input:text-blue-500 transition-colors" />
+                <Mail className="h-5 w-5 text-slate-400 dark:text-gray-500 group-focus-within/input:text-blue-500 transition-colors" />
               </div>
               <input
                 type="email"
@@ -137,14 +137,14 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-12 pr-4 py-3 bg-gray-950/80 border border-gray-800 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
+                className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-gray-950/80 border border-slate-200 dark:border-gray-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
                 placeholder={t.email}
               />
             </div>
 
             <div className="relative group/input">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-500 group-focus-within/input:text-blue-500 transition-colors" />
+                <Lock className="h-5 w-5 text-slate-400 dark:text-gray-500 group-focus-within/input:text-blue-500 transition-colors" />
               </div>
               <input
                 type={showPassword ? "text" : "password"}
@@ -152,13 +152,13 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-12 pr-12 py-3 bg-gray-950/80 border border-gray-800 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
+                className="w-full pl-12 pr-12 py-3 bg-slate-50 dark:bg-gray-950/80 border border-slate-200 dark:border-gray-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
                 placeholder={t.password}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-blue-400 transition-colors focus:outline-none"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:outline-none"
                 tabIndex={-1}
                 aria-label={showPassword ? t.hidePassword : t.showPassword}
               >
@@ -173,7 +173,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-3 rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_10px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 transform active:translate-y-0 active:shadow-inner"
+              className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 !text-white py-3 rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_10px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 transform active:translate-y-0 active:shadow-inner"
             >
               {loading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />

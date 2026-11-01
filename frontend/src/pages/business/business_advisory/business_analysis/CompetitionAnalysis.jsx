@@ -179,7 +179,7 @@ const CompetitionAnalysis = () => {
           <div className="mt-5">
             <SectionCard title={t.nearbyCompetitors} icon={Store}>
               {competitors.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-gray-800 p-8 text-center text-sm text-gray-600">
+                <div className="rounded-xl border border-dashed border-slate-300 dark:border-gray-800 p-8 text-center text-sm text-slate-500 dark:text-gray-600">
                   {t.noCompetitors}
                 </div>
               ) : (
@@ -187,20 +187,20 @@ const CompetitionAnalysis = () => {
                   {competitors.map((competitor) => (
                     <div
                       key={`${competitor.osm_type}-${competitor.osm_id}`}
-                      className="rounded-xl border border-gray-800 bg-gray-950/60 p-4 transition hover:border-gray-700"
+                      className="rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4 transition hover:border-slate-300 dark:hover:border-gray-700"
                     >
                       <div className="flex flex-col justify-between gap-3 sm:flex-row">
                         <div>
-                          <h3 className="font-bold text-gray-200">
+                          <h3 className="font-bold text-slate-900 dark:text-gray-200">
                             {competitor.name || t.unnamedBusiness}
                           </h3>
 
-                          <p className="mt-1 text-xs text-gray-600">
+                          <p className="mt-1 text-xs text-slate-500 dark:text-gray-600">
                             {competitor.source || t.openStreetMap}
                           </p>
                         </div>
 
-                        <div className="flex items-center gap-2 text-sm font-semibold text-violet-400">
+                        <div className="flex items-center gap-2 text-sm font-semibold text-violet-600 dark:text-violet-400">
                           <MapPin size={14} />
                           {competitor.distance_km} km
                         </div>
@@ -208,19 +208,19 @@ const CompetitionAnalysis = () => {
 
                       <div className="mt-4 flex flex-wrap gap-2">
                         {competitor.tags?.shop && (
-                          <span className="rounded-lg border border-gray-800 bg-gray-900 px-2.5 py-1 text-xs text-gray-500">
+                          <span className="rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-2.5 py-1 text-xs text-slate-600 dark:text-gray-500">
                             {t.shop}: {competitor.tags.shop}
                           </span>
                         )}
 
                         {competitor.tags?.butcher && (
-                          <span className="rounded-lg border border-gray-800 bg-gray-900 px-2.5 py-1 text-xs text-gray-500">
+                          <span className="rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-2.5 py-1 text-xs text-slate-600 dark:text-gray-500">
                             {competitor.tags.butcher}
                           </span>
                         )}
 
                         {competitor.tags?.["diet:halal"] && (
-                          <span className="rounded-lg border border-gray-800 bg-gray-900 px-2.5 py-1 text-xs text-gray-500">
+                          <span className="rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-2.5 py-1 text-xs text-slate-600 dark:text-gray-500">
                             {t.halal}
                           </span>
                         )}

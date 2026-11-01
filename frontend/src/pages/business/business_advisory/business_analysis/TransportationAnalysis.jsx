@@ -198,14 +198,14 @@ const TransportationAnalysis = () => {
                   title={route.pillar_label || key}
                   icon={Route}
                 >
-                  <div className="mb-5 rounded-xl border border-gray-800 bg-gray-950/60 p-4">
+                  <div className="mb-5 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs uppercase tracking-wider text-gray-600">
+                        <p className="text-xs uppercase tracking-wider text-slate-500 dark:text-gray-600">
                           {t.monthlyCost}
                         </p>
 
-                        <p className="mt-1 text-2xl font-extrabold text-gray-200">
+                        <p className="mt-1 text-2xl font-extrabold text-slate-900 dark:text-gray-200">
                           ₹
                           {schedule?.estimated_monthly_cost_inr?.toLocaleString(
                             "en-IN",
@@ -214,7 +214,7 @@ const TransportationAnalysis = () => {
                         </p>
                       </div>
 
-                      <Fuel className="text-cyan-400" size={22} />
+                      <Fuel className="text-cyan-600 dark:text-cyan-400" size={22} />
                     </div>
                   </div>
 
@@ -272,14 +272,14 @@ const TransportationAnalysis = () => {
 
           <div className="mt-5 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
             <div className="flex items-start gap-3">
-              <Clock className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+              <Clock className="mt-0.5 h-5 w-5 shrink-0 text-amber-500 dark:text-amber-400" />
 
               <div>
-                <h3 className="font-bold text-amber-300">
+                <h3 className="font-bold text-amber-700 dark:text-amber-300">
                   {t.logisticsCostAdvisory}
                 </h3>
 
-                <p className="mt-2 text-sm leading-6 text-gray-500">
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-500">
                   {t.advisoryText}
                 </p>
               </div>

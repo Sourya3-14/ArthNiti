@@ -659,24 +659,24 @@ const Signup = () => {
   // ============================================================
 
   return (
-    <div className="min-h-screen bg-gray-950 py-10 px-4 sm:px-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white py-10 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg shadow-blue-500/20 mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg shadow-blue-500/20 mb-4 text-white">
             <User className="w-7 h-7 text-white" />
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-white">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
             {t.title}
           </h1>
 
-          <p className="text-gray-400 mt-2">{t.subtitle}</p>
+          <p className="text-slate-600 dark:text-gray-400 mt-2">{t.subtitle}</p>
         </div>
 
         <div className="relative">
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 via-indigo-600/10 to-purple-600/20 rounded-3xl blur-xl" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/10 via-indigo-600/5 to-purple-600/10 rounded-3xl blur-xl" />
 
-          <div className="relative bg-gray-900/95 border border-gray-800 rounded-3xl shadow-2xl overflow-hidden">
+          <div className="relative bg-white dark:bg-gray-900/95 border border-slate-200 dark:border-gray-800 rounded-3xl shadow-xl dark:shadow-2xl overflow-hidden">
             <div className="h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600" />
 
             <div className="p-6 sm:p-8 lg:p-10">

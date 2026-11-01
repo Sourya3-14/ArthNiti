@@ -531,7 +531,7 @@ const Home = () => {
   const t = translations[language] || translations.english;
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white overflow-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white overflow-hidden">
       {/* =========================================================
           HERO
       ========================================================= */}
@@ -543,7 +543,7 @@ const Home = () => {
           className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px)",
+              "linear-gradient(rgba(0,0,0,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.6) 1px, transparent 1px)",
             backgroundSize: "50px 50px",
           }}
         />
@@ -551,26 +551,26 @@ const Home = () => {
         <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-bold tracking-wider mb-7">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-300 text-xs font-bold tracking-wider mb-7">
               <Sparkles size={14} />
               {t.badge}
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-slate-900 dark:text-white">
               {t.title1}
-              <span className="block mt-2 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 text-transparent bg-clip-text">
+              <span className="block mt-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 text-transparent bg-clip-text">
                 {t.title2}
               </span>
             </h1>
 
-            <p className="mt-7 text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl">
+            <p className="mt-7 text-lg md:text-xl text-slate-600 dark:text-gray-400 leading-relaxed max-w-2xl">
               {t.description}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-9">
               <Link
                 to={dashboardPath}
-                className="group flex items-center gap-3 px-7 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold shadow-[0_15px_40px_rgba(37,99,235,0.25)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all"
+                className="group flex items-center gap-3 px-7 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 !text-white font-bold shadow-[0_15px_40px_rgba(37,99,235,0.25)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all"
               >
                 {t.getStarted}
                 <ArrowRight
@@ -581,7 +581,7 @@ const Home = () => {
 
               <a
                 href="#features"
-                className="flex items-center gap-3 px-7 py-4 rounded-xl border border-gray-700 bg-gray-900/70 hover:bg-gray-800 transition-all font-bold"
+                className="flex items-center gap-3 px-7 py-4 rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 hover:bg-slate-50 dark:hover:bg-gray-800 text-slate-800 dark:text-white transition-all font-bold shadow-sm"
               >
                 {t.explore}
               </a>
@@ -590,69 +590,69 @@ const Home = () => {
 
           {/* Right visual (App Mockup) */}
           <div className="relative hidden lg:block">
-            <div className="relative bg-gray-900/80 border border-gray-800 rounded-3xl p-6 shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+            <div className="relative bg-white dark:bg-gray-900/80 border border-slate-200 dark:border-gray-800 rounded-3xl p-6 shadow-xl dark:shadow-[0_30px_100px_rgba(0,0,0,0.5)] backdrop-blur-xl">
               <div className="flex items-center justify-between mb-7">
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white">
                     <BrainCircuit size={23} />
                   </div>
 
                   <div>
-                    <p className="font-bold">{t.appTitle}</p>
-                    <p className="text-xs text-gray-500">{t.appSubtitle}</p>
+                    <p className="font-bold text-slate-900 dark:text-white">{t.appTitle}</p>
+                    <p className="text-xs text-slate-500 dark:text-gray-500">{t.appSubtitle}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-green-400">
-                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <div className="flex items-center gap-2 text-xs font-semibold text-green-600 dark:text-green-400">
+                  <span className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 animate-pulse" />
                   {t.aiActive}
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800">
                   <div className="flex justify-between items-center mb-3">
-                    <span className="text-sm text-gray-400">{t.marketOpp}</span>
-                    <span className="text-green-400 font-bold">{t.high}</span>
+                    <span className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.marketOpp}</span>
+                    <span className="text-green-600 dark:text-green-400 font-bold">{t.high}</span>
                   </div>
 
-                  <div className="h-2 rounded-full bg-gray-800 overflow-hidden">
+                  <div className="h-2 rounded-full bg-slate-200 dark:bg-gray-800 overflow-hidden">
                     <div className="h-full w-[82%] bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800">
-                    <MapPin size={18} className="text-blue-400 mb-3" />
-                    <p className="text-xs text-gray-500">{t.marketReach}</p>
-                    <p className="font-bold mt-1">5–10 KM</p>
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800">
+                    <MapPin size={18} className="text-blue-500 dark:text-blue-400 mb-3" />
+                    <p className="text-xs text-slate-500 dark:text-gray-500">{t.marketReach}</p>
+                    <p className="font-bold text-slate-900 dark:text-white mt-1">5–10 KM</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800">
-                    <Users size={18} className="text-indigo-400 mb-3" />
-                    <p className="text-xs text-gray-500">{t.localDemand}</p>
-                    <p className="font-bold mt-1">{t.strong}</p>
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800">
+                    <Users size={18} className="text-indigo-500 dark:text-indigo-400 mb-3" />
+                    <p className="text-xs text-slate-500 dark:text-gray-500">{t.localDemand}</p>
+                    <p className="font-bold text-slate-900 dark:text-white mt-1">{t.strong}</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800">
-                    <TrendingUp size={18} className="text-green-400 mb-3" />
-                    <p className="text-xs text-gray-500">{t.opportunity}</p>
-                    <p className="font-bold mt-1">{t.high}</p>
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800">
+                    <TrendingUp size={18} className="text-green-500 dark:text-green-400 mb-3" />
+                    <p className="text-xs text-slate-500 dark:text-gray-500">{t.opportunity}</p>
+                    <p className="font-bold text-slate-900 dark:text-white mt-1">{t.high}</p>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-gray-950 border border-gray-800">
-                    <ShieldCheck size={18} className="text-purple-400 mb-3" />
-                    <p className="text-xs text-gray-500">{t.riskLevel}</p>
-                    <p className="font-bold mt-1">{t.moderate}</p>
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800">
+                    <ShieldCheck size={18} className="text-purple-500 dark:text-purple-400 mb-3" />
+                    <p className="text-xs text-slate-500 dark:text-gray-500">{t.riskLevel}</p>
+                    <p className="font-bold text-slate-900 dark:text-white mt-1">{t.moderate}</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-blue-500/20">
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20">
                   <div className="flex items-center gap-3">
-                    <Target size={20} className="text-blue-400" />
+                    <Target size={20} className="text-blue-600 dark:text-blue-400" />
                     <div>
-                      <p className="text-sm font-bold">{t.recStrategy}</p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-sm font-bold text-slate-900 dark:text-white">{t.recStrategy}</p>
+                      <p className="text-xs text-slate-600 dark:text-gray-400 mt-1">
                         {t.recStrategyDesc}
                       </p>
                     </div>
@@ -661,15 +661,15 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="absolute -bottom-8 -left-12 bg-gray-900 border border-gray-700 rounded-2xl p-4 shadow-2xl">
+            <div className="absolute -bottom-8 -left-12 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-2xl p-4 shadow-xl dark:shadow-2xl">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center">
-                  <WalletCards size={20} className="text-green-400" />
+                  <WalletCards size={20} className="text-green-600 dark:text-green-400" />
                 </div>
 
                 <div>
-                  <p className="text-xs text-gray-500">{t.loan}</p>
-                  <p className="font-bold text-lg">₹9,00,000</p>
+                  <p className="text-xs text-slate-500 dark:text-gray-500">{t.loan}</p>
+                  <p className="font-bold text-lg text-slate-900 dark:text-white">₹9,00,000</p>
                 </div>
               </div>
             </div>
@@ -680,7 +680,7 @@ const Home = () => {
       {/* =========================================================
           STATS
       ========================================================= */}
-      <section className="border-y border-gray-800 bg-gray-900/40">
+      <section className="border-y border-slate-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/40 backdrop-blur-md">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4">
           {[
             [MapPin, t.stat1, t.stat1Desc],
@@ -690,13 +690,13 @@ const Home = () => {
           ].map(([Icon, title, desc], index) => (
             <div
               key={index}
-              className="p-7 border-r border-gray-800 last:border-r-0 flex items-center gap-4"
+              className="p-7 border-r border-slate-200 dark:border-gray-800 last:border-r-0 flex items-center gap-4"
             >
-              <Icon size={25} className="text-blue-400" />
+              <Icon size={25} className="text-blue-600 dark:text-blue-400" />
 
               <div>
-                <p className="font-bold">{title}</p>
-                <p className="text-xs text-gray-500 mt-1">{desc}</p>
+                <p className="font-bold text-slate-900 dark:text-white">{title}</p>
+                <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">{desc}</p>
               </div>
             </div>
           ))}
@@ -709,15 +709,15 @@ const Home = () => {
       <section className="px-6 py-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <p className="text-blue-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest">
               {t.advisoryTitle}
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-black mt-3">
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-slate-900 dark:text-white">
               {t.advisoryTitle}
             </h2>
 
-            <p className="text-gray-400 mt-5 text-lg">{t.advisoryDesc}</p>
+            <p className="text-slate-600 dark:text-gray-400 mt-5 text-lg">{t.advisoryDesc}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
@@ -732,16 +732,16 @@ const Home = () => {
                 to={
                   title === t.directory ? "/businesses/details" : dashboardPath
                 }
-                className="group p-7 bg-gray-900 border border-gray-800 rounded-2xl hover:border-blue-500/40 hover:-translate-y-1 transition-all"
+                className="group p-7 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl hover:border-blue-500/40 hover:-translate-y-1 transition-all shadow-sm hover:shadow-md dark:shadow-none"
               >
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-5">
-                  <Icon size={23} className="text-blue-400" />
+                  <Icon size={23} className="text-blue-600 dark:text-blue-400" />
                 </div>
 
-                <h3 className="font-bold text-lg">{title}</h3>
-                <p className="text-gray-500 text-sm mt-2">{desc}</p>
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white">{title}</h3>
+                <p className="text-slate-600 dark:text-gray-500 text-sm mt-2">{desc}</p>
                 {title === t.directory && (
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-blue-400">
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400">
                     {t.explore}
                     <ArrowRight size={16} />
                   </span>
@@ -753,7 +753,7 @@ const Home = () => {
           <div className="flex justify-center mt-8">
             <Link
               to={dashboardPath}
-              className="flex items-center gap-3 px-7 py-4 rounded-xl bg-white text-gray-950 font-bold hover:bg-blue-50 transition-all"
+              className="flex items-center gap-3 px-7 py-4 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-gray-950 font-bold hover:bg-slate-800 dark:hover:bg-blue-50 transition-all shadow-md"
             >
               {t.analyze}
               <ArrowRight size={18} />
@@ -765,39 +765,39 @@ const Home = () => {
       {/* =========================================================
           CORE MODULES
       ========================================================= */}
-      <section id="features" className="px-6 py-24 bg-gray-900/30">
+      <section id="features" className="px-6 py-24 bg-slate-100/70 dark:bg-gray-900/30">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl">
-            <p className="text-blue-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest">
               {t.modulesBadge}
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-black mt-3">
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-slate-900 dark:text-white">
               {t.modulesTitle}
             </h2>
 
-            <p className="text-gray-400 mt-5 text-lg">{t.modulesDesc}</p>
+            <p className="text-slate-600 dark:text-gray-400 mt-5 text-lg">{t.modulesDesc}</p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-7 mt-14">
             {/* Module 1 */}
-            <div className="relative overflow-hidden p-8 md:p-10 bg-gray-900 border border-gray-800 rounded-3xl">
+            <div className="relative overflow-hidden p-8 md:p-10 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-3xl shadow-sm dark:shadow-none">
               <div className="absolute -right-20 -top-20 w-60 h-60 bg-blue-600/10 rounded-full blur-3xl" />
 
               <div className="relative">
                 <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-7">
-                  <BarChart3 size={27} className="text-blue-400" />
+                  <BarChart3 size={27} className="text-blue-600 dark:text-blue-400" />
                 </div>
 
-                <span className="text-xs font-bold text-blue-400">
+                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
                   MODULE 01
                 </span>
 
-                <h3 className="text-2xl md:text-3xl font-black mt-2">
+                <h3 className="text-2xl md:text-3xl font-black mt-2 text-slate-900 dark:text-white">
                   {t.module1Title}
                 </h3>
 
-                <p className="text-gray-400 mt-4 leading-relaxed">
+                <p className="text-slate-600 dark:text-gray-400 mt-4 leading-relaxed">
                   {t.module1Desc}
                 </p>
 
@@ -805,11 +805,11 @@ const Home = () => {
                   {t.module1Items.map((item, index) => (
                     <div
                       key={index}
-                      className="flex gap-2 items-start text-sm text-gray-300"
+                      className="flex gap-2 items-start text-sm text-slate-700 dark:text-gray-300"
                     >
                       <CheckCircle2
                         size={17}
-                        className="text-blue-400 shrink-0 mt-0.5"
+                        className="text-blue-600 dark:text-blue-400 shrink-0 mt-0.5"
                       />
                       {item}
                     </div>
@@ -818,7 +818,7 @@ const Home = () => {
 
                 <Link
                   to={dashboardPath}
-                  className="inline-flex items-center gap-2 mt-8 text-blue-400 font-bold hover:text-blue-300"
+                  className="inline-flex items-center gap-2 mt-8 text-blue-600 dark:text-blue-400 font-bold hover:text-blue-500 dark:hover:text-blue-300"
                 >
                   {t.explore}
                   <ArrowRight size={17} />
@@ -827,23 +827,23 @@ const Home = () => {
             </div>
 
             {/* Module 2 */}
-            <div className="relative overflow-hidden p-8 md:p-10 bg-gray-900 border border-gray-800 rounded-3xl">
+            <div className="relative overflow-hidden p-8 md:p-10 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-3xl shadow-sm dark:shadow-none">
               <div className="absolute -right-20 -top-20 w-60 h-60 bg-indigo-600/10 rounded-full blur-3xl" />
 
               <div className="relative">
                 <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-7">
-                  <Calculator size={27} className="text-indigo-400" />
+                  <Calculator size={27} className="text-indigo-600 dark:text-indigo-400" />
                 </div>
 
-                <span className="text-xs font-bold text-indigo-400">
+                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
                   MODULE 02
                 </span>
 
-                <h3 className="text-2xl md:text-3xl font-black mt-2">
+                <h3 className="text-2xl md:text-3xl font-black mt-2 text-slate-900 dark:text-white">
                   {t.module2Title}
                 </h3>
 
-                <p className="text-gray-400 mt-4 leading-relaxed">
+                <p className="text-slate-600 dark:text-gray-400 mt-4 leading-relaxed">
                   {t.module2Desc}
                 </p>
 
@@ -851,11 +851,11 @@ const Home = () => {
                   {t.module2Items.map((item, index) => (
                     <div
                       key={index}
-                      className="flex gap-2 items-start text-sm text-gray-300"
+                      className="flex gap-2 items-start text-sm text-slate-700 dark:text-gray-300"
                     >
                       <CheckCircle2
                         size={17}
-                        className="text-indigo-400 shrink-0 mt-0.5"
+                        className="text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5"
                       />
                       {item}
                     </div>
@@ -864,7 +864,7 @@ const Home = () => {
 
                 <Link
                   to={dashboardPath}
-                  className="inline-flex items-center gap-2 mt-8 text-indigo-400 font-bold hover:text-indigo-300"
+                  className="inline-flex items-center gap-2 mt-8 text-indigo-600 dark:text-indigo-400 font-bold hover:text-indigo-500 dark:hover:text-indigo-300"
                 >
                   {t.explore}
                   <ArrowRight size={17} />
@@ -873,23 +873,23 @@ const Home = () => {
             </div>
 
             {/* Module 3 */}
-            <div className="relative overflow-hidden p-8 md:p-10 bg-gray-900 border border-gray-800 rounded-3xl">
+            <div className="relative overflow-hidden p-8 md:p-10 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-3xl shadow-sm dark:shadow-none">
               <div className="absolute -right-20 -top-20 w-60 h-60 bg-purple-600/10 rounded-full blur-3xl" />
 
               <div className="relative">
                 <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-7">
-                  <Award size={27} className="text-purple-400" />
+                  <Award size={27} className="text-purple-600 dark:text-purple-400" />
                 </div>
 
-                <span className="text-xs font-bold text-purple-400">
+                <span className="text-xs font-bold text-purple-600 dark:text-purple-400">
                   MODULE 03
                 </span>
 
-                <h3 className="text-2xl md:text-3xl font-black mt-2">
+                <h3 className="text-2xl md:text-3xl font-black mt-2 text-slate-900 dark:text-white">
                   {t.module3Title}
                 </h3>
 
-                <p className="text-gray-400 mt-4 leading-relaxed">
+                <p className="text-slate-600 dark:text-gray-400 mt-4 leading-relaxed">
                   {t.module3Desc}
                 </p>
 
@@ -897,11 +897,11 @@ const Home = () => {
                   {t.module3Items.map((item, index) => (
                     <div
                       key={index}
-                      className="flex gap-2 items-start text-sm text-gray-300"
+                      className="flex gap-2 items-start text-sm text-slate-700 dark:text-gray-300"
                     >
                       <CheckCircle2
                         size={17}
-                        className="text-purple-400 shrink-0 mt-0.5"
+                        className="text-purple-600 dark:text-purple-400 shrink-0 mt-0.5"
                       />
                       {item}
                     </div>
@@ -910,7 +910,7 @@ const Home = () => {
 
                 <Link
                   to={dashboardPath}
-                  className="inline-flex items-center gap-2 mt-8 text-purple-400 font-bold hover:text-purple-300"
+                  className="inline-flex items-center gap-2 mt-8 text-purple-600 dark:text-purple-400 font-bold hover:text-purple-500 dark:hover:text-purple-300"
                 >
                   {t.explore}
                   <ArrowRight size={17} />
@@ -927,11 +927,11 @@ const Home = () => {
       <section className="px-6 py-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <p className="text-blue-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest">
               {t.processBadge}
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-black mt-3">
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-slate-900 dark:text-white">
               {t.processTitle}
             </h2>
           </div>
@@ -944,20 +944,20 @@ const Home = () => {
               [CheckCircle2, "04", t.step4Title, t.step4Desc],
             ].map(([Icon, number, title, desc]) => (
               <div key={number} className="relative">
-                <div className="p-6 bg-gray-900 border border-gray-800 rounded-2xl h-full">
+                <div className="p-6 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl h-full shadow-sm dark:shadow-none">
                   <div className="flex justify-between items-start">
                     <div className="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                      <Icon size={21} className="text-blue-400" />
+                      <Icon size={21} className="text-blue-600 dark:text-blue-400" />
                     </div>
 
-                    <span className="text-3xl font-black text-gray-800">
+                    <span className="text-3xl font-black text-slate-300 dark:text-gray-800">
                       {number}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-lg mt-6">{title}</h3>
+                  <h3 className="font-bold text-lg mt-6 text-slate-900 dark:text-white">{title}</h3>
 
-                  <p className="text-gray-500 text-sm mt-3 leading-relaxed">
+                  <p className="text-slate-600 dark:text-gray-500 text-sm mt-3 leading-relaxed">
                     {desc}
                   </p>
                 </div>
@@ -970,86 +970,86 @@ const Home = () => {
       {/* =========================================================
           FINANCIAL CALCULATOR
       ========================================================= */}
-      <section className="px-6 py-24 bg-gray-900/30">
+      <section className="px-6 py-24 bg-slate-100/70 dark:bg-gray-900/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center">
-            <p className="text-indigo-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-indigo-600 dark:text-indigo-400 text-sm font-bold uppercase tracking-widest">
               {t.financeBadge}
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-black mt-3">
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-slate-900 dark:text-white">
               {t.financeTitle}
             </h2>
 
-            <p className="text-gray-400 mt-5 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-gray-400 mt-5 max-w-2xl mx-auto">
               {t.financeDesc}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5 mt-14">
-            <div className="p-7 bg-gray-900 border border-gray-800 rounded-2xl text-center">
-              <p className="text-gray-500 text-sm">{t.margin}</p>
-              <p className="text-3xl font-black mt-3">₹1,00,000</p>
-              <p className="text-xs text-gray-600 mt-2">10%</p>
+            <div className="p-7 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl text-center shadow-sm dark:shadow-none">
+              <p className="text-slate-600 dark:text-gray-500 text-sm">{t.margin}</p>
+              <p className="text-3xl font-black mt-3 text-slate-900 dark:text-white">₹1,00,000</p>
+              <p className="text-xs text-slate-500 dark:text-gray-600 mt-2">10%</p>
             </div>
 
-            <div className="p-7 bg-gray-900 border border-blue-500/30 rounded-2xl text-center shadow-[0_15px_40px_rgba(37,99,235,0.08)]">
-              <p className="text-blue-400 text-sm">{t.projectCost}</p>
-              <p className="text-3xl font-black mt-3">₹10,00,000</p>
-              <p className="text-xs text-gray-600 mt-2">100%</p>
+            <div className="p-7 bg-white dark:bg-gray-900 border border-blue-500/30 rounded-2xl text-center shadow-[0_15px_40px_rgba(37,99,235,0.08)]">
+              <p className="text-blue-600 dark:text-blue-400 text-sm font-bold">{t.projectCost}</p>
+              <p className="text-3xl font-black mt-3 text-slate-900 dark:text-white">₹10,00,000</p>
+              <p className="text-xs text-slate-500 dark:text-gray-600 mt-2">100%</p>
             </div>
 
-            <div className="p-7 bg-gray-900 border border-indigo-500/30 rounded-2xl text-center">
-              <p className="text-indigo-400 text-sm">{t.loan}</p>
-              <p className="text-3xl font-black mt-3">₹9,00,000</p>
-              <p className="text-xs text-gray-600 mt-2">90%</p>
+            <div className="p-7 bg-white dark:bg-gray-900 border border-indigo-500/30 rounded-2xl text-center shadow-sm dark:shadow-none">
+              <p className="text-indigo-600 dark:text-indigo-400 text-sm font-bold">{t.loan}</p>
+              <p className="text-3xl font-black mt-3 text-slate-900 dark:text-white">₹9,00,000</p>
+              <p className="text-xs text-slate-500 dark:text-gray-600 mt-2">90%</p>
             </div>
           </div>
 
-          <div className="mt-7 p-6 rounded-2xl border border-gray-800 bg-gray-950">
-            <p className="text-xs uppercase tracking-wider text-blue-400 font-bold">
+          <div className="mt-7 p-6 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950 shadow-sm dark:shadow-none">
+            <p className="text-xs uppercase tracking-wider text-blue-600 dark:text-blue-400 font-bold">
               {t.example}
             </p>
 
-            <p className="text-gray-400 mt-2 leading-relaxed">
+            <p className="text-slate-600 dark:text-gray-400 mt-2 leading-relaxed">
               {t.exampleText}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mt-7">
-            <div className="p-7 rounded-2xl bg-gray-900 border border-gray-800">
+            <div className="p-7 rounded-2xl bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-3">
-                <Landmark className="text-blue-400" />
-                <h3 className="font-bold text-lg">{t.micro}</h3>
+                <Landmark className="text-blue-600 dark:text-blue-400" />
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white">{t.micro}</h3>
               </div>
 
-              <p className="text-gray-500 text-sm mt-3">{t.microDesc}</p>
+              <p className="text-slate-600 dark:text-gray-500 text-sm mt-3">{t.microDesc}</p>
 
               <div className="flex gap-3 mt-5">
-                <span className="px-3 py-2 rounded-lg bg-blue-500/10 text-blue-400 text-xs font-bold">
+                <span className="px-3 py-2 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold">
                   {t.microRate}
                 </span>
 
-                <span className="px-3 py-2 rounded-lg bg-gray-800 text-gray-300 text-xs font-bold">
+                <span className="px-3 py-2 rounded-lg bg-slate-100 text-slate-700 dark:bg-gray-800 dark:text-gray-300 text-xs font-bold">
                   {t.microTenure}
                 </span>
               </div>
             </div>
 
-            <div className="p-7 rounded-2xl bg-gray-900 border border-gray-800">
+            <div className="p-7 rounded-2xl bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-3">
-                <Landmark className="text-indigo-400" />
-                <h3 className="font-bold text-lg">{t.term}</h3>
+                <Landmark className="text-indigo-600 dark:text-indigo-400" />
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white">{t.term}</h3>
               </div>
 
-              <p className="text-gray-500 text-sm mt-3">{t.termDesc}</p>
+              <p className="text-slate-600 dark:text-gray-500 text-sm mt-3">{t.termDesc}</p>
 
               <div className="flex gap-3 mt-5">
-                <span className="px-3 py-2 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold">
+                <span className="px-3 py-2 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
                   {t.termRate}
                 </span>
 
-                <span className="px-3 py-2 rounded-lg bg-gray-800 text-gray-300 text-xs font-bold">
+                <span className="px-3 py-2 rounded-lg bg-slate-100 text-slate-700 dark:bg-gray-800 dark:text-gray-300 text-xs font-bold">
                   {t.termTenure}
                 </span>
               </div>
@@ -1063,25 +1063,25 @@ const Home = () => {
       ========================================================= */}
       <section className="px-6 py-24">
         <div className="max-w-6xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-950/40 via-gray-900 to-indigo-950/30 p-8 md:p-14">
+          <div className="relative overflow-hidden rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-blue-950/40 dark:via-gray-900 dark:to-indigo-950/30 p-8 md:p-14 shadow-lg dark:shadow-none">
             <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 blur-[100px] rounded-full" />
 
             <div className="relative grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 text-blue-400 text-sm font-bold uppercase tracking-widest">
+                <div className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest">
                   <MessageCircle size={17} />
                   {t.aiBadge}
                 </div>
 
-                <h2 className="text-4xl md:text-5xl font-black mt-4">
+                <h2 className="text-4xl md:text-5xl font-black mt-4 text-slate-900 dark:text-white">
                   {t.aiTitle}
                 </h2>
 
-                <p className="text-gray-400 mt-5 leading-relaxed">{t.aiDesc}</p>
+                <p className="text-slate-600 dark:text-gray-400 mt-5 leading-relaxed">{t.aiDesc}</p>
 
                 <Link
                   to={dashboardPath}
-                  className="inline-flex items-center gap-3 mt-7 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 font-bold transition-all"
+                  className="inline-flex items-center gap-3 mt-7 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 font-bold !text-white transition-all shadow-md shadow-blue-500/20"
                 >
                   <MessageCircle size={19} />
                   {t.chatNow}
@@ -1096,15 +1096,15 @@ const Home = () => {
                 ].map(([Icon, title, desc], index) => (
                   <div
                     key={index}
-                    className="flex gap-4 p-5 rounded-2xl bg-gray-950/60 border border-gray-800"
+                    className="flex gap-4 p-5 rounded-2xl bg-white/90 dark:bg-gray-950/60 border border-slate-200 dark:border-gray-800 shadow-sm dark:shadow-none"
                   >
                     <div className="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
-                      <Icon size={20} className="text-blue-400" />
+                      <Icon size={20} className="text-blue-600 dark:text-blue-400" />
                     </div>
 
                     <div>
-                      <h3 className="font-bold">{title}</h3>
-                      <p className="text-gray-500 text-sm mt-1">{desc}</p>
+                      <h3 className="font-bold text-slate-900 dark:text-white">{title}</h3>
+                      <p className="text-slate-600 dark:text-gray-500 text-sm mt-1">{desc}</p>
                     </div>
                   </div>
                 ))}
@@ -1117,14 +1117,14 @@ const Home = () => {
       {/* =========================================================
           IMPACT
       ========================================================= */}
-      <section className="px-6 py-24 bg-gray-900/30">
+      <section className="px-6 py-24 bg-slate-100/70 dark:bg-gray-900/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <p className="text-blue-400 text-sm font-bold uppercase tracking-widest">
+            <p className="text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest">
               {t.impactBadge}
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-black mt-3">
+            <h2 className="text-4xl md:text-5xl font-black mt-3 text-slate-900 dark:text-white">
               {t.impactTitle}
             </h2>
           </div>
@@ -1137,13 +1137,13 @@ const Home = () => {
             ].map(([Icon, title, desc], index) => (
               <div
                 key={index}
-                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl"
+                className="p-8 bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-2xl shadow-sm dark:shadow-none"
               >
-                <Icon size={28} className="text-blue-400" />
+                <Icon size={28} className="text-blue-600 dark:text-blue-400" />
 
-                <h3 className="text-xl font-black mt-6">{title}</h3>
+                <h3 className="text-xl font-black mt-6 text-slate-900 dark:text-white">{title}</h3>
 
-                <p className="text-gray-500 mt-3 leading-relaxed">{desc}</p>
+                <p className="text-slate-600 dark:text-gray-500 mt-3 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -1155,19 +1155,19 @@ const Home = () => {
       ========================================================= */}
       <section className="px-6 py-28">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-[0_15px_40px_rgba(37,99,235,0.3)]">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-[0_15px_40px_rgba(37,99,235,0.3)] text-white">
             <Sparkles size={28} />
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black mt-7">{t.ctaTitle}</h2>
+          <h2 className="text-4xl md:text-6xl font-black mt-7 text-slate-900 dark:text-white">{t.ctaTitle}</h2>
 
-          <p className="text-gray-400 text-lg mt-5 max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-gray-400 text-lg mt-5 max-w-2xl mx-auto">
             {t.ctaDesc}
           </p>
 
           <Link
             to={dashboardPath}
-            className="inline-flex items-center gap-3 mt-8 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold shadow-[0_15px_40px_rgba(37,99,235,0.25)] hover:-translate-y-1 transition-all"
+            className="inline-flex items-center gap-3 mt-8 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold !text-white shadow-[0_15px_40px_rgba(37,99,235,0.25)] hover:-translate-y-1 transition-all"
           >
             {t.ctaButton}
             <ArrowRight size={19} />
@@ -1178,20 +1178,20 @@ const Home = () => {
       {/* =========================================================
           FOOTER
       ========================================================= */}
-      <footer className="border-t border-gray-800 px-6 py-8">
+      <footer className="border-t border-slate-200 dark:border-gray-800 px-6 py-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-black">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-black text-white">
               F
             </div>
 
             <div>
-              <p className="font-bold">Finance Assistant</p>
-              <p className="text-xs text-gray-600">{t.footer}</p>
+              <p className="font-bold text-slate-900 dark:text-white">Finance Assistant</p>
+              <p className="text-xs text-slate-500 dark:text-gray-500">{t.footer}</p>
             </div>
           </div>
 
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-slate-500 dark:text-gray-500">
             SIH 2026 • Problem Statement 26091
           </p>
         </div>

@@ -654,27 +654,27 @@ const BusinessAnalysis = () => {
   const getColorClasses = (color) => {
     const colors = {
       blue: {
-        icon: "border-blue-500/20 bg-blue-500/10 text-blue-400",
+        icon: "border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400",
         hover: "hover:border-blue-500/40",
       },
       violet: {
-        icon: "border-violet-500/20 bg-violet-500/10 text-violet-400",
+        icon: "border-violet-500/20 bg-violet-500/10 text-violet-600 dark:text-violet-400",
         hover: "hover:border-violet-500/40",
       },
       emerald: {
-        icon: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+        icon: "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
         hover: "hover:border-emerald-500/40",
       },
       amber: {
-        icon: "border-amber-500/20 bg-amber-500/10 text-amber-400",
+        icon: "border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400",
         hover: "hover:border-amber-500/40",
       },
       cyan: {
-        icon: "border-cyan-500/20 bg-cyan-500/10 text-cyan-400",
+        icon: "border-cyan-500/20 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400",
         hover: "hover:border-cyan-500/40",
       },
       rose: {
-        icon: "border-rose-500/20 bg-rose-500/10 text-rose-400",
+        icon: "border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400",
         hover: "hover:border-rose-500/40",
       },
     };
@@ -683,11 +683,11 @@ const BusinessAnalysis = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
         <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center">
           <div className="flex flex-col items-center">
-            <Loader2 className="mb-4 h-8 w-8 animate-spin text-blue-400" />
-            <p className="text-sm text-gray-400">{t.loading}</p>
+            <Loader2 className="mb-4 h-8 w-8 animate-spin text-blue-500" />
+            <p className="text-sm text-slate-600 dark:text-gray-400">{t.loading}</p>
           </div>
         </div>
       </div>
@@ -700,12 +700,12 @@ const BusinessAnalysis = () => {
   const transportation = report?.raw_evidence?.transportation?.data;
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <button
           type="button"
           onClick={() => navigate(`/businesses/${businessId}`)}
-          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-400 transition hover:text-white"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-gray-400 transition hover:text-slate-900 dark:hover:text-white"
         >
           <ArrowLeft size={16} />
           {t.backWorkspace}
@@ -765,17 +765,17 @@ const BusinessAnalysis = () => {
         <div className="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
           <div className="flex items-center gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-              <BarChart3 size={27} className="text-blue-400" />
+              <BarChart3 size={27} className="text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <Sparkles size={15} />
                 {t.aiAnalysis}
               </div>
-              <h1 className="mt-1 text-3xl font-extrabold">
+              <h1 className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">
                 {t.businessAnalysis}
               </h1>
-              <p className="mt-1 flex items-center gap-1 text-sm text-gray-500">
+              <p className="mt-1 flex items-center gap-1 text-sm text-slate-500 dark:text-gray-500">
                 <MapPin size={13} />
                 {population?.location || `${t.businessId}: ${businessId}`}
               </p>
@@ -788,11 +788,11 @@ const BusinessAnalysis = () => {
             <button
               type="button"
               onClick={handleOpenConfig}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-sm font-bold text-gray-300 transition hover:border-gray-700 hover:bg-gray-800"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 text-sm font-bold text-slate-700 dark:text-gray-300 transition hover:bg-slate-100 dark:hover:bg-gray-800"
             >
               {generating ? (
                 <>
-                  <Loader2 size={16} className="animate-spin text-blue-400" />
+                  <Loader2 size={16} className="animate-spin text-blue-500" />
                   <span>{t.generating}</span>
                 </>
               ) : (
@@ -807,10 +807,10 @@ const BusinessAnalysis = () => {
 
         {error && (
           <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-500/20 bg-red-500/5 p-4">
-            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-400" />
+            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-500" />
             <div>
-              <p className="font-semibold text-red-300">{t.operationFailed}</p>
-              <p className="mt-1 text-sm text-gray-500">{error}</p>
+              <p className="font-semibold text-red-700 dark:text-red-300">{t.operationFailed}</p>
+              <p className="mt-1 text-sm text-slate-600 dark:text-gray-500">{error}</p>
             </div>
           </div>
         )}
@@ -828,7 +828,7 @@ const BusinessAnalysis = () => {
               }
               className={
                 isStaleReport
-                  ? "border-amber-500/30 bg-amber-500/10 text-amber-300"
+                  ? "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
                   : undefined
               }
               label={
@@ -840,28 +840,28 @@ const BusinessAnalysis = () => {
               }
             />
 
-            <span className="rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs font-semibold text-gray-500">
+            <span className="rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-gray-500">
               {t.version} {report?.version ?? "1"}
             </span>
           </div>
         )}
 
-        <div className="mb-8 rounded-2xl border border-gray-800 bg-gray-900/60 p-6 backdrop-blur-xl">
+        <div className="mb-8 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm backdrop-blur-xl">
           <div className="mb-5 flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <FileText size={15} />
                 {t.report}
               </div>
-              <h2 className="mt-1 text-xl font-bold">
+              <h2 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">
                 {t.generatedAssessment}
               </h2>
             </div>
-            <div className="hidden rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 text-xs text-gray-500 sm:block">
+            <div className="hidden rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3 py-2 text-xs text-slate-500 dark:text-gray-500 sm:block">
               Version {report?.version || "1"}
             </div>
           </div>
-          <div className="max-h-[600px] overflow-y-auto rounded-xl border border-gray-800 bg-gray-950/70 p-5">
+          <div className="max-h-[600px] overflow-y-auto rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50/70 dark:bg-gray-950/70 p-5">
             <MarkdownReport
               markdown={report?.report_markdown || ""}
               noReport={t.noReport}
@@ -872,12 +872,12 @@ const BusinessAnalysis = () => {
         <div className="mb-5">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-sm font-semibold text-blue-400">
+              <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                 {t.evidenceInsights}
               </p>
-              <h2 className="mt-1 text-2xl font-extrabold">{t.exploreData}</h2>
+              <h2 className="mt-1 text-2xl font-extrabold text-slate-900 dark:text-white">{t.exploreData}</h2>
             </div>
-            <span className="hidden text-xs text-gray-600 sm:block">
+            <span className="hidden text-xs text-slate-500 dark:text-gray-600 sm:block">
               {t.selectSection}
             </span>
           </div>
@@ -897,7 +897,7 @@ const BusinessAnalysis = () => {
                 onClick={() =>
                   navigate(`/businesses/${businessId}/analysis/${card.path}`)
                 }
-                className={`group min-h-[210px] rounded-2xl border border-gray-800 bg-gray-900/60 p-6 text-left backdrop-blur-xl transition ${colors.hover} hover:-translate-y-0.5 hover:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50`}
+                className={`group min-h-[210px] rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 text-left shadow-sm backdrop-blur-xl transition ${colors.hover} hover:-translate-y-0.5 hover:bg-slate-50 dark:hover:bg-gray-900 disabled:cursor-not-allowed disabled:opacity-50`}
               >
                 <div className="flex items-start justify-between">
                   <div
@@ -905,15 +905,15 @@ const BusinessAnalysis = () => {
                   >
                     <Icon size={21} />
                   </div>
-                  <span className="text-xs font-semibold text-gray-600 transition group-hover:text-gray-400">
+                  <span className="text-xs font-semibold text-slate-500 dark:text-gray-600 transition group-hover:text-slate-800 dark:group-hover:text-gray-400">
                     {t.viewDetails}
                   </span>
                 </div>
-                <h3 className="mt-5 text-lg font-bold">{card.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-gray-500">
+                <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white">{card.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-500">
                   {card.description}
                 </p>
-                <div className="mt-5 rounded-lg border border-gray-800 bg-gray-950/60 px-3 py-2 text-xs text-gray-600">
+                <div className="mt-5 rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 px-3 py-2 text-xs text-slate-500 dark:text-gray-600">
                   {available ? t.dataAvailable : t.noData}
                 </div>
               </button>
@@ -993,7 +993,7 @@ const BusinessAnalysis = () => {
 const StatusBadge = ({ icon: Icon, label, className }) => (
   <div
     className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold ${
-      className || "border-gray-800 bg-gray-900 text-gray-400"
+      className || "border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 text-slate-700 dark:text-gray-400"
     }`}
   >
     <Icon size={13} />
@@ -1076,17 +1076,17 @@ const AnalysisConfigModal = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative max-h-[92vh] w-full max-w-2xl overflow-hidden rounded-3xl border border-gray-800 bg-gray-900 shadow-2xl">
-        <div className="flex items-start justify-between border-b border-gray-800 px-6 py-5">
+      <div className="relative max-h-[92vh] w-full max-w-2xl overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-2xl">
+        <div className="flex items-start justify-between border-b border-slate-200 dark:border-gray-800 px-6 py-5">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10">
-              <Sparkles className="text-blue-400" size={22} />
+              <Sparkles className="text-blue-600 dark:text-blue-400" size={22} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                 {isRegenerate ? t.regenerate : t.generateBusinessAnalysis}
               </h2>
-              <p className="mt-0.5 text-xs text-gray-400">
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-gray-400">
                 {t.generationDescription}
               </p>
             </div>
@@ -1094,7 +1094,7 @@ const AnalysisConfigModal = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
+            className="rounded-lg p-2 text-slate-500 dark:text-gray-400 transition hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white"
             aria-label="Close"
           >
             <X size={18} />
@@ -1108,18 +1108,18 @@ const AnalysisConfigModal = ({
           {loading && (
             <div className="rounded-2xl border border-blue-500/40 bg-blue-500/10 p-4">
               <div className="flex items-start gap-3">
-                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-blue-400" />
+                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-blue-500 dark:text-blue-400" />
                 <div className="flex-1">
-                  <h4 className="text-sm font-bold text-blue-300">
+                  <h4 className="text-sm font-bold text-blue-700 dark:text-blue-300">
                     {t.longRunningNoticeTitle}
                   </h4>
-                  <p className="mt-1 text-xs leading-5 text-gray-300">
+                  <p className="mt-1 text-xs leading-5 text-slate-600 dark:text-gray-300">
                     {t.longRunningNoticeText}
                   </p>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-blue-500/40 bg-blue-600/30 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-600"
+                    className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-blue-500/40 bg-blue-600/30 px-3.5 py-1.5 text-xs font-semibold !text-white transition hover:bg-blue-600"
                   >
                     <X size={14} />
                     {t.dismissModalNotice}
@@ -1130,13 +1130,13 @@ const AnalysisConfigModal = ({
           )}
 
           <div className="rounded-2xl border border-blue-500/30 bg-blue-500/5 p-4">
-            <label className="mb-2 block text-sm font-semibold text-blue-300">
+            <label className="mb-2 block text-sm font-semibold text-blue-700 dark:text-blue-300">
               {t.analysisRadius}
             </label>
             <div className="relative">
               <LocateFixed
                 size={16}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500"
               />
               <input
                 type="number"
@@ -1146,23 +1146,23 @@ const AnalysisConfigModal = ({
                 step="0.5"
                 disabled={loading}
                 required
-                className="w-full rounded-xl border border-gray-700 bg-gray-950 py-2.5 pl-10 pr-12 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                className="w-full rounded-xl border border-slate-300 dark:border-gray-700 bg-slate-50 dark:bg-gray-950 py-2.5 pl-10 pr-12 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-gray-500">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 dark:text-gray-500">
                 km
               </span>
             </div>
-            <p className="mt-2 text-xs text-gray-400">{t.radiusDescription}</p>
+            <p className="mt-2 text-xs text-slate-500 dark:text-gray-400">{t.radiusDescription}</p>
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-gray-400">
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400">
               {t.businessInformation}
             </h3>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   Business Name
                 </label>
                 <input
@@ -1172,24 +1172,24 @@ const AnalysisConfigModal = ({
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   Category (Locked)
                 </label>
                 <input
                   type="text"
                   value={business?.category || ""}
                   disabled
-                  className="w-full cursor-not-allowed rounded-xl border border-gray-800 bg-gray-950/40 px-3.5 py-2 text-sm text-gray-600"
+                  className="w-full cursor-not-allowed rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950/40 px-3.5 py-2 text-sm text-slate-500 dark:text-gray-600"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   Margin Capital (₹)
                 </label>
                 <input
@@ -1198,12 +1198,12 @@ const AnalysisConfigModal = ({
                   value={form.margin_capital}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-full rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   Description
                 </label>
                 <textarea
@@ -1212,12 +1212,12 @@ const AnalysisConfigModal = ({
                   onChange={handleChange}
                   rows={3}
                   disabled={loading}
-                  className="w-full resize-none rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full resize-none rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   City
                 </label>
                 <input
@@ -1226,12 +1226,12 @@ const AnalysisConfigModal = ({
                   value={form.city}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-full rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   District
                 </label>
                 <input
@@ -1240,12 +1240,12 @@ const AnalysisConfigModal = ({
                   value={form.district}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-full rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   State
                 </label>
                 <input
@@ -1254,12 +1254,12 @@ const AnalysisConfigModal = ({
                   value={form.state}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-full rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-medium text-gray-400">
+                <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-gray-400">
                   Pincode
                 </label>
                 <input
@@ -1268,24 +1268,24 @@ const AnalysisConfigModal = ({
                   value={form.pincode}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-full rounded-xl border border-gray-800 bg-gray-950 px-3.5 py-2 text-sm text-white outline-none focus:border-blue-500 disabled:opacity-60"
+                  className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 px-3.5 py-2 text-sm text-slate-900 dark:text-white outline-none focus:border-blue-500 disabled:opacity-60"
                 />
               </div>
             </div>
           </div>
 
-          <div className="sticky bottom-0 -mx-6 -mb-6 flex justify-end gap-3 border-t border-gray-800 bg-gray-900/95 px-6 py-4 backdrop-blur-xl">
+          <div className="sticky bottom-0 -mx-6 -mb-6 flex justify-end gap-3 border-t border-slate-200 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 px-6 py-4 backdrop-blur-xl">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl border border-gray-800 px-5 py-2.5 text-sm font-semibold text-gray-400 transition hover:bg-gray-800 hover:text-white"
+              className="rounded-xl border border-slate-300 dark:border-gray-800 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-gray-400 transition hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white"
             >
               {loading ? t.continueWorkspace : t.cancel}
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-bold !text-white shadow-lg transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? (
                 <>
@@ -1307,42 +1307,42 @@ const AnalysisConfigModal = ({
 };
 
 const StatCard = ({ label, value }) => (
-  <div className="rounded-xl border border-gray-800 bg-gray-900/50 p-4">
-    <p className="text-xs font-semibold uppercase tracking-wider text-gray-600">
+  <div className="rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4 shadow-sm">
+    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-600">
       {label}
     </p>
-    <p className="mt-2 text-xl font-extrabold text-gray-200">{value}</p>
+    <p className="mt-2 text-xl font-extrabold text-slate-900 dark:text-gray-200">{value}</p>
   </div>
 );
 
 const MarkdownReport = ({ markdown, noReport }) => {
-  if (!markdown) return <p className="text-sm text-gray-500">{noReport}</p>;
+  if (!markdown) return <p className="text-sm text-slate-500 dark:text-gray-500">{noReport}</p>;
 
   const lines = markdown.split("\n");
   return (
-    <div className="space-y-2 text-sm leading-7 text-gray-400">
+    <div className="space-y-2 text-sm leading-7 text-slate-700 dark:text-gray-400">
       {lines.map((line, index) => {
         const trimmed = line.trim();
         if (!trimmed) return <div key={index} className="h-2" />;
         if (trimmed === "---")
-          return <hr key={index} className="my-5 border-gray-800" />;
+          return <hr key={index} className="my-5 border-slate-200 dark:border-gray-800" />;
         if (trimmed.startsWith("### ")) {
           return (
-            <h4 key={index} className="mt-5 text-base font-bold text-gray-200">
+            <h4 key={index} className="mt-5 text-base font-bold text-slate-900 dark:text-gray-200">
               {formatInlineMarkdown(trimmed.slice(4))}
             </h4>
           );
         }
         if (trimmed.startsWith("## ")) {
           return (
-            <h3 key={index} className="mt-7 text-xl font-extrabold text-white">
+            <h3 key={index} className="mt-7 text-xl font-extrabold text-slate-900 dark:text-white">
               {formatInlineMarkdown(trimmed.slice(3))}
             </h3>
           );
         }
         if (trimmed.startsWith("# ")) {
           return (
-            <h2 key={index} className="mb-5 text-2xl font-extrabold text-white">
+            <h2 key={index} className="mb-5 text-2xl font-extrabold text-slate-900 dark:text-white">
               {formatInlineMarkdown(trimmed.slice(2))}
             </h2>
           );
@@ -1350,7 +1350,7 @@ const MarkdownReport = ({ markdown, noReport }) => {
         if (trimmed.startsWith("- ")) {
           return (
             <div key={index} className="flex gap-3 pl-2">
-              <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
+              <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400" />
               <p>{formatInlineMarkdown(trimmed.slice(2))}</p>
             </div>
           );
@@ -1366,7 +1366,7 @@ const formatInlineMarkdown = (text) => {
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={index} className="font-bold text-gray-200">
+        <strong key={index} className="font-bold text-slate-900 dark:text-gray-200">
           {part.slice(2, -2)}
         </strong>
       );

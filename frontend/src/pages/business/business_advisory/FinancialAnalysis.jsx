@@ -454,11 +454,11 @@ const FinancialAnalysis = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
         <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center">
           <div className="flex flex-col items-center">
-            <Loader2 className="mb-4 h-8 w-8 animate-spin text-blue-400" />
-            <p className="text-sm text-gray-400">{t.loading}</p>
+            <Loader2 className="mb-4 h-8 w-8 animate-spin text-blue-500" />
+            <p className="text-sm text-slate-600 dark:text-gray-400">{t.loading}</p>
           </div>
         </div>
       </div>
@@ -514,27 +514,27 @@ const FinancialAnalysis = () => {
 
   if (error && !analysis) {
     return (
-      <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <button
             type="button"
             onClick={() => navigate(`/businesses/${businessId}`)}
-            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-gray-400 transition hover:text-white"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-gray-400 transition hover:text-slate-900 dark:hover:text-white"
           >
             <ArrowLeft size={16} />
             {t.backWorkspace}
           </button>
 
           <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-8 text-center">
-            <AlertCircle className="mx-auto mb-4 h-10 w-10 text-red-400" />
-            <h2 className="text-xl font-bold">{t.operationFailed}</h2>
-            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-gray-400">
+            <AlertCircle className="mx-auto mb-4 h-10 w-10 text-red-500 dark:text-red-400" />
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">{t.operationFailed}</h2>
+            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 dark:text-gray-400">
               {error}
             </p>
             <button
               type="button"
               onClick={() => loadFinance()}
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold transition hover:bg-blue-500"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-600 !text-white px-5 py-3 text-sm font-bold transition hover:bg-blue-500 shadow-md shadow-blue-500/20"
             >
               <RefreshCw size={16} />
               {t.tryAgain}
@@ -546,12 +546,12 @@ const FinancialAnalysis = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <button
           type="button"
           onClick={() => navigate(`/businesses/${businessId}`)}
-          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-400 transition hover:text-white"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-gray-400 transition hover:text-slate-900 dark:hover:text-white"
         >
           <ArrowLeft size={16} />
           {t.backWorkspace}
@@ -560,12 +560,12 @@ const FinancialAnalysis = () => {
         {isStaleReport && !generating && (
           <div className="mb-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 shadow-lg backdrop-blur-md sm:flex-row sm:items-center">
             <div className="flex items-start gap-3">
-              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500 dark:text-amber-400" />
               <div>
-                <h3 className="text-sm font-bold text-amber-300">
+                <h3 className="text-sm font-bold text-amber-700 dark:text-amber-300">
                   {t.staleBannerTitle}
                 </h3>
-                <p className="mt-1 text-xs leading-5 text-gray-300">
+                <p className="mt-1 text-xs leading-5 text-slate-600 dark:text-gray-300">
                   {t.staleBannerDesc}
                 </p>
               </div>
@@ -573,7 +573,7 @@ const FinancialAnalysis = () => {
             <button
               type="button"
               onClick={handleStartRegenerate}
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold text-gray-950 transition hover:bg-amber-400"
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold !text-slate-950 transition hover:bg-amber-400 shadow-sm"
             >
               <RefreshCw size={14} />
               {t.reviewAndRegenerate}
@@ -583,16 +583,16 @@ const FinancialAnalysis = () => {
 
         <div className="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-              <WalletCards size={27} className="text-blue-400" />
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
+              <WalletCards size={27} className="text-blue-600 dark:text-blue-400" />
             </div>
 
             <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <Sparkles size={15} />
                 {t.aiPlanning}
               </div>
-              <h1 className="mt-1 text-3xl font-extrabold">
+              <h1 className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">
                 {t.financialAnalysis}
               </h1>
             </div>
@@ -607,7 +607,7 @@ const FinancialAnalysis = () => {
             type="button"
             onClick={handleStartRegenerate}
             disabled={generating}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-sm font-bold text-gray-300 transition hover:border-gray-700 hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 text-sm font-bold text-slate-700 dark:text-gray-300 transition hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-50 dark:hover:bg-gray-800 shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
           >
             <RefreshCw size={16} />
             {t.regenerate}
@@ -654,7 +654,7 @@ const FinancialAnalysis = () => {
             />
           )}
 
-          <span className="rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs font-semibold text-gray-500">
+          <span className="rounded-lg border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-3 py-1.5 text-xs font-semibold text-slate-500 dark:text-gray-500">
             {t.version} {analysis?.version ?? "—"}
           </span>
         </div>
@@ -676,7 +676,7 @@ const FinancialAnalysis = () => {
 const StatusBadge = ({ icon: Icon, label, className }) => (
   <div
     className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold ${
-      className || "border-gray-800 bg-gray-900 text-gray-400"
+      className || "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-slate-600 dark:text-gray-400"
     }`}
   >
     <Icon size={13} />
@@ -694,17 +694,17 @@ const FinanceValidation = ({ plan, t }) => {
   return (
     <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
       {validation && (
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 backdrop-blur-xl">
+        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-none backdrop-blur-xl">
           <div className="mb-5 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10">
-              <AlertCircle size={19} className="text-amber-400" />
+              <AlertCircle size={19} className="text-amber-500 dark:text-amber-400" />
             </div>
 
             <div>
-              <p className="text-sm font-semibold text-amber-400">
+              <p className="text-sm font-semibold text-amber-500 dark:text-amber-400">
                 {t.inputWarnings}
               </p>
-              <h2 className="text-lg font-bold">{t.usedValues}</h2>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.usedValues}</h2>
             </div>
           </div>
 
@@ -715,16 +715,16 @@ const FinanceValidation = ({ plan, t }) => {
               return (
                 <div
                   key={key}
-                  className="rounded-xl border border-gray-800 bg-gray-950/60 p-4"
+                  className="rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4"
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <span className="text-sm font-bold capitalize text-gray-200">
+                    <span className="text-sm font-bold capitalize text-slate-800 dark:text-gray-200">
                       {key.replaceAll("_", " ")}
                     </span>
 
                     <span
                       className={`text-xs font-bold ${
-                        value.accepted ? "text-emerald-400" : "text-amber-400"
+                        value.accepted ? "text-emerald-500 dark:text-emerald-400" : "text-amber-500 dark:text-amber-400"
                       }`}
                     >
                       {value.accepted
@@ -734,14 +734,14 @@ const FinanceValidation = ({ plan, t }) => {
                   </div>
 
                   {value.provided != null && (
-                    <p className="mt-2 text-xs text-gray-500">
+                    <p className="mt-2 text-xs text-slate-500 dark:text-gray-500">
                       Provided: ₹
                       {Number(value.provided).toLocaleString("en-IN")}
                     </p>
                   )}
 
                   {value.reason && (
-                    <p className="mt-2 text-sm leading-6 text-gray-400">
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">
                       {value.reason}
                     </p>
                   )}
@@ -753,25 +753,25 @@ const FinanceValidation = ({ plan, t }) => {
       )}
 
       {estimation && (
-        <div className="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 backdrop-blur-xl">
+        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-none backdrop-blur-xl">
           <div className="mb-5 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/10">
-              <Sparkles size={19} className="text-violet-400" />
+              <Sparkles size={19} className="text-violet-500 dark:text-violet-400" />
             </div>
 
             <div>
-              <p className="text-sm font-semibold text-violet-400">
+              <p className="text-sm font-semibold text-violet-500 dark:text-violet-400">
                 {t.assumptionsTitle}
               </p>
-              <h2 className="text-lg font-bold">{t.assumptions}</h2>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.assumptions}</h2>
             </div>
           </div>
 
-          <div className="mb-5 rounded-xl border border-gray-800 bg-gray-950/60 p-4">
+          <div className="mb-5 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-500">{t.confidence}</span>
+              <span className="text-sm text-slate-500 dark:text-gray-500">{t.confidence}</span>
 
-              <span className="font-bold capitalize text-violet-300">
+              <span className="font-bold capitalize text-violet-600 dark:text-violet-300">
                 {estimation.confidence || "—"}
               </span>
             </div>

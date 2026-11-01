@@ -199,7 +199,7 @@ const MarketPrices = () => {
                   profile?.commodities?.[0]?.aliases?.map((alias) => (
                     <span
                       key={alias}
-                      className="rounded-lg border border-gray-800 bg-gray-950 px-3 py-2 text-xs font-semibold text-gray-400"
+                      className="rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-gray-400"
                     >
                       {alias}
                     </span>
@@ -209,11 +209,11 @@ const MarketPrices = () => {
           </div>
 
           <div className="mt-5 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
-            <h3 className="font-bold text-amber-300">
+            <h3 className="font-bold text-amber-700 dark:text-amber-300">
               {t.pricingDataAdvisory}
             </h3>
 
-            <p className="mt-2 text-sm leading-6 text-gray-500">
+            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-500">
               {t.advisoryText}
             </p>
           </div>

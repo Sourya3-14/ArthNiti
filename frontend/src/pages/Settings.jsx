@@ -135,33 +135,33 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-slate-900 dark:text-white">
       {/* Header */}
-      <div className="mb-10 pb-6 border-b border-gray-800">
+      <div className="mb-10 pb-6 border-b border-slate-200 dark:border-gray-800">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 p-2.5 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
             <SettingsIcon size={24} />
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               {t.pageTitle}
             </h1>
-            <p className="text-sm text-gray-400 mt-1">{t.pageSubtitle}</p>
+            <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">{t.pageSubtitle}</p>
           </div>
         </div>
       </div>
 
       <div className="space-y-8">
         {/* 1. THEME SELECTION */}
-        <section className="rounded-3xl border border-gray-800 bg-gray-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-xl transition-all">
+        <section className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-lg dark:shadow-xl transition-all">
           <div className="flex items-start justify-between gap-4 mb-6">
             <div>
-              <div className="flex items-center gap-2 text-blue-400 mb-1">
+              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 mb-1">
                 <Sun size={20} className="hidden dark:inline" />
                 <Moon size={20} className="inline dark:hidden" />
-                <h2 className="text-lg font-bold text-white">{t.themeTitle}</h2>
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.themeTitle}</h2>
               </div>
-              <p className="text-xs sm:text-sm text-gray-400">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-400">
                 {t.themeDescription}
               </p>
             </div>
@@ -174,13 +174,13 @@ const Settings = () => {
               onClick={() => setTheme("system")}
               className={`relative flex flex-col items-start p-5 rounded-2xl border text-left transition-all duration-300 transform ${
                 theme === "system"
-                  ? "bg-gradient-to-b from-blue-600/20 to-indigo-600/10 border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.25)] scale-[1.02]"
-                  : "bg-gray-950/50 border-gray-800 hover:border-gray-700 hover:bg-gray-950/80"
+                  ? "bg-gradient-to-b from-blue-600/15 to-indigo-600/10 border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.2)] scale-[1.02]"
+                  : "bg-slate-50 dark:bg-gray-950/50 border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-950/80"
               }`}
             >
               {theme === "system" && (
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 text-blue-400">
-                  <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-500/30">
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
+                  <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-500/15 dark:bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-500/30">
                     {t.autoBadge}
                   </span>
                   <CheckCircle2 size={18} />
@@ -189,21 +189,21 @@ const Settings = () => {
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors ${
                   theme === "system"
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
-                    : "bg-gray-800 text-gray-400"
+                    ? "bg-blue-600 !text-white shadow-md shadow-blue-500/30"
+                    : "bg-slate-200 dark:bg-gray-800 text-slate-600 dark:text-gray-400"
                 }`}
               >
                 <Monitor size={22} />
               </div>
-              <h3 className="font-bold text-white text-base mb-1">
+              <h3 className="font-bold text-slate-900 dark:text-white text-base mb-1">
                 {t.systemTitle}
               </h3>
-              <p className="text-xs text-gray-400 leading-relaxed mb-3">
+              <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed mb-3">
                 {t.systemDesc}
               </p>
-              <span className="text-[11px] text-gray-500 mt-auto font-medium">
+              <span className="text-[11px] text-slate-500 dark:text-gray-500 mt-auto font-medium">
                 {t.systemCurrent}:{" "}
-                <span className="text-blue-400 capitalize font-bold">
+                <span className="text-blue-600 dark:text-blue-400 capitalize font-bold">
                   {resolvedTheme}
                 </span>
               </span>
@@ -215,13 +215,13 @@ const Settings = () => {
               onClick={() => setTheme("light")}
               className={`relative flex flex-col items-start p-5 rounded-2xl border text-left transition-all duration-300 transform ${
                 theme === "light"
-                  ? "bg-gradient-to-b from-blue-600/20 to-indigo-600/10 border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.25)] scale-[1.02]"
-                  : "bg-gray-950/50 border-gray-800 hover:border-gray-700 hover:bg-gray-950/80"
+                  ? "bg-gradient-to-b from-blue-600/15 to-indigo-600/10 border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.2)] scale-[1.02]"
+                  : "bg-slate-50 dark:bg-gray-950/50 border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-950/80"
               }`}
             >
               {theme === "light" && (
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 text-blue-400">
-                  <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-500/30">
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
+                  <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-500/15 dark:bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-500/30">
                     {t.activeBadge}
                   </span>
                   <CheckCircle2 size={18} />
@@ -230,16 +230,16 @@ const Settings = () => {
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors ${
                   theme === "light"
-                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/30"
-                    : "bg-gray-800 text-gray-400"
+                    ? "bg-amber-500 !text-white shadow-md shadow-amber-500/30"
+                    : "bg-slate-200 dark:bg-gray-800 text-slate-600 dark:text-gray-400"
                 }`}
               >
                 <Sun size={22} />
               </div>
-              <h3 className="font-bold text-white text-base mb-1">
+              <h3 className="font-bold text-slate-900 dark:text-white text-base mb-1">
                 {t.lightTitle}
               </h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
                 {t.lightDesc}
               </p>
             </button>
@@ -250,13 +250,13 @@ const Settings = () => {
               onClick={() => setTheme("dark")}
               className={`relative flex flex-col items-start p-5 rounded-2xl border text-left transition-all duration-300 transform ${
                 theme === "dark"
-                  ? "bg-gradient-to-b from-blue-600/20 to-indigo-600/10 border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.25)] scale-[1.02]"
-                  : "bg-gray-950/50 border-gray-800 hover:border-gray-700 hover:bg-gray-950/80"
+                  ? "bg-gradient-to-b from-blue-600/15 to-indigo-600/10 border-blue-500 shadow-[0_0_25px_rgba(59,130,246,0.2)] scale-[1.02]"
+                  : "bg-slate-50 dark:bg-gray-950/50 border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-950/80"
               }`}
             >
               {theme === "dark" && (
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 text-blue-400">
-                  <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-500/30">
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
+                  <span className="text-[10px] uppercase font-bold tracking-wider bg-blue-500/15 dark:bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-500/30">
                     {t.activeBadge}
                   </span>
                   <CheckCircle2 size={18} />
@@ -265,16 +265,16 @@ const Settings = () => {
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors ${
                   theme === "dark"
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/30"
-                    : "bg-gray-800 text-gray-400"
+                    ? "bg-indigo-600 !text-white shadow-md shadow-indigo-500/30"
+                    : "bg-slate-200 dark:bg-gray-800 text-slate-600 dark:text-gray-400"
                 }`}
               >
                 <Moon size={22} />
               </div>
-              <h3 className="font-bold text-white text-base mb-1">
+              <h3 className="font-bold text-slate-900 dark:text-white text-base mb-1">
                 {t.darkTitle}
               </h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
                 {t.darkDesc}
               </p>
             </button>
@@ -282,12 +282,12 @@ const Settings = () => {
         </section>
 
         {/* 2. LANGUAGE SELECTION */}
-        <section className="rounded-3xl border border-gray-800 bg-gray-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-xl transition-all">
-          <div className="flex items-center gap-2 text-indigo-400 mb-1">
+        <section className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-lg dark:shadow-xl transition-all">
+          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 mb-1">
             <Languages size={20} />
-            <h2 className="text-lg font-bold text-white">{t.languageTitle}</h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.languageTitle}</h2>
           </div>
-          <p className="text-xs sm:text-sm text-gray-400 mb-6">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-400 mb-6">
             {t.languageDescription}
           </p>
 
@@ -298,18 +298,18 @@ const Settings = () => {
               onClick={() => toggleLanguage("english")}
               className={`relative flex items-center justify-between p-4 rounded-2xl border text-left transition-all duration-300 ${
                 language === "english"
-                  ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/10 border-blue-500 shadow-md shadow-blue-500/10 scale-[1.01]"
-                  : "bg-gray-950/50 border-gray-800 hover:border-gray-700 hover:bg-gray-950/80"
+                  ? "bg-gradient-to-r from-blue-600/15 to-indigo-600/10 border-blue-500 shadow-md shadow-blue-500/10 scale-[1.01]"
+                  : "bg-slate-50 dark:bg-gray-950/50 border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-950/80"
               }`}
             >
               <div>
-                <span className="font-bold text-white text-base block">
+                <span className="font-bold text-slate-900 dark:text-white text-base block">
                   {t.englishLabel}
                 </span>
-                <span className="text-xs text-gray-400">EN</span>
+                <span className="text-xs text-slate-500 dark:text-gray-400">EN</span>
               </div>
               {language === "english" && (
-                <CheckCircle2 size={20} className="text-blue-400" />
+                <CheckCircle2 size={20} className="text-blue-600 dark:text-blue-400" />
               )}
             </button>
 
@@ -319,18 +319,18 @@ const Settings = () => {
               onClick={() => toggleLanguage("hindi")}
               className={`relative flex items-center justify-between p-4 rounded-2xl border text-left transition-all duration-300 ${
                 language === "hindi"
-                  ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/10 border-blue-500 shadow-md shadow-blue-500/10 scale-[1.01]"
-                  : "bg-gray-950/50 border-gray-800 hover:border-gray-700 hover:bg-gray-950/80"
+                  ? "bg-gradient-to-r from-blue-600/15 to-indigo-600/10 border-blue-500 shadow-md shadow-blue-500/10 scale-[1.01]"
+                  : "bg-slate-50 dark:bg-gray-950/50 border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-950/80"
               }`}
             >
               <div>
-                <span className="font-bold text-white text-base block">
+                <span className="font-bold text-slate-900 dark:text-white text-base block">
                   {t.hindiLabel}
                 </span>
-                <span className="text-xs text-gray-400">HI</span>
+                <span className="text-xs text-slate-500 dark:text-gray-400">HI</span>
               </div>
               {language === "hindi" && (
-                <CheckCircle2 size={20} className="text-blue-400" />
+                <CheckCircle2 size={20} className="text-blue-600 dark:text-blue-400" />
               )}
             </button>
 
@@ -340,35 +340,35 @@ const Settings = () => {
               onClick={() => toggleLanguage("bengali")}
               className={`relative flex items-center justify-between p-4 rounded-2xl border text-left transition-all duration-300 ${
                 language === "bengali"
-                  ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/10 border-blue-500 shadow-md shadow-blue-500/10 scale-[1.01]"
-                  : "bg-gray-950/50 border-gray-800 hover:border-gray-700 hover:bg-gray-950/80"
+                  ? "bg-gradient-to-r from-blue-600/15 to-indigo-600/10 border-blue-500 shadow-md shadow-blue-500/10 scale-[1.01]"
+                  : "bg-slate-50 dark:bg-gray-950/50 border-slate-200 dark:border-gray-800 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-950/80"
               }`}
             >
               <div>
-                <span className="font-bold text-white text-base block">
+                <span className="font-bold text-slate-900 dark:text-white text-base block">
                   {t.bengaliLabel}
                 </span>
-                <span className="text-xs text-gray-400">BN</span>
+                <span className="text-xs text-slate-500 dark:text-gray-400">BN</span>
               </div>
               {language === "bengali" && (
-                <CheckCircle2 size={20} className="text-blue-400" />
+                <CheckCircle2 size={20} className="text-blue-600 dark:text-blue-400" />
               )}
             </button>
           </div>
         </section>
 
         {/* 3. UPDATE PROFILE OPTION ONLY */}
-        <section className="rounded-3xl border border-gray-800 bg-gray-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-xl transition-all">
-          <div className="flex items-center gap-2 text-emerald-400 mb-1">
+        <section className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 sm:p-8 backdrop-blur-xl shadow-lg dark:shadow-xl transition-all">
+          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 mb-1">
             <UserCheck size={20} />
-            <h2 className="text-lg font-bold text-white">{t.profileTitle}</h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.profileTitle}</h2>
           </div>
-          <p className="text-xs sm:text-sm text-gray-400 mb-6">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-400 mb-6">
             {t.profileDescription}
           </p>
 
           {isAuthenticated && user ? (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-5 rounded-2xl border border-gray-800 bg-gray-950/60">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-5 rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white overflow-hidden shadow-lg shadow-blue-500/20 shrink-0">
                   {user.profile_image || user.profile_pic ? (
@@ -382,14 +382,14 @@ const Settings = () => {
                   )}
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-base">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">
                     {getUserDisplayName()}
                   </h3>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-slate-600 dark:text-gray-400">
                     {user.email || user.username}
                   </p>
                   {user.role && (
-                    <span className="inline-block mt-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <span className="inline-block mt-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
                       {String(user.role)}
                     </span>
                   )}
@@ -398,19 +398,19 @@ const Settings = () => {
 
               <Link
                 to="/profile"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 !text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all"
               >
                 <span>{t.editProfileBtn}</span>
                 <ArrowRight size={16} />
               </Link>
             </div>
           ) : (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-5 rounded-2xl border border-gray-800 bg-gray-950/60">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-5 rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60">
               <div>
-                <h3 className="font-bold text-white text-base">
+                <h3 className="font-bold text-slate-900 dark:text-white text-base">
                   {t.notLoggedIn}
                 </h3>
-                <p className="text-xs text-gray-400 mt-1 max-w-md">
+                <p className="text-xs text-slate-600 dark:text-gray-400 mt-1 max-w-md">
                   {t.loginPrompt}
                 </p>
               </div>
@@ -418,7 +418,7 @@ const Settings = () => {
               <button
                 type="button"
                 onClick={() => navigate("/login")}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all shrink-0"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 !text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all shrink-0"
               >
                 <span>{t.loginBtn}</span>
                 <ArrowRight size={16} />

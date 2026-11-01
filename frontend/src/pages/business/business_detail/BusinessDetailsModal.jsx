@@ -98,16 +98,16 @@ const normalizePhoneForWhatsApp = (phone) => {
 };
 
 const SectionTitle = ({ icon, title }) => (
-  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-200">
-    <span className="text-indigo-400">{icon}</span>
+  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+    <span className="text-indigo-600 dark:text-indigo-400">{icon}</span>
     {title}
   </div>
 );
 
 const DetailItem = ({ label, value }) => (
-  <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3.5">
-    <p className="text-xs font-medium text-slate-500">{label}</p>
-    <p className="mt-1 break-words text-sm text-slate-200">
+  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.04] p-3.5">
+    <p className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</p>
+    <p className="mt-1 break-words text-sm font-medium text-slate-800 dark:text-slate-200">
       {value !== null && value !== undefined && value !== ""
         ? String(value)
         : "-"}
@@ -156,29 +156,29 @@ const BusinessDetailsModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 dark:bg-black/70 p-4 backdrop-blur-sm"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-2xl">
+      <div className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-2xl">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-4 sm:px-6">
+        <div className="flex items-start justify-between gap-4 border-b border-slate-200 dark:border-white/10 px-5 py-4 sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-300">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-300">
               <Building2 size={23} />
             </div>
             <div className="min-w-0">
-              <h2 className="truncate text-xl font-bold text-white sm:text-2xl">
+              <h2 className="truncate text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
                 {businessName}
               </h2>
-              <p className="mt-1 text-sm text-indigo-300">{category}</p>
+              <p className="mt-1 text-sm font-medium text-indigo-600 dark:text-indigo-300">{category}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl p-2 text-slate-400 transition hover:bg-white/10 hover:text-white"
+            className="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white"
             aria-label={t.close}
           >
             <X size={20} />
@@ -193,8 +193,8 @@ const BusinessDetailsModal = ({
               icon={<Building2 size={17} />}
               title={t.description}
             />
-            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
-              <p className="whitespace-pre-wrap text-sm leading-7 text-slate-300">
+            <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.04] p-4">
+              <p className="whitespace-pre-wrap text-sm leading-7 text-slate-700 dark:text-slate-300">
                 {description}
               </p>
             </div>
@@ -343,7 +343,7 @@ const BusinessDetailsModal = ({
                       <User size={17} className="text-slate-500" />
                       <div>
                         <p className="text-xs text-slate-500">{t.owner}</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">
+                        <p className="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white">
                           {ownerName}
                         </p>
                       </div>
@@ -355,7 +355,7 @@ const BusinessDetailsModal = ({
                       <Mail size={17} className="text-slate-500" />
                       <div className="min-w-0">
                         <p className="text-xs text-slate-500">{t.email}</p>
-                        <p className="mt-0.5 break-all text-sm text-white">
+                        <p className="mt-0.5 break-all text-sm font-medium text-slate-900 dark:text-white">
                           {ownerEmail}
                         </p>
                       </div>
@@ -367,7 +367,7 @@ const BusinessDetailsModal = ({
                       <Phone size={17} className="text-slate-500" />
                       <div>
                         <p className="text-xs text-slate-500">{t.phone}</p>
-                        <p className="mt-0.5 text-sm text-white">
+                        <p className="mt-0.5 text-sm font-medium text-slate-900 dark:text-white">
                           {ownerPhone}
                         </p>
                       </div>
@@ -375,12 +375,12 @@ const BusinessDetailsModal = ({
                   )}
                 </div>
 
-                <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row">
+                <div className="mt-6 flex flex-col gap-3 border-t border-slate-200 dark:border-white/10 pt-5 sm:flex-row">
                   {targetOwnerId && (
                     <button
                       type="button"
                       onClick={() => onVisitProfile(targetOwnerId)}
-                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 shadow-sm"
                     >
                       <User size={17} />
                       {t.visitProfile}
@@ -390,7 +390,7 @@ const BusinessDetailsModal = ({
                   {ownerEmail && (
                     <a
                       href={`mailto:${ownerEmail}`}
-                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-slate-800 dark:text-white transition hover:bg-slate-200 dark:hover:bg-white/10"
                     >
                       <Mail size={17} />
                       {t.email}
@@ -402,7 +402,7 @@ const BusinessDetailsModal = ({
                       href={`https://wa.me/${whatsappNumber}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 px-4 py-2.5 text-sm font-semibold text-slate-800 dark:text-white transition hover:bg-slate-200 dark:hover:bg-white/10"
                     >
                       <MessageCircle size={17} />
                       {t.whatsapp}
@@ -411,8 +411,8 @@ const BusinessDetailsModal = ({
                 </div>
               </div>
             ) : (
-              <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
-                <p className="text-sm text-slate-400">{t.contactUnavailable}</p>
+              <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.04] p-5">
+                <p className="text-sm text-slate-600 dark:text-slate-400">{t.contactUnavailable}</p>
               </div>
             )}
           </section>

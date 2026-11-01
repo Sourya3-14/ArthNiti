@@ -129,7 +129,7 @@ const SupplyChainAnalysis = () => {
       title={t.title}
       subtitle={t.subtitle}
       icon={Boxes}
-      iconClassName="text-amber-400"
+      iconClassName="text-amber-600 dark:text-amber-400"
       loading={loading}
       error={error}
     >
@@ -154,11 +154,11 @@ const SupplyChainAnalysis = () => {
               return (
                 <SectionCard key={item.key} title={item.title} icon={Icon}>
                   <div className="mb-5 flex items-center justify-between">
-                    <span className="text-sm text-gray-500">{t.score}</span>
+                    <span className="text-sm text-slate-500 dark:text-gray-500">{t.score}</span>
 
-                    <span className="text-2xl font-extrabold text-gray-200">
+                    <span className="text-2xl font-extrabold text-slate-900 dark:text-gray-200">
                       {pillar?.score ?? "—"}
-                      <span className="text-sm text-gray-600">/100</span>
+                      <span className="text-sm text-slate-400 dark:text-gray-600">/100</span>
                     </span>
                   </div>
 

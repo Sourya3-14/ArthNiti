@@ -466,8 +466,8 @@ const getRoleConfig = (role, t) => {
 };
 
 const blueStyles = {
-  icon: "border-blue-500/20 bg-blue-500/10 text-blue-400",
-  eyebrow: "text-blue-400",
+  icon: "border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400",
+  eyebrow: "text-blue-600 dark:text-blue-400",
   button: "bg-blue-600 hover:bg-blue-500",
   line: "bg-blue-500",
 };
@@ -493,7 +493,7 @@ const RoleDashboard = () => {
   const PrimaryIcon = content.primary.icon;
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-10">
+    <section className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-10">
       {/* Background Glows (Strictly Blue) */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
@@ -501,7 +501,7 @@ const RoleDashboard = () => {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <header className="border-b border-gray-800 pb-10">
+        <header className="border-b border-slate-200 dark:border-gray-800 pb-10">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div
@@ -510,20 +510,20 @@ const RoleDashboard = () => {
                 <Icon size={17} />
                 {content.eyebrow}
               </div>
-              <p className="mb-3 text-sm text-gray-500">
+              <p className="mb-3 text-sm text-slate-500 dark:text-gray-500">
                 {t.welcome}, {getUserName(user, t.there)}
               </p>
-              <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+              <h1 className="text-4xl font-black tracking-tight text-slate-900 dark:text-white sm:text-5xl">
                 {content.title}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-gray-400 sm:text-lg">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-gray-400 sm:text-lg">
                 {content.description}
               </p>
             </div>
 
             <Link
               to={content.primary.to}
-              className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5 ${blueStyles.button}`}
+              className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-bold !text-white transition hover:-translate-y-0.5 shadow-md shadow-blue-500/20 ${blueStyles.button}`}
             >
               <PrimaryIcon size={18} />
               {content.primary.label}
@@ -533,7 +533,7 @@ const RoleDashboard = () => {
         </header>
 
         <div className="grid gap-6 py-10 lg:grid-cols-[1.2fr_0.8fr]">
-          <section className="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 backdrop-blur-xl sm:p-8">
+          <section className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-none backdrop-blur-xl sm:p-8">
             <div className="mb-7 flex items-start justify-between gap-5">
               <div>
                 <p
@@ -541,7 +541,7 @@ const RoleDashboard = () => {
                 >
                   {t.yourWorkspace}
                 </p>
-                <h2 className="mt-2 text-2xl font-extrabold">
+                <h2 className="mt-2 text-2xl font-extrabold text-slate-900 dark:text-white">
                   {t.startAction}
                 </h2>
               </div>
@@ -554,33 +554,33 @@ const RoleDashboard = () => {
 
             <Link
               to={content.primary.to}
-              className="group flex items-center justify-between gap-4 rounded-xl border border-gray-700 bg-gray-950/70 p-5 transition hover:border-gray-600 hover:bg-gray-950"
+              className="group flex items-center justify-between gap-4 rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-950/70 p-5 transition hover:border-blue-400 dark:hover:border-gray-600 hover:bg-slate-100 dark:hover:bg-gray-950 shadow-sm dark:shadow-none"
             >
               <div>
-                <h3 className="font-bold text-white">
+                <h3 className="font-bold text-slate-900 dark:text-white">
                   {content.primary.label}
                 </h3>
-                <p className="mt-1 text-sm leading-6 text-gray-400">
+                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-gray-400">
                   {content.primary.description}
                 </p>
               </div>
               <ArrowRight
                 size={19}
-                className="shrink-0 text-gray-500 transition group-hover:translate-x-1 group-hover:text-white"
+                className="shrink-0 text-slate-400 dark:text-gray-500 transition group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-white"
               />
             </Link>
           </section>
 
-          <section className="rounded-2xl border border-gray-800 bg-gray-900/40 p-6 sm:p-8">
+          <section className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/40 p-6 sm:p-8 shadow-sm dark:shadow-none">
             <p
               className={`text-xs font-bold uppercase tracking-[0.18em] ${blueStyles.eyebrow}`}
             >
               {t.nextSteps}
             </p>
-            <h2 className="mt-2 text-2xl font-extrabold">
+            <h2 className="mt-2 text-2xl font-extrabold text-slate-900 dark:text-white">
               {content.nextTitle}
             </h2>
-            <p className="mt-4 text-sm leading-7 text-gray-400">
+            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-gray-400">
               {content.nextDesc}
             </p>
           </section>
@@ -588,10 +588,10 @@ const RoleDashboard = () => {
 
         <section className="pb-12">
           <div className="mb-6">
-            <p className="text-sm font-semibold text-gray-500">
+            <p className="text-sm font-semibold text-slate-500 dark:text-gray-500">
               {t.exploreTools}
             </p>
-            <h2 className="mt-1 text-2xl font-extrabold">
+            <h2 className="mt-1 text-2xl font-extrabold text-slate-900 dark:text-white">
               {t.builtAroundRole}
             </h2>
           </div>
@@ -603,17 +603,17 @@ const RoleDashboard = () => {
                 <Link
                   key={card.label}
                   to={card.to}
-                  className="group flex min-h-52 flex-col rounded-2xl border border-gray-800 bg-gray-900/60 p-6 transition hover:-translate-y-1 hover:border-gray-600 hover:bg-gray-900"
+                  className="group flex min-h-52 flex-col rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-none transition hover:-translate-y-1 hover:border-blue-400 dark:hover:border-gray-600 hover:bg-slate-50 dark:hover:bg-gray-900 hover:shadow-md"
                 >
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-xl border ${blueStyles.icon}`}
                   >
                     <CardIcon size={19} />
                   </div>
-                  <h3 className="mt-5 text-lg font-bold text-white">
+                  <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white">
                     {card.label}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm leading-6 text-gray-500">
+                  <p className="mt-2 flex-1 text-sm leading-6 text-slate-600 dark:text-gray-500">
                     {card.description}
                   </p>
                   <span

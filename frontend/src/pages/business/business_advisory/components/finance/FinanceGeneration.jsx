@@ -223,33 +223,33 @@ const FinanceGeneration = ({
   );
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <button
           type="button"
           onClick={onBack}
           disabled={loading}
-          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-gray-400 transition hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-gray-400 transition hover:text-slate-900 dark:hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ArrowLeft size={16} />
           {t.back}
         </button>
 
-        <div className="mb-8 rounded-3xl border border-gray-800 bg-gray-900/60 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+        <div className="mb-8 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-2xl backdrop-blur-xl sm:p-8">
           <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10 text-blue-400">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400">
               <WalletCards size={26} />
             </div>
 
             <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <Sparkles size={15} />
                 {isRegeneration ? t.regenerateTitle : t.generateTitle}
               </div>
-              <h1 className="mt-1 text-2xl font-extrabold sm:text-3xl">
+              <h1 className="mt-1 text-2xl font-extrabold text-slate-900 dark:text-white sm:text-3xl">
                 {isRegeneration ? t.regenerateTitle : t.generateTitle}
               </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-gray-500">
                 {isRegeneration ? t.regenerateSubtitle : t.generateSubtitle}
               </p>
             </div>
@@ -257,20 +257,20 @@ const FinanceGeneration = ({
         </div>
 
         {business && (
-          <div className="mb-6 rounded-2xl border border-gray-800 bg-gray-950/50 p-5 backdrop-blur-xl sm:p-6">
+          <div className="mb-6 rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/50 p-5 backdrop-blur-xl sm:p-6">
             <div className="mb-4 flex items-center gap-2">
-              <Building2 size={18} className="text-blue-400" />
-              <h2 className="text-xs font-bold uppercase tracking-wider text-blue-400">
+              <Building2 size={18} className="text-blue-600 dark:text-blue-400" />
+              <h2 className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                 {t.businessSummary}
               </h2>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-xl border border-gray-800/80 bg-gray-900/40 p-4">
-                <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
+              <div className="rounded-xl border border-slate-200 dark:border-gray-800/80 bg-white dark:bg-gray-900/40 p-4">
+                <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-gray-500">
                   {t.businessName}
                 </p>
-                <p className="mt-1 font-semibold text-gray-200">
+                <p className="mt-1 font-semibold text-slate-900 dark:text-gray-200">
                   {business.name ||
                     business.business_name ||
                     business.title ||
@@ -278,31 +278,31 @@ const FinanceGeneration = ({
                 </p>
               </div>
 
-              <div className="rounded-xl border border-gray-800/80 bg-gray-900/40 p-4">
-                <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
+              <div className="rounded-xl border border-slate-200 dark:border-gray-800/80 bg-white dark:bg-gray-900/40 p-4">
+                <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-gray-500">
                   {t.category}
                 </p>
-                <p className="mt-1 font-semibold text-gray-200">
+                <p className="mt-1 font-semibold text-slate-900 dark:text-gray-200">
                   {business.category || business.business_category || "—"}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-gray-800/80 bg-gray-900/40 p-4">
-                <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
+              <div className="rounded-xl border border-slate-200 dark:border-gray-800/80 bg-white dark:bg-gray-900/40 p-4">
+                <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-gray-500">
                   {t.location}
                 </p>
-                <p className="mt-1 truncate font-semibold text-gray-200">
+                <p className="mt-1 truncate font-semibold text-slate-900 dark:text-gray-200">
                   {[business.village, business.district, business.state]
                     .filter(Boolean)
                     .join(", ") || "—"}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-gray-800/80 bg-gray-900/40 p-4">
-                <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
+              <div className="rounded-xl border border-slate-200 dark:border-gray-800/80 bg-white dark:bg-gray-900/40 p-4">
+                <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-gray-500">
                   {t.capital}
                 </p>
-                <p className="mt-1 font-semibold text-gray-200">
+                <p className="mt-1 font-semibold text-slate-900 dark:text-gray-200">
                   ₹{displayCapital.toLocaleString("en-IN")}
                 </p>
               </div>
@@ -355,10 +355,10 @@ const FinanceGeneration = ({
                 type="button"
                 onClick={() => setMethod("manual")}
                 disabled={businessAnalysisAvailable !== true}
-                className={`group rounded-2xl border bg-gray-900/60 p-6 text-left backdrop-blur-xl transition ${
+                className={`group rounded-2xl border p-6 text-left backdrop-blur-xl transition ${
                   method === "manual"
-                    ? "border-blue-500/80 bg-blue-500/10 ring-1 ring-blue-500/30"
-                    : "border-gray-800 hover:border-gray-700 hover:bg-gray-900"
+                    ? "border-blue-500 bg-blue-50 dark:bg-blue-500/10 ring-1 ring-blue-500/30"
+                    : "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-50 dark:hover:bg-gray-900 shadow-sm"
                 } ${
                   businessAnalysisAvailable !== true
                     ? "cursor-not-allowed opacity-50"
@@ -366,23 +366,23 @@ const FinanceGeneration = ({
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-400">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400">
                     <Calculator size={21} />
                   </div>
                   {method === "manual" && (
-                    <CheckCircle2 size={21} className="text-blue-400" />
+                    <CheckCircle2 size={21} className="text-blue-600 dark:text-blue-400" />
                   )}
                 </div>
 
-                <h3 className="mt-5 text-lg font-bold text-white">
+                <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white">
                   {t.provideInputs}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-gray-500">
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-500">
                   {t.provideInputsDescription}
                 </p>
 
                 {method === "manual" && (
-                  <span className="mt-4 inline-flex rounded-lg border border-blue-500/30 bg-blue-500/20 px-2.5 py-1 text-xs font-semibold text-blue-300">
+                  <span className="mt-4 inline-flex rounded-lg border border-blue-500/30 bg-blue-500/20 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:text-blue-300">
                     {t.selected}
                   </span>
                 )}
@@ -392,10 +392,10 @@ const FinanceGeneration = ({
                 type="button"
                 onClick={() => setMethod("ai")}
                 disabled={businessAnalysisAvailable !== true}
-                className={`group rounded-2xl border bg-gray-900/60 p-6 text-left backdrop-blur-xl transition ${
+                className={`group rounded-2xl border p-6 text-left backdrop-blur-xl transition ${
                   method === "ai"
-                    ? "border-violet-500/80 bg-violet-500/10 ring-1 ring-violet-500/30"
-                    : "border-gray-800 hover:border-gray-700 hover:bg-gray-900"
+                    ? "border-violet-500 bg-violet-50 dark:bg-violet-500/10 ring-1 ring-violet-500/30"
+                    : "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-50 dark:hover:bg-gray-900 shadow-sm"
                 } ${
                   businessAnalysisAvailable !== true
                     ? "cursor-not-allowed opacity-50"
@@ -403,23 +403,23 @@ const FinanceGeneration = ({
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/10 text-violet-400">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/10 text-violet-600 dark:text-violet-400">
                     <BrainCircuit size={21} />
                   </div>
                   {method === "ai" && (
-                    <CheckCircle2 size={21} className="text-violet-400" />
+                    <CheckCircle2 size={21} className="text-violet-600 dark:text-violet-400" />
                   )}
                 </div>
 
-                <h3 className="mt-5 text-lg font-bold text-white">
+                <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white">
                   {t.aiEstimate}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-gray-500">
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-500">
                   {t.aiEstimateDescription}
                 </p>
 
                 {method === "ai" && (
-                  <span className="mt-4 inline-flex rounded-lg border border-violet-500/30 bg-violet-500/20 px-2.5 py-1 text-xs font-semibold text-violet-300">
+                  <span className="mt-4 inline-flex rounded-lg border border-violet-500/30 bg-violet-500/20 px-2.5 py-1 text-xs font-semibold text-violet-700 dark:text-violet-300">
                     {t.selected}
                   </span>
                 )}
@@ -427,25 +427,25 @@ const FinanceGeneration = ({
             </div>
 
             {method === "manual" && (
-              <div className="mt-6 rounded-2xl border border-gray-800 bg-gray-950/40 p-6 backdrop-blur-xl sm:p-8">
+              <div className="mt-6 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 p-6 shadow-sm backdrop-blur-xl sm:p-8">
                 <div className="mb-6">
-                  <h2 className="text-lg font-bold text-gray-200">
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-gray-200">
                     {t.provideInputs}
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-slate-500 dark:text-gray-500">
                     Enter the figures you expect for your business.
                   </p>
                 </div>
 
                 <div className="grid gap-5 md:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-300">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
                       {t.margin}
                     </label>
                     <div className="relative">
                       <IndianRupee
                         size={16}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-600"
                       />
                       <input
                         type="number"
@@ -454,22 +454,22 @@ const FinanceGeneration = ({
                         onChange={(event) =>
                           handleInputChange("margin", event.target.value)
                         }
-                        className="w-full rounded-xl border border-gray-800 bg-gray-950 py-3 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-gray-700 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20"
+                        className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                       />
                     </div>
-                    <p className="mt-1.5 text-xs text-gray-600">
+                    <p className="mt-1.5 text-xs text-slate-500 dark:text-gray-600">
                       {t.marginHint}
                     </p>
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-300">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
                       {t.monthlyRevenue}
                     </label>
                     <div className="relative">
                       <IndianRupee
                         size={16}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-600"
                       />
                       <input
                         type="number"
@@ -481,22 +481,22 @@ const FinanceGeneration = ({
                             event.target.value,
                           )
                         }
-                        className="w-full rounded-xl border border-gray-800 bg-gray-950 py-3 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-gray-700 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20"
+                        className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                       />
                     </div>
-                    <p className="mt-1.5 text-xs text-gray-600">
+                    <p className="mt-1.5 text-xs text-slate-500 dark:text-gray-600">
                       {t.revenueHint}
                     </p>
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-300">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
                       {t.monthlyDirectCosts}
                     </label>
                     <div className="relative">
                       <IndianRupee
                         size={16}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-600"
                       />
                       <input
                         type="number"
@@ -508,22 +508,22 @@ const FinanceGeneration = ({
                             event.target.value,
                           )
                         }
-                        className="w-full rounded-xl border border-gray-800 bg-gray-950 py-3 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-gray-700 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20"
+                        className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                       />
                     </div>
-                    <p className="mt-1.5 text-xs text-gray-600">
+                    <p className="mt-1.5 text-xs text-slate-500 dark:text-gray-600">
                       {t.directCostsHint}
                     </p>
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-300">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-gray-300">
                       {t.monthlyFixedCosts}
                     </label>
                     <div className="relative">
                       <IndianRupee
                         size={16}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-600"
                       />
                       <input
                         type="number"
@@ -535,10 +535,10 @@ const FinanceGeneration = ({
                             event.target.value,
                           )
                         }
-                        className="w-full rounded-xl border border-gray-800 bg-gray-950 py-3 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-gray-700 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20"
+                        className="w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-slate-50 dark:bg-gray-950 py-3 pl-10 pr-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
                       />
                     </div>
-                    <p className="mt-1.5 text-xs text-gray-600">
+                    <p className="mt-1.5 text-xs text-slate-500 dark:text-gray-600">
                       {t.fixedCostsHint}
                     </p>
                   </div>
@@ -549,14 +549,14 @@ const FinanceGeneration = ({
             {method === "ai" && (
               <div className="mt-6 rounded-2xl border border-violet-500/20 bg-violet-500/5 p-6 backdrop-blur-xl">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/10 text-violet-400">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/10 text-violet-600 dark:text-violet-400">
                     <BrainCircuit size={21} />
                   </div>
                   <div>
-                    <h2 className="font-bold text-violet-300">
+                    <h2 className="font-bold text-violet-700 dark:text-violet-300">
                       {t.aiEstimate}
                     </h2>
-                    <p className="mt-2 text-sm leading-6 text-gray-400">
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">
                       {t.aiNotice}
                     </p>
                   </div>
@@ -568,7 +568,7 @@ const FinanceGeneration = ({
               <button
                 type="button"
                 onClick={onBack}
-                className="rounded-xl border border-gray-800 bg-gray-950 px-5 py-3 text-sm font-bold text-gray-400 transition hover:border-gray-700 hover:bg-gray-900 hover:text-white"
+                className="rounded-xl border border-slate-300 dark:border-gray-800 bg-white dark:bg-gray-950 px-5 py-3 text-sm font-bold text-slate-700 dark:text-gray-400 transition hover:bg-slate-100 dark:hover:bg-gray-900 hover:text-slate-900 dark:hover:text-white"
               >
                 {t.back}
               </button>
@@ -577,7 +577,7 @@ const FinanceGeneration = ({
                 type="button"
                 onClick={handleGenerate}
                 disabled={!canGenerate}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold !text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isRegeneration ? (
                   <Sparkles size={16} />

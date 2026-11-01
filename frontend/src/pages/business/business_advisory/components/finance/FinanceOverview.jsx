@@ -153,30 +153,30 @@ const MetricCard = ({ icon: Icon, label, value, accent }) => {
   };
 
   return (
-    <div className="rounded-2xl border border-gray-800 bg-gray-900/60 p-5 backdrop-blur-xl">
+    <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 shadow-sm dark:shadow-none backdrop-blur-xl">
       <div
         className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl border ${classes[accent]}`}
       >
         <Icon size={19} />
       </div>
 
-      <p className="text-xs font-semibold uppercase tracking-wider text-gray-600">
+      <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-gray-500">
         {label}
       </p>
 
-      <p className="mt-2 text-2xl font-extrabold text-gray-100">{value}</p>
+      <p className="mt-2 text-2xl font-extrabold text-slate-900 dark:text-gray-100">{value}</p>
     </div>
   );
 };
 
 const SectionCard = ({ title, icon: Icon, children }) => (
-  <div className="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 backdrop-blur-xl">
+  <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-none backdrop-blur-xl">
     <div className="mb-5 flex items-center gap-3">
       <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10">
-        <Icon size={19} className="text-blue-400" />
+        <Icon size={19} className="text-blue-600 dark:text-blue-400" />
       </div>
 
-      <h2 className="text-lg font-bold">{title}</h2>
+      <h2 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h2>
     </div>
 
     <div className="space-y-1">{children}</div>
@@ -184,9 +184,9 @@ const SectionCard = ({ title, icon: Icon, children }) => (
 );
 
 const InfoRow = ({ label, value }) => (
-  <div className="flex items-center justify-between gap-4 border-b border-gray-800/70 py-3 last:border-0">
-    <span className="text-sm text-gray-500">{label}</span>
-    <span className="text-right text-sm font-bold text-gray-200">{value}</span>
+  <div className="flex items-center justify-between gap-4 border-b border-slate-200 dark:border-gray-800/70 py-3 last:border-0">
+    <span className="text-sm text-slate-600 dark:text-gray-400">{label}</span>
+    <span className="text-right text-sm font-bold text-slate-900 dark:text-gray-200">{value}</span>
   </div>
 );
 

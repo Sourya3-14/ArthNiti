@@ -535,14 +535,14 @@ const GovernmentSchemes = () => {
   };
 
   const inputClass =
-    "mt-2 w-full rounded-xl border border-gray-800 bg-gray-950 px-4 py-3 text-sm text-white outline-none transition placeholder:text-gray-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30";
+    "mt-2 w-full rounded-xl border border-slate-300 dark:border-gray-800 bg-white dark:bg-gray-950 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30";
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
         <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center">
-          <div className="flex items-center gap-3 text-gray-400">
-            <Loader2 size={22} className="animate-spin text-blue-400" />
+          <div className="flex items-center gap-3 text-slate-600 dark:text-gray-400">
+            <Loader2 size={22} className="animate-spin text-blue-500" />
             {t.loading}
           </div>
         </div>
@@ -552,12 +552,12 @@ const GovernmentSchemes = () => {
 
   if (showForm || !hasRecommendations) {
     return (
-      <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
           <button
             type="button"
             onClick={() => navigate(`/businesses/${businessId}`)}
-            className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-400 transition hover:text-white"
+            className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-gray-400 transition hover:text-slate-900 dark:hover:text-white"
           >
             <ArrowLeft size={16} />
             {t.back}
@@ -565,16 +565,16 @@ const GovernmentSchemes = () => {
 
           <div className="mb-8 flex items-center justify-between gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-              <Landmark size={27} className="text-blue-400" />
+              <Landmark size={27} className="text-blue-600 dark:text-blue-400" />
             </div>
 
             <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <Sparkles size={15} />
                 {t.aiRecommendations}
               </div>
-              <h1 className="mt-1 text-3xl font-extrabold">{t.title}</h1>
-              <p className="mt-1 text-sm text-gray-500">{t.subtitle}</p>
+              <h1 className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{t.title}</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-500">{t.subtitle}</p>
             </div>
 
             <BusinessScopeBadge businessId={businessId} className="shrink-0" />
@@ -582,15 +582,15 @@ const GovernmentSchemes = () => {
 
           <div className="mb-6 rounded-2xl border border-blue-500/20 bg-blue-500/5 p-5">
             <div className="flex items-start gap-3">
-              <UserRound size={19} className="mt-0.5 shrink-0 text-blue-400" />
+              <UserRound size={19} className="mt-0.5 shrink-0 text-blue-600 dark:text-blue-400" />
               <div>
-                <p className="text-sm font-semibold text-blue-300">
+                <p className="text-sm font-semibold text-blue-600 dark:text-blue-300">
                   {t.eligibilityTitle}
                 </p>
-                <p className="mt-1 text-sm leading-6 text-gray-400">
+                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-gray-400">
                   {t.eligibilitySubtitle}
                 </p>
-                <p className="mt-2 text-xs leading-5 text-gray-600">
+                <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-gray-500">
                   {t.informationNote}
                 </p>
               </div>
@@ -602,11 +602,11 @@ const GovernmentSchemes = () => {
               <div className="flex items-start gap-3">
                 <AlertCircle
                   size={20}
-                  className="mt-0.5 shrink-0 text-red-400"
+                  className="mt-0.5 shrink-0 text-red-500 dark:text-red-400"
                 />
                 <div className="flex-1">
-                  <p className="font-semibold text-red-300">{t.errorTitle}</p>
-                  <p className="mt-1 text-sm leading-6 text-gray-400">
+                  <p className="font-semibold text-red-600 dark:text-red-300">{t.errorTitle}</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-gray-400">
                     {error}
                   </p>
 
@@ -616,7 +616,7 @@ const GovernmentSchemes = () => {
                       onClick={() =>
                         navigate(`/businesses/${businessId}/analysis`)
                       }
-                      className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-400"
+                      className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold !text-white transition hover:bg-blue-500 shadow-sm"
                     >
                       {t.businessAnalysis}
                     </button>
@@ -627,16 +627,16 @@ const GovernmentSchemes = () => {
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 backdrop-blur-xl">
+            <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm dark:shadow-none backdrop-blur-xl">
               <div className="mb-6 flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-bold">{t.eligibilityTitle}</h2>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t.eligibilityTitle}</h2>
+                  <p className="mt-1 text-xs text-slate-500 dark:text-gray-500">
                     {t.informationNote}
                   </p>
                 </div>
 
-                <span className="rounded-full border border-gray-700 bg-gray-950 px-3 py-1 text-xs text-gray-500">
+                <span className="rounded-full border border-slate-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-950 px-3 py-1 text-xs text-slate-600 dark:text-gray-500">
                   {t.optional}
                 </span>
               </div>
@@ -858,12 +858,12 @@ const GovernmentSchemes = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-8 text-white sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <button
           type="button"
           onClick={() => navigate(`/businesses/${businessId}`)}
-          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-400 transition hover:text-white"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-gray-400 transition hover:text-slate-900 dark:hover:text-white"
         >
           <ArrowLeft size={16} />
           {t.back}
@@ -872,18 +872,18 @@ const GovernmentSchemes = () => {
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex items-center gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-              <Landmark size={27} className="text-blue-400" />
+              <Landmark size={27} className="text-blue-600 dark:text-blue-400" />
             </div>
 
             <div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-blue-400">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <Sparkles size={15} />
                 {t.aiRecommendations}
               </div>
 
-              <h1 className="mt-1 text-3xl font-extrabold">{t.title}</h1>
+              <h1 className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{t.title}</h1>
 
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-500">
                 {t.schemesDescription}
               </p>
             </div>
@@ -901,7 +901,7 @@ const GovernmentSchemes = () => {
                 setError("");
                 setShowForm(true);
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-sm font-semibold text-gray-300 transition hover:border-gray-700 hover:text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 text-sm font-semibold text-slate-700 dark:text-gray-300 transition hover:border-slate-300 dark:hover:border-gray-700 hover:text-slate-900 dark:hover:text-white shadow-sm"
             >
               <RefreshCw size={16} />
               {t.regenerate}
@@ -912,10 +912,10 @@ const GovernmentSchemes = () => {
         {error && (
           <div className="mb-6 rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
             <div className="flex items-start gap-3">
-              <AlertCircle size={20} className="mt-0.5 shrink-0 text-red-400" />
+              <AlertCircle size={20} className="mt-0.5 shrink-0 text-red-500 dark:text-red-400" />
               <div>
-                <p className="font-semibold text-red-300">{t.errorTitle}</p>
-                <p className="mt-1 text-sm leading-6 text-gray-400">{error}</p>
+                <p className="font-semibold text-red-600 dark:text-red-300">{t.errorTitle}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-gray-400">{error}</p>
               </div>
             </div>
           </div>
@@ -923,36 +923,36 @@ const GovernmentSchemes = () => {
 
         <div className="mb-6 flex items-center justify-between rounded-2xl border border-blue-500/20 bg-blue-500/5 px-5 py-4">
           <div className="flex items-center gap-3">
-            <CheckCircle2 size={19} className="text-emerald-400" />
+            <CheckCircle2 size={19} className="text-emerald-500 dark:text-emerald-400" />
             <div>
-              <p className="text-sm font-semibold text-gray-200">
+              <p className="text-sm font-semibold text-slate-900 dark:text-gray-200">
                 {t.generated}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-slate-500 dark:text-gray-500">
                 {schemes.length} {t.schemesFound.toLowerCase()}
               </p>
             </div>
           </div>
 
-          <span className="hidden rounded-full border border-gray-800 bg-gray-950 px-3 py-1 text-xs text-gray-500 sm:block">
+          <span className="hidden rounded-full border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-3 py-1 text-xs text-slate-600 dark:text-gray-500 sm:block">
             {t.schemesFound}
           </span>
         </div>
 
         {schemes.length === 0 ? (
-          <div className="rounded-2xl border border-gray-800 bg-gray-900/60 p-10 text-center">
-            <Search size={32} className="mx-auto text-gray-600" />
-            <h2 className="mt-4 text-lg font-bold text-gray-300">
+          <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-10 text-center shadow-sm dark:shadow-none">
+            <Search size={32} className="mx-auto text-slate-400 dark:text-gray-600" />
+            <h2 className="mt-4 text-lg font-bold text-slate-800 dark:text-gray-300">
               {t.noSchemes}
             </h2>
-            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-gray-500">
+            <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 dark:text-gray-500">
               {t.noSchemesDescription}
             </p>
 
             <button
               type="button"
               onClick={() => setShowForm(true)}
-              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-400"
+              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold !text-white transition hover:bg-blue-500 shadow-md shadow-blue-500/20"
             >
               <RefreshCw size={16} />
               {t.regenerate}
@@ -967,23 +967,23 @@ const GovernmentSchemes = () => {
               return (
                 <div
                   key={`${scheme.scheme_id}-${index}`}
-                  className="flex h-[620px] flex-col rounded-2xl border border-gray-800 bg-gray-900/60 shadow-lg backdrop-blur-xl transition hover:border-gray-700/80"
+                  className="flex h-[620px] flex-col rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm hover:shadow-md dark:shadow-lg backdrop-blur-xl transition hover:border-blue-400 dark:hover:border-gray-700/80"
                 >
                   {/* Fixed Card Header */}
-                  <div className="border-b border-gray-800/80 p-5 sm:p-6">
+                  <div className="border-b border-slate-200 dark:border-gray-800/80 p-5 sm:p-6">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex min-w-0 items-start gap-3">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10">
-                          <Landmark size={20} className="text-blue-400" />
+                          <Landmark size={20} className="text-blue-600 dark:text-blue-400" />
                         </div>
 
                         <div className="min-w-0">
-                          <h2 className="line-clamp-2 text-base font-bold leading-6 text-white sm:text-lg">
+                          <h2 className="line-clamp-2 text-base font-bold leading-6 text-slate-900 dark:text-white sm:text-lg">
                             {scheme.name}
                           </h2>
-                          <p className="mt-0.5 text-xs text-gray-500">
+                          <p className="mt-0.5 text-xs text-slate-500 dark:text-gray-500">
                             {t.schemeId}:{" "}
-                            <span className="font-mono text-gray-400">
+                            <span className="font-mono text-slate-600 dark:text-gray-400">
                               {scheme.scheme_id}
                             </span>
                           </p>
@@ -991,7 +991,7 @@ const GovernmentSchemes = () => {
                       </div>
 
                       {Number.isFinite(similarity) && (
-                        <span className="shrink-0 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-400">
+                        <span className="shrink-0 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">
                           {Math.round(similarity * 100)}% {t.match}
                         </span>
                       )}
@@ -999,48 +999,48 @@ const GovernmentSchemes = () => {
                   </div>
 
                   {/* Scrollable Structured Content Body */}
-                  <div className="flex-1 space-y-5 overflow-y-auto p-5 sm:p-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-800 hover:scrollbar-thumb-gray-700">
+                  <div className="flex-1 space-y-5 overflow-y-auto p-5 sm:p-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-200 dark:scrollbar-thumb-gray-800 hover:scrollbar-thumb-slate-300 dark:hover:scrollbar-thumb-gray-700">
                     {scheme.benefits && (
                       <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-emerald-400">
+                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
                           {t.benefits}
                         </h3>
                         {renderFormattedContent(
                           scheme.benefits,
-                          "text-gray-300",
+                          "text-slate-700 dark:text-gray-300",
                         )}
                       </div>
                     )}
 
                     {scheme.description && (
-                      <div className="rounded-xl border border-gray-800/60 bg-gray-950/40 p-4">
-                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">
+                      <div className="rounded-xl border border-slate-200 dark:border-gray-800/60 bg-slate-50 dark:bg-gray-950/40 p-4">
+                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-gray-400">
                           {t.description}
                         </h3>
                         {renderFormattedContent(
                           scheme.description,
-                          "text-gray-400",
+                          "text-slate-600 dark:text-gray-400",
                         )}
                       </div>
                     )}
 
                     {scheme.eligibility_criteria && (
-                      <div className="rounded-xl border border-gray-800/60 bg-gray-950/40 p-4">
-                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">
+                      <div className="rounded-xl border border-slate-200 dark:border-gray-800/60 bg-slate-50 dark:bg-gray-950/40 p-4">
+                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-gray-400">
                           {t.eligibility}
                         </h3>
                         {renderFormattedContent(
                           scheme.eligibility_criteria,
-                          "text-gray-400",
+                          "text-slate-600 dark:text-gray-400",
                         )}
                       </div>
                     )}
                   </div>
 
                   {/* Card Action Footer */}
-                  <div className="border-t border-gray-800/80 bg-gray-950/30 p-4 sm:px-6">
+                  <div className="border-t border-slate-200 dark:border-gray-800/80 bg-slate-50/50 dark:bg-gray-950/30 p-4 sm:px-6">
                     {schemeUrl?.is_fallback || !schemeUrl?.url ? (
-                      <p className="mb-2.5 text-center text-xs leading-5 text-gray-500">
+                      <p className="mb-2.5 text-center text-xs leading-5 text-slate-500 dark:text-gray-500">
                         {t.fallbackNotice}
                       </p>
                     ) : null}
@@ -1048,7 +1048,7 @@ const GovernmentSchemes = () => {
                     <button
                       type="button"
                       onClick={() => openScheme(scheme)}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-500 active:scale-[0.99]"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold !text-white shadow-sm transition hover:bg-blue-500 active:scale-[0.99]"
                     >
                       <ExternalLink size={16} />
                       {schemeUrl?.is_fallback || !schemeUrl?.url

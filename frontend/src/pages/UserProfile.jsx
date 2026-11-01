@@ -317,7 +317,7 @@ const ProfileBusinessCard = ({ business, languageCode, t, onClick }) => {
       : getText(business.status, languageCode) || t.active;
 
   return (
-    <div className="group flex flex-col justify-between rounded-2xl border border-gray-800 bg-gray-950/50 p-5 shadow-lg backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-gray-900/60">
+    <div className="group flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/50 p-5 shadow-sm hover:shadow-md dark:shadow-lg backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-slate-100 dark:hover:bg-gray-900/60">
       <div
         role="button"
         tabIndex={0}
@@ -332,58 +332,58 @@ const ProfileBusinessCard = ({ business, languageCode, t, onClick }) => {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-400">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400">
               <Building2 size={20} />
             </div>
             <div className="min-w-0">
-              <h3 className="truncate text-base font-bold text-white transition group-hover:text-blue-300">
+              <h3 className="truncate text-base font-bold text-slate-900 dark:text-white transition group-hover:text-blue-600 dark:group-hover:text-blue-300">
                 {businessName}
               </h3>
-              <p className="mt-0.5 truncate text-xs font-medium text-blue-400/90">
+              <p className="mt-0.5 truncate text-xs font-semibold text-blue-600 dark:text-blue-400/90">
                 {category}
               </p>
             </div>
           </div>
 
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
             <CheckCircle2 size={12} />
             {statusText}
           </span>
         </div>
 
         <div className="mt-4 flex-1">
-          <p className="line-clamp-3 text-sm leading-relaxed text-gray-400">
+          <p className="line-clamp-3 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
             {description}
           </p>
         </div>
 
-        <div className="mt-4 space-y-2 border-t border-gray-800/80 pt-3">
+        <div className="mt-4 space-y-2 border-t border-slate-200 dark:border-gray-800/80 pt-3">
           {locationParts.length > 0 && (
-            <div className="flex items-start gap-2 text-xs text-gray-400">
-              <MapPin size={14} className="mt-0.5 shrink-0 text-gray-500" />
+            <div className="flex items-start gap-2 text-xs text-slate-600 dark:text-gray-400">
+              <MapPin size={14} className="mt-0.5 shrink-0 text-slate-400 dark:text-gray-500" />
               <span className="line-clamp-1">{locationParts.join(", ")}</span>
             </div>
           )}
 
           {business.margin_capital !== null &&
             business.margin_capital !== undefined && (
-              <div className="flex items-center gap-2 text-xs text-gray-400">
+              <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-gray-400">
                 <CircleDollarSign
                   size={14}
-                  className="shrink-0 text-gray-500"
+                  className="shrink-0 text-slate-400 dark:text-gray-500"
                 />
                 <span>{formatCapital(business.margin_capital)}</span>
               </div>
             )}
         </div>
 
-        <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-blue-400 transition group-hover:text-blue-300">
+        <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 transition group-hover:text-blue-500 dark:group-hover:text-blue-300">
           <span>{t.viewDetails}</span>
           <ArrowRight size={13} />
         </div>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-gray-800/60">
+      <div className="mt-4 pt-3 border-t border-slate-200 dark:border-gray-800/60">
         <BusinessImageGallery
           businessId={business.id}
           title={t.businessImages}
@@ -606,18 +606,18 @@ const UserProfile = () => {
 
   const InfoItem = ({ icon: Icon, label, value, fullWidth = false }) => (
     <div
-      className={`rounded-xl border border-gray-800 bg-gray-950/40 p-4 ${fullWidth ? "sm:col-span-2" : ""
+      className={`rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/40 p-4 ${fullWidth ? "sm:col-span-2" : ""
         }`}
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-800/70">
-          <Icon size={16} className="text-blue-400" />
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-gray-800/70">
+          <Icon size={16} className="text-blue-600 dark:text-blue-400" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-gray-500">
             {label}
           </p>
-          <p className="mt-1 break-words text-sm font-semibold text-gray-200">
+          <p className="mt-1 break-words text-sm font-semibold text-slate-800 dark:text-gray-200">
             {displayValue(value)}
           </p>
         </div>
@@ -626,12 +626,12 @@ const UserProfile = () => {
   );
 
   const ProfileSection = ({ icon: Icon, title, children }) => (
-    <section className="overflow-hidden rounded-2xl border border-gray-800 bg-gray-900/60 shadow-[0_15px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl">
-      <div className="flex items-center gap-3 border-b border-gray-800 px-6 py-5">
+    <section className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm dark:shadow-[0_15px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl">
+      <div className="flex items-center gap-3 border-b border-slate-200 dark:border-gray-800 px-6 py-5">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10">
-          <Icon size={19} className="text-blue-400" />
+          <Icon size={19} className="text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-base font-bold text-white">{title}</h2>
+        <h2 className="text-base font-bold text-slate-900 dark:text-white">{title}</h2>
       </div>
       <div className="p-6">{children}</div>
     </section>
@@ -639,17 +639,17 @@ const UserProfile = () => {
 
   if (loading) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+      <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
           <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
         </div>
         <div className="relative z-10 flex min-h-screen items-center justify-center p-6">
           <div className="flex flex-col items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-              <Loader2 size={30} className="animate-spin text-blue-400" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
+              <Loader2 size={30} className="animate-spin text-blue-500" />
             </div>
-            <p className="text-sm font-medium text-gray-400">{t.loading}</p>
+            <p className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.loading}</p>
           </div>
         </div>
       </div>
@@ -658,7 +658,7 @@ const UserProfile = () => {
 
   if (error || !profile) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+      <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
           <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
@@ -667,19 +667,19 @@ const UserProfile = () => {
           <div className="w-full rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
             <div className="flex flex-col items-center text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-red-500/10">
-                <AlertCircle size={26} className="text-red-400" />
+                <AlertCircle size={26} className="text-red-500 dark:text-red-400" />
               </div>
-              <h2 className="mt-5 text-xl font-bold text-white">
+              <h2 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
                 {t.unableToLoad}
               </h2>
-              <p className="mt-2 text-sm leading-6 text-gray-400">
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">
                 {error || t.unableToLoad}
               </p>
               <div className="mt-6 flex gap-3">
                 <button
                   type="button"
                   onClick={() => navigate(-1)}
-                  className="inline-flex items-center gap-2 rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-2.5 text-sm font-bold text-gray-300 transition hover:bg-gray-800"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900/80 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-gray-300 transition hover:bg-slate-100 dark:hover:bg-gray-800"
                 >
                   <ArrowLeft size={16} />
                   {t.back}
@@ -687,7 +687,7 @@ const UserProfile = () => {
                 <button
                   type="button"
                   onClick={fetchUserProfile}
-                  className="inline-flex items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-blue-500"
+                  className="inline-flex items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-600 !text-white px-5 py-2.5 text-sm font-bold transition hover:bg-blue-500 shadow-sm"
                 >
                   <RefreshCw size={16} />
                   {t.tryAgain}
@@ -712,7 +712,7 @@ const UserProfile = () => {
   const roleInfo = profile.role_info || {};
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
         <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
@@ -724,19 +724,19 @@ const UserProfile = () => {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-800 bg-gray-900/60 px-4 py-2 text-sm font-semibold text-gray-300 backdrop-blur-xl transition hover:border-gray-700 hover:bg-gray-800 hover:text-white"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-gray-300 backdrop-blur-xl transition hover:border-slate-300 dark:hover:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white shadow-sm"
           >
             <ArrowLeft size={16} />
             {t.back}
           </button>
-          <div className="flex items-center gap-2 text-xs font-semibold text-blue-400">
+          <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
             <Sparkles size={14} />
             <span>{t.poweredBy}</span>
           </div>
         </div>
 
         {/* Profile Card Header */}
-        <div className="mb-6 overflow-hidden rounded-3xl border border-gray-800 bg-gray-900/70 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-xl">
+        <div className="mb-6 overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 shadow-sm dark:shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-xl">
           <div className="relative overflow-hidden p-6 sm:p-8">
             <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-600/10 blur-3xl" />
 
@@ -746,36 +746,36 @@ const UserProfile = () => {
                   <img
                     src={profileImage}
                     alt={`${firstName} ${lastName}`}
-                    className="h-24 w-24 rounded-2xl border border-gray-700 object-cover shadow-xl sm:h-28 sm:w-28"
+                    className="h-24 w-24 rounded-2xl border border-slate-200 dark:border-gray-700 object-cover shadow-xl sm:h-28 sm:w-28"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                     }}
                   />
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-2xl font-extrabold text-blue-400 shadow-xl sm:h-28 sm:w-28 sm:text-3xl">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 text-2xl font-extrabold text-blue-600 dark:text-blue-400 shadow-xl sm:h-28 sm:w-28 sm:text-3xl">
                     {getInitials()}
                   </div>
                 )}
               </div>
 
               <div className="min-w-0 flex-1">
-                <h1 className="break-words text-2xl font-extrabold text-white sm:text-3xl">
+                <h1 className="break-words text-2xl font-extrabold text-slate-900 dark:text-white sm:text-3xl">
                   {[firstName, lastName].filter(Boolean).join(" ") || "User"}
                 </h1>
                 <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-xs font-bold text-blue-400">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-xs font-bold text-blue-600 dark:text-blue-400">
                     <RoleIcon size={13} />
                     {getRoleLabel()}
                   </span>
                 </div>
 
                 <div className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-                  <div className="flex min-w-0 items-center gap-2 text-gray-400">
-                    <Mail size={15} className="shrink-0 text-gray-500" />
+                  <div className="flex min-w-0 items-center gap-2 text-slate-600 dark:text-gray-400">
+                    <Mail size={15} className="shrink-0 text-slate-400 dark:text-gray-500" />
                     <span className="truncate">{displayValue(email)}</span>
                   </div>
-                  <div className="flex min-w-0 items-center gap-2 text-gray-400">
-                    <Phone size={15} className="shrink-0 text-gray-500" />
+                  <div className="flex min-w-0 items-center gap-2 text-slate-600 dark:text-gray-400">
+                    <Phone size={15} className="shrink-0 text-slate-400 dark:text-gray-500" />
                     <span className="truncate">{displayValue(phone)}</span>
                   </div>
                 </div>

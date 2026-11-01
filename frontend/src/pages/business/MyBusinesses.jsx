@@ -515,7 +515,7 @@ const MyBusinesses = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-950 text-white">
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
         <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
@@ -525,16 +525,16 @@ const MyBusinesses = () => {
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-blue-400">
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
               <Sparkles size={16} />
               <span>{t.poweredBy}</span>
             </div>
 
-            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               {t.title}
             </h1>
 
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-400 sm:text-base">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-gray-400 sm:text-base">
               {t.subtitle}
             </p>
           </div>
@@ -564,20 +564,20 @@ const MyBusinesses = () => {
               </button>
 
               {searchOpen && (
-                <div className="absolute right-0 top-14 z-40 w-[min(92vw,680px)] rounded-2xl border border-white/10 bg-gray-900/95 p-5 shadow-2xl backdrop-blur-2xl">
+                <div className="absolute right-0 top-14 z-40 w-[min(92vw,680px)] rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-gray-900/95 p-5 shadow-2xl backdrop-blur-2xl">
                   <div className="mb-5 flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2">
                         <SlidersHorizontal
                           size={18}
-                          className="text-blue-400"
+                          className="text-blue-600 dark:text-blue-400"
                         />
-                        <h2 className="font-semibold text-white">
+                        <h2 className="font-semibold text-slate-900 dark:text-white">
                           {t.searchBusinesses}
                         </h2>
                       </div>
 
-                      <p className="mt-1 text-sm text-gray-400">
+                      <p className="mt-1 text-sm text-slate-600 dark:text-gray-400">
                         {t.searchDescription}
                       </p>
                     </div>
@@ -585,7 +585,7 @@ const MyBusinesses = () => {
                     <button
                       type="button"
                       onClick={() => setSearchOpen(false)}
-                      className="rounded-lg p-2 text-gray-400 transition hover:bg-white/10 hover:text-white"
+                      className="rounded-lg p-2 text-slate-400 dark:text-gray-400 transition hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white"
                       aria-label={t.close}
                     >
                       <X size={18} />
@@ -751,13 +751,13 @@ const MyBusinesses = () => {
         )}
 
         {loading && (
-          <div className="flex min-h-[420px] items-center justify-center rounded-3xl border border-gray-800 bg-gray-900/50 backdrop-blur-xl">
+          <div className="flex min-h-[420px] items-center justify-center rounded-3xl border border-slate-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/50 backdrop-blur-xl shadow-sm">
             <div className="flex flex-col items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10">
-                <Loader2 size={30} className="animate-spin text-blue-400" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
+                <Loader2 size={30} className="animate-spin text-blue-600 dark:text-blue-400" />
               </div>
 
-              <p className="text-sm font-medium text-gray-400">{t.loading}</p>
+              <p className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.loading}</p>
             </div>
           </div>
         )}
@@ -766,15 +766,15 @@ const MyBusinesses = () => {
           <div className="rounded-3xl border border-red-500/20 bg-red-500/5 p-8 backdrop-blur-xl">
             <div className="flex flex-col items-start gap-5 sm:flex-row">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-500/10">
-                <AlertCircle size={24} className="text-red-400" />
+                <AlertCircle size={24} className="text-red-500 dark:text-red-400" />
               </div>
 
               <div className="flex-1">
-                <h2 className="text-lg font-bold text-white">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                   {t.unableToLoad}
                 </h2>
 
-                <p className="mt-2 text-sm leading-6 text-gray-400">{error}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-400">{error}</p>
 
                 <button
                   type="button"
@@ -783,7 +783,7 @@ const MyBusinesses = () => {
                       ? searchBusinesses(filters)
                       : fetchBusinesses()
                   }
-                  className="mt-5 inline-flex items-center gap-2 rounded-xl border border-gray-700 bg-gray-800/80 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-gray-600 hover:bg-gray-700"
+                  className="mt-5 inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800/80 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-white transition hover:bg-slate-100 dark:hover:bg-gray-700 shadow-sm"
                 >
                   <RefreshCw size={16} />
                   {t.tryAgain}
@@ -794,19 +794,19 @@ const MyBusinesses = () => {
         )}
 
         {!loading && !error && businesses.length === 0 && (
-          <div className="relative flex min-h-[460px] items-center justify-center overflow-hidden rounded-3xl border border-gray-800 bg-gray-900/50 p-8 backdrop-blur-xl">
+          <div className="relative flex min-h-[460px] items-center justify-center overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/50 p-8 shadow-sm dark:shadow-none backdrop-blur-xl">
             <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/10 blur-3xl" />
 
             <div className="relative z-10 max-w-lg text-center">
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 shadow-[0_10px_40px_rgba(37,99,235,0.1)]">
-                <Building2 size={34} className="text-blue-400" />
+                <Building2 size={34} className="text-blue-600 dark:text-blue-400" />
               </div>
 
-              <h2 className="mt-6 text-2xl font-bold text-white">
+              <h2 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
                 {t.noBusinesses}
               </h2>
 
-              <p className="mt-3 text-sm leading-7 text-gray-400">
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
                 {activeFilterCount > 0
                   ? t.searchDescription
                   : t.emptyDescription}
@@ -816,7 +816,7 @@ const MyBusinesses = () => {
                 <button
                   type="button"
                   onClick={handleClearSearch}
-                  className="mt-7 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-[0_10px_25px_rgba(37,99,235,0.25)] transition-all duration-300 hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500"
+                  className="mt-7 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-bold !text-white shadow-[0_10px_25px_rgba(37,99,235,0.25)] transition-all duration-300 hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500"
                 >
                   {t.reset}
                 </button>
@@ -824,7 +824,7 @@ const MyBusinesses = () => {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(true)}
-                  className="mt-7 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-[0_10px_25px_rgba(37,99,235,0.25)] transition-all duration-300 hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500"
+                  className="mt-7 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-bold !text-white shadow-[0_10px_25px_rgba(37,99,235,0.25)] transition-all duration-300 hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500"
                 >
                   <Plus size={18} />
                   {t.createFirst}
@@ -874,7 +874,7 @@ const MyBusinesses = () => {
 const SearchField = ({ label, value, onChange }) => {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-medium text-gray-400">
+      <span className="mb-1.5 block text-xs font-semibold text-slate-600 dark:text-gray-400">
         {label}
       </span>
 
@@ -883,7 +883,7 @@ const SearchField = ({ label, value, onChange }) => {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={label}
-        className="w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white outline-none transition placeholder:text-gray-600 focus:border-blue-400/50 focus:bg-white/10"
+        className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-400 dark:placeholder:text-gray-600 focus:border-blue-500 dark:focus:border-blue-400/50 focus:bg-white dark:focus:bg-white/10"
       />
     </label>
   );
@@ -892,16 +892,16 @@ const SearchField = ({ label, value, onChange }) => {
 const SearchSelect = ({ label, value, onChange, placeholder, options }) => {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-medium text-gray-400">
+      <span className="mb-1.5 block text-xs font-semibold text-slate-600 dark:text-gray-400">
         {label}
       </span>
 
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-xl border border-white/10 bg-gray-900 px-3.5 py-2.5 text-sm text-white outline-none transition focus:border-blue-400/50"
+        className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gray-900 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white outline-none transition focus:border-blue-500 dark:focus:border-blue-400/50"
       >
-        <option value="" className="bg-gray-900">
+        <option value="" className="bg-white dark:bg-gray-900 text-slate-900 dark:text-white">
           {placeholder}
         </option>
 
@@ -909,7 +909,7 @@ const SearchSelect = ({ label, value, onChange, placeholder, options }) => {
           <option
             key={option.value}
             value={option.value}
-            className="bg-gray-900"
+            className="bg-white dark:bg-gray-900 text-slate-900 dark:text-white"
           >
             {option.label}
           </option>

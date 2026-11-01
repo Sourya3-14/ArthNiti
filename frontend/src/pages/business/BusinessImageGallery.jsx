@@ -646,12 +646,12 @@ const BusinessImageGallery = ({
   const isBusy = uploading || actionInProgress;
 
   return (
-    <section className="mt-5 border-t border-gray-800 pt-5">
+    <section className="mt-5 border-t border-slate-200 dark:border-gray-800 pt-5">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-semibold text-gray-200">{title}</h3>
+          <h3 className="text-sm font-semibold text-slate-800 dark:text-gray-200">{title}</h3>
           {imageUrls.length > 0 && (
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-slate-500 dark:text-gray-500">
               ({imageUrls.length}/{MAX_IMAGES_PER_UPLOAD})
             </span>
           )}
@@ -664,7 +664,7 @@ const BusinessImageGallery = ({
                 type="button"
                 onClick={handleClearAll}
                 disabled={isBusy}
-                className="inline-flex items-center gap-1 rounded-lg border border-red-500/20 bg-red-500/10 px-2.5 py-1.5 text-xs font-semibold text-red-400 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center gap-1 rounded-lg border border-red-500/20 bg-red-500/10 px-2.5 py-1.5 text-xs font-semibold text-red-500 dark:text-red-400 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
                 title={galleryText.removeAll}
               >
                 <Trash2 size={13} />
@@ -676,7 +676,7 @@ const BusinessImageGallery = ({
               type="button"
               onClick={() => addInputRef.current?.click()}
               disabled={isBusy || imageUrls.length >= MAX_IMAGES_PER_UPLOAD}
-              className="inline-flex items-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-xs font-semibold text-blue-300 transition hover:bg-blue-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-300 transition hover:bg-blue-500/20 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {uploading ? (
                 <Loader2 size={14} className="animate-spin" />
@@ -709,22 +709,22 @@ const BusinessImageGallery = ({
       </div>
 
       {error && (
-        <div className="mt-3 flex items-start gap-2 text-xs text-red-400">
+        <div className="mt-3 flex items-start gap-2 text-xs text-red-500 dark:text-red-400">
           <AlertCircle size={14} className="mt-0.5 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {loading ? (
-        <div className="mt-3 flex h-24 items-center justify-center rounded-xl border border-gray-800 bg-gray-950/30">
-          <Loader2 size={18} className="animate-spin text-blue-400" />
+        <div className="mt-3 flex h-24 items-center justify-center rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/30">
+          <Loader2 size={18} className="animate-spin text-blue-500" />
         </div>
       ) : imageUrls.length > 0 ? (
         <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
           {imageUrls.map((url) => (
             <div
               key={url}
-              className="group relative aspect-square overflow-hidden rounded-lg border border-gray-800 bg-gray-950"
+              className="group relative aspect-square overflow-hidden rounded-lg border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 shadow-sm"
             >
               <img
                 src={url}
@@ -770,7 +770,7 @@ const BusinessImageGallery = ({
           ))}
         </div>
       ) : (
-        <p className="mt-3 text-xs text-gray-500">{emptyLabel}</p>
+        <p className="mt-3 text-xs text-slate-500 dark:text-gray-500">{emptyLabel}</p>
       )}
 
       <ImageLightbox

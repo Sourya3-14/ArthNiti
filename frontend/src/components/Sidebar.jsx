@@ -78,7 +78,7 @@ const Sidebar = () => {
   const getLinkClasses = (path) => {
     return `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 transform preserve-3d ${
       isActive(path)
-        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_10px_20px_rgba(37,99,235,0.3)] translate-z-10 scale-105"
+        ? "bg-gradient-to-r from-blue-600 to-indigo-600 !text-white shadow-[0_10px_20px_rgba(37,99,235,0.3)] translate-z-10 scale-105"
         : "text-slate-600 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-gray-800/80 hover:text-slate-900 dark:hover:text-white hover:translate-x-2 hover:shadow-lg"
     }`;
   };
@@ -102,7 +102,7 @@ const Sidebar = () => {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="fixed top-5 left-5 z-50 flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 dark:border-gray-800 bg-white/95 dark:bg-gray-900/90 text-slate-600 dark:text-gray-400 shadow-xl backdrop-blur-md transition-all hover:border-blue-500/40 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white"
+          className="fixed top-5 left-5 z-50 flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/90 text-slate-700 dark:text-gray-400 shadow-xl backdrop-blur-md transition-all hover:border-blue-500/40 hover:bg-slate-100 dark:hover:bg-gray-800 hover:text-slate-900 dark:hover:text-white"
           title={t.openNavigation}
         >
           <PanelLeftOpen size={20} />
@@ -110,7 +110,7 @@ const Sidebar = () => {
       )}
 
       <aside
-        className={`h-screen bg-white/95 dark:bg-gray-950/90 backdrop-blur-md border-r border-slate-200 dark:border-gray-800 flex flex-col justify-between flex-shrink-0 sticky top-0 shadow-[20px_0_50px_rgba(0,0,0,0.06)] dark:shadow-[20px_0_50px_rgba(0,0,0,0.5)] z-40 transition-all duration-300 ease-in-out ${
+        className={`h-screen bg-white dark:bg-gray-950/95 backdrop-blur-md border-r border-slate-200 dark:border-gray-800 flex flex-col justify-between flex-shrink-0 sticky top-0 shadow-[20px_0_50px_rgba(0,0,0,0.05)] dark:shadow-[20px_0_50px_rgba(0,0,0,0.5)] z-40 transition-all duration-300 ease-in-out ${
           isOpen
             ? "w-64 opacity-100"
             : "w-0 opacity-0 pointer-events-none border-none p-0 overflow-hidden"
