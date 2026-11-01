@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { useAuth } from "../context/AuthContext";
+import { api } from "../utils/api";
 import {
   Home,
   LogIn,
@@ -19,7 +20,7 @@ import {
 
 const Sidebar = () => {
   const { language } = useLanguage();
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(true);
 
@@ -40,6 +41,7 @@ const Sidebar = () => {
       logoAlt: "ArthNiti Logo",
       openNavigation: "Open Navigation",
       collapseNavigation: "Collapse Navigation",
+      userFallback: "User",
     },
     hindi: {
       brand: "अर्थनीति",
@@ -55,6 +57,7 @@ const Sidebar = () => {
       logoAlt: "अर्थनीति लोगो",
       openNavigation: "नेविगेशन खोलें",
       collapseNavigation: "नेविगेशन संक्षिप्त करें",
+      userFallback: "उपयोगकर्ता",
     },
     bengali: {
       brand: "অর্থনীতি",
@@ -70,10 +73,59 @@ const Sidebar = () => {
       logoAlt: "অর্থনীতি লোগো",
       openNavigation: "নেভিগেশন খুলুন",
       collapseNavigation: "নেভিগেশন বন্ধ করুন",
+      userFallback: "ব্যবহারকারী",
     },
   };
 
   const t = translations[language] || translations.english;
+
+  // Whenever language changes and user is authenticated, refresh profile to sync translated name
+  useEffect(() => {
+    if (!user) return;
+    let isMounted = true;
+
+    const fetchLocalizedUser = async () => {
+      try {
+        const res = await api.get("/auth/me", {
+          params: { language },
+        });
+        if (isMounted && res.data && updateUser) {
+          updateUser({
+            first_name: res.data.first_name,
+            last_name: res.data.last_name,
+            profile_image: res.data.profile_image || res.data.profile_pic,
+            role: res.data.role,
+          });
+        }
+      } catch {
+        // Silently preserve existing name if offline or error
+      }
+    };
+
+    fetchLocalizedUser();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [language, user?.user_id, user?.id]);
+
+  const getLocalizedName = (value) => {
+    if (!value) return "";
+    if (typeof value === "string") return value;
+    if (typeof value === "object") {
+      const langKeyMap = {
+        english: ["en", "english"],
+        hindi: ["hi", "hindi"],
+        bengali: ["bn", "bengali"],
+      };
+      const keys = langKeyMap[language] || ["en", "english"];
+      for (const k of keys) {
+        if (value[k]) return value[k];
+      }
+      return value.en || value.english || Object.values(value)[0] || "";
+    }
+    return String(value);
+  };
 
   const getLinkClasses = (path) => {
     return `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 transform preserve-3d ${
@@ -85,10 +137,10 @@ const Sidebar = () => {
 
   const getUserName = () => {
     if (!user) return "";
-    const firstName = user.first_name || "";
-    const lastName = user.last_name || "";
+    const firstName = getLocalizedName(user.first_name);
+    const lastName = getLocalizedName(user.last_name);
     const fullName = `${firstName} ${lastName}`.trim();
-    return fullName || user.name || "User";
+    return fullName || getLocalizedName(user.name) || t.userFallback;
   };
 
   const getUsername = () => {

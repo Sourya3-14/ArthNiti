@@ -127,11 +127,29 @@ const Settings = () => {
 
   const t = translations[language] || translations.english;
 
+  const getLocalizedName = (value) => {
+    if (!value) return "";
+    if (typeof value === "string") return value;
+    if (typeof value === "object") {
+      const langKeyMap = {
+        english: ["en", "english"],
+        hindi: ["hi", "hindi"],
+        bengali: ["bn", "bengali"],
+      };
+      const keys = langKeyMap[language] || ["en", "english"];
+      for (const k of keys) {
+        if (value[k]) return value[k];
+      }
+      return value.en || value.english || Object.values(value)[0] || "";
+    }
+    return String(value);
+  };
+
   const getUserDisplayName = () => {
     if (!user) return "";
-    const first = user.first_name || "";
-    const last = user.last_name || "";
-    return `${first} ${last}`.trim() || user.name || user.username || "User";
+    const first = getLocalizedName(user.first_name);
+    const last = getLocalizedName(user.last_name);
+    return `${first} ${last}`.trim() || getLocalizedName(user.name) || user.username || "User";
   };
 
   return (

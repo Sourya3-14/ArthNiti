@@ -92,6 +92,20 @@ export const AuthProvider = ({ children }) => {
     setUser(nextUser);
   };
 
+  const updateUser = (updatedFields) => {
+    if (!updatedFields || typeof updatedFields !== "object") return;
+    setUser((prev) => {
+      if (!prev) return prev;
+      const next = { ...prev, ...updatedFields };
+      try {
+        localStorage.setItem("user", JSON.stringify(next));
+      } catch (e) {
+        console.warn("Could not save updated user to localStorage", e);
+      }
+      return next;
+    });
+  };
+
   const logout = async () => {
     try {
       await api.post("/auth/logout");
@@ -113,6 +127,7 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         logout,
+        updateUser,
         loading,
         isAuthenticated,
       }}
