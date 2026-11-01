@@ -47,7 +47,7 @@
 
 ## 📖 Overview
 
-**ArthNiti** (*अर्थनीति* — Sanskrit for *Economic Strategy & Governance*) is an intelligent, hyper-local business advisory and financial structuring platform tailored for rural and semi-urban entrepreneurs. 
+**ArthNiti** (*অর্থনীতি* — Sanskrit for *Economic Strategy & Governance*) is an intelligent, hyper-local business advisory and financial structuring platform tailored for rural and semi-urban entrepreneurs. 
 
 Rather than relying on generic rules-of-thumb, ArthNiti gathers real-time physical indicators—including demographic density, competitor distribution, agricultural APMC mandi pricing, regional weather volatility, and road logistics—to produce rigorous feasibility analyses. It then reverse-engineers a personalized financial roadmap from the entrepreneur's own margin capital, calculates debt capacity and EMI schedules, and identifies high-probability government subsidies and schemes (MUDRA, PMEGP, MSME schemes, and state-level grants).
 
