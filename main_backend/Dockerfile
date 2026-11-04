@@ -2,7 +2,7 @@
 # Dockerfile for Main Backend (FastAPI :5000)
 # ==========================================
 
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 # Prevent Python from writing .pyc files and enable unbuffered logging
 ENV PYTHONDONTWRITEBYTECODE=1 \
