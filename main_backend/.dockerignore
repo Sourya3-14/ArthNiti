@@ -1,0 +1,16 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.env.*
+*.log
+.vscode
+.idea
+.git
+.gitignore
+data_cache/market_price_data/*
+
