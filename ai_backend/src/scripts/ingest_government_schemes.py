@@ -1,4 +1,5 @@
 import asyncio
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -9,7 +10,12 @@ from src.config.database import AsyncSessionLocal, Base, engine
 from src.schema.government_schemes import GovernmentScheme
 from src.schema.scheme_embedding import SchemeEmbedding
 
-CSV_PATH = Path("E:/Hackathon/Finance Assistant/ai_backend/data/government_schemes.csv")
+CSV_PATH = Path(
+    os.getenv(
+        "CSV_PATH",
+        str(Path(__file__).resolve().parent.parent.parent / "data" / "government_schemes.csv"),
+    )
+)
 
 MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
