@@ -15,8 +15,10 @@ from src.routes import (
     assistant,
     chatbot,
 )
-from src.routes.chatbot import init_onboarding_knowledge_base
-from src.config.database import engine, Base
+from src.schema.knowledge_base_chunk import KnowledgeBaseChunk
+from src.config.database import engine, Base, AsyncSessionLocal
+from src.services.knowledge_base_service import sync_knowledge_base_pipeline
+from sqlalchemy import select, func
 from contextlib import asynccontextmanager
 
 from src.config.langgraph import init_langgraph, close_langgraph
@@ -31,7 +33,16 @@ async def lifespan(app: FastAPI):
 
     print("Tables after create:", Base.metadata.tables.keys())
     
-    init_onboarding_knowledge_base()
+    # Auto-seed knowledge base if table is empty
+    try:
+        async with AsyncSessionLocal() as session:
+            count = (await session.execute(select(func.count(KnowledgeBaseChunk.id)))).scalar() or 0
+            if count == 0:
+                print("[KnowledgeBase] knowledge_base_chunks table empty. Initializing sync...")
+                await sync_knowledge_base_pipeline(session)
+    except Exception as e:
+        print(f"[KnowledgeBase] Warning during knowledge base check/sync: {e}")
+
     await init_langgraph()
     yield
     await close_langgraph()
