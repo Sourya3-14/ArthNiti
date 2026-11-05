@@ -28,11 +28,17 @@
       "overview_002",
       "onboarding_001",
       "business_analysis_001"
+    ],
+    "redirection_link": "/",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
     "chunk_id": "overview_002",
-    "title": "Platform User Roles (Entrepreneur, Buyer, Government)",
+    "title": "Platform User Roles (Entrepreneur and Buyer)",
     "category": "getting_started",
     "page_module": "Signup (/signup), Role Dashboard (/dashboard)",
     "authentication": "Required for Dashboard",
@@ -41,21 +47,24 @@
       "account types",
       "entrepreneur role",
       "buyer role",
-      "government role",
       "permissions"
     ],
-    "content": "ArthNiti supports three distinct user roles, chosen during account registration:\n\n1. Entrepreneur: The primary user role. Entrepreneurs can create and manage their business ventures, generate comprehensive hyper-local business feasibility studies, run financial viability projections, get matched with government support schemes, and chat with their dedicated AI Business Assistant.\n2. Buyer: Designed for individuals or organizations seeking local suppliers and enterprises. Buyers can search the active Business Directory, view business listings and operational details, compare local enterprises, and connect with business owners.\n3. Government: Designed for government representatives and development officers. While this dedicated workspace is currently being prepared, government accounts can access their user profile and browse the public Business Directory.",
+    "content": "ArthNiti supports two user roles, chosen during account registration:\n\n1. Entrepreneur: The primary user role. Entrepreneurs can create and manage their business ventures, generate comprehensive hyper-local business feasibility studies, run financial viability projections, get matched with government support schemes, and chat with their dedicated AI Business Assistant.\n\n2. Buyer: Designed for individuals or commercial organizations seeking local suppliers and enterprises. Buyers can search the active Business Directory, view business listings and operational details, compare local enterprises, and connect with business owners.",
     "user_questions": [
       "What roles are available on the platform?",
-      "What is the difference between an Entrepreneur, Buyer, and Government account?",
-      "Can a Buyer create a business?",
+      "What is the difference between an Entrepreneur and Buyer account?",
       "Which role should I choose when signing up?"
     ],
     "navigation_action": "Select your role on the Signup page (`/signup`) or view role-tailored options on the Dashboard (`/dashboard`).",
     "related_chunks": [
       "account_signup_001",
-      "nav_home_dashboard_001",
-      "limitations_government_role_001"
+      "nav_home_dashboard_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -85,6 +94,12 @@
       "business_create_001",
       "business_workspace_001",
       "business_analysis_001"
+    ],
+    "redirection_link": "/dashboard",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -112,6 +127,12 @@
       "account_login_001",
       "account_signup_001",
       "nav_directory_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -141,6 +162,12 @@
     "related_chunks": [
       "nav_overview_001",
       "business_assistant_overview_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -169,6 +196,12 @@
       "overview_002",
       "account_login_001",
       "troubleshoot_otp_002"
+    ],
+    "redirection_link": "/signup",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -198,6 +231,12 @@
       "account_signup_001",
       "troubleshoot_login_001",
       "nav_home_dashboard_001"
+    ],
+    "redirection_link": "/login",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -224,6 +263,12 @@
     "related_chunks": [
       "account_profile_002",
       "account_public_profile_001"
+    ],
+    "redirection_link": "/profile",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -250,6 +295,12 @@
     "related_chunks": [
       "account_profile_001",
       "business_location_001"
+    ],
+    "redirection_link": "/profile",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -276,6 +327,12 @@
     "related_chunks": [
       "nav_directory_001",
       "onboarding_002"
+    ],
+    "redirection_link": "/profile",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -303,6 +360,11 @@
       "business_create_001",
       "business_workspace_001",
       "nav_overview_001"
+    ],
+    "redirection_link": "/businesses",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -331,6 +393,11 @@
       "business_location_001",
       "business_category_rule_001",
       "financial_margin_capital_001"
+    ],
+    "redirection_link": "/businesses",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -360,6 +427,11 @@
       "business_create_001",
       "business_analysis_002",
       "analysis_transportation_001"
+    ],
+    "redirection_link": "/businesses",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -386,6 +458,11 @@
     "related_chunks": [
       "business_create_001",
       "business_edit_001"
+    ],
+    "redirection_link": "/businesses",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -413,6 +490,11 @@
       "business_create_001",
       "business_category_rule_001",
       "business_analysis_003"
+    ],
+    "redirection_link": "/businesses",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -443,6 +525,11 @@
       "financial_analysis_001",
       "government_schemes_001",
       "business_assistant_overview_001"
+    ],
+    "redirection_link": "/businesses/:businessId",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -470,6 +557,11 @@
       "business_analysis_002",
       "analysis_feasibility_report_001",
       "business_workspace_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -498,6 +590,11 @@
       "business_analysis_001",
       "business_analysis_003",
       "faq_analysis_time_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -524,6 +621,11 @@
     "related_chunks": [
       "business_edit_001",
       "business_analysis_002"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -552,6 +654,11 @@
       "business_analysis_001",
       "business_analysis_002",
       "analysis_competition_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis/population",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -579,6 +686,11 @@
       "business_analysis_001",
       "analysis_population_001",
       "analysis_market_prices_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis/competitors",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -607,6 +719,11 @@
       "business_analysis_001",
       "analysis_supply_chain_001",
       "financial_profitability_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis/market-prices",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -635,6 +752,11 @@
       "business_analysis_001",
       "analysis_market_prices_001",
       "analysis_transportation_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis/supply-chain",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -663,6 +785,11 @@
       "business_analysis_001",
       "business_location_001",
       "financial_profitability_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis/transportation",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -691,6 +818,11 @@
       "business_analysis_001",
       "financial_working_capital_001",
       "financial_scenarios_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis/seasonality",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -719,6 +851,11 @@
       "business_analysis_001",
       "financial_prerequisites_001",
       "limitations_platform_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -748,6 +885,11 @@
       "financial_scenarios_001",
       "financial_debt_capacity_001",
       "business_workspace_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -774,6 +916,11 @@
       "business_analysis_001",
       "business_analysis_002",
       "financial_analysis_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -803,6 +950,11 @@
       "financial_analysis_001",
       "financial_profitability_001",
       "analysis_seasonality_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -831,6 +983,11 @@
       "business_create_001",
       "financial_analysis_001",
       "financial_debt_capacity_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -861,6 +1018,11 @@
       "financial_scenarios_001",
       "analysis_market_prices_001",
       "analysis_transportation_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -891,6 +1053,11 @@
       "financial_analysis_001",
       "financial_margin_capital_001",
       "government_schemes_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -918,6 +1085,11 @@
       "financial_analysis_001",
       "financial_profitability_001",
       "business_create_001"
+    ],
+    "redirection_link": "/businesses/:businessId/financial-analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -949,6 +1121,11 @@
       "schemes_eligibility_001",
       "schemes_recommendations_001",
       "business_workspace_001"
+    ],
+    "redirection_link": "/businesses/:businessId/government-schemes",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -973,6 +1150,11 @@
       "business_analysis_001",
       "government_schemes_001",
       "schemes_eligibility_001"
+    ],
+    "redirection_link": "/businesses/:businessId/government-schemes",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1001,6 +1183,11 @@
     "related_chunks": [
       "government_schemes_001",
       "schemes_recommendations_001"
+    ],
+    "redirection_link": "/businesses/:businessId/government-schemes",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1028,6 +1215,11 @@
       "government_schemes_001",
       "schemes_eligibility_001",
       "schemes_application_001"
+    ],
+    "redirection_link": "/businesses/:businessId/government-schemes",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1056,6 +1248,11 @@
       "government_schemes_001",
       "schemes_recommendations_001",
       "limitations_platform_001"
+    ],
+    "redirection_link": "/businesses/:businessId/government-schemes",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1082,6 +1279,11 @@
       "business_assistant_overview_001",
       "limitations_site_assistant_001",
       "business_workspace_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1109,6 +1311,11 @@
       "assistant_comparison_001",
       "business_assistant_features_001",
       "business_assistant_actions_001"
+    ],
+    "redirection_link": "/businesses/:businessId",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1136,6 +1343,11 @@
     "related_chunks": [
       "business_assistant_overview_001",
       "business_assistant_sessions_001"
+    ],
+    "redirection_link": "/businesses/:businessId",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1162,6 +1374,11 @@
     "related_chunks": [
       "business_assistant_overview_001",
       "business_assistant_actions_001"
+    ],
+    "redirection_link": "/businesses/:businessId",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1189,6 +1406,11 @@
       "business_assistant_overview_001",
       "business_edit_001",
       "business_category_rule_001"
+    ],
+    "redirection_link": "/businesses/:businessId",
+    "allowed_roles": [
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1218,6 +1440,12 @@
       "languages_001",
       "nav_home_dashboard_001",
       "nav_directory_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1245,6 +1473,12 @@
       "nav_overview_001",
       "overview_002",
       "nav_buyer_experience_001"
+    ],
+    "redirection_link": "/dashboard",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1273,6 +1507,12 @@
       "account_public_profile_001",
       "nav_buyer_experience_001",
       "onboarding_002"
+    ],
+    "redirection_link": "/businesses/details",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1303,6 +1543,12 @@
       "business_analysis_001",
       "financial_analysis_001",
       "government_schemes_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1330,6 +1576,12 @@
       "overview_002",
       "nav_directory_001",
       "account_public_profile_001"
+    ],
+    "redirection_link": "/dashboard",
+    "allowed_roles": [
+      "buyer",
+      "enterpreneur",
+      "admin"
     ]
   },
   {
@@ -1357,6 +1609,12 @@
     "related_chunks": [
       "overview_001",
       "languages_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1384,6 +1642,12 @@
       "business_overview_001",
       "business_create_001",
       "business_category_rule_001"
+    ],
+    "redirection_link": "/businesses",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1410,6 +1674,12 @@
     "related_chunks": [
       "business_analysis_002",
       "troubleshoot_analysis_stuck_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1438,6 +1708,12 @@
       "financial_analysis_001",
       "government_schemes_001",
       "limitations_platform_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1465,6 +1741,12 @@
       "nav_directory_001",
       "account_public_profile_001",
       "business_workspace_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1492,6 +1774,12 @@
     "related_chunks": [
       "account_login_001",
       "account_signup_001"
+    ],
+    "redirection_link": "/login",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1517,6 +1805,12 @@
     "navigation_action": "On the `/signup` screen → Check email spam folder or click \"Resend OTP\" after 60 seconds.",
     "related_chunks": [
       "account_signup_001"
+    ],
+    "redirection_link": "/signup",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1543,6 +1837,12 @@
     "related_chunks": [
       "business_analysis_002",
       "faq_analysis_time_001"
+    ],
+    "redirection_link": "/businesses/:businessId/analysis",
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1569,6 +1869,12 @@
     "related_chunks": [
       "business_create_001",
       "business_location_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1597,6 +1903,12 @@
       "faq_financing_001",
       "financial_analysis_001",
       "government_schemes_001"
+    ],
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   },
   {
@@ -1624,32 +1936,12 @@
       "assistant_comparison_001",
       "business_assistant_overview_001",
       "limitations_platform_001"
-    ]
-  },
-  {
-    "chunk_id": "limitations_government_role_001",
-    "title": "Status of Government Official Experience and Workspace",
-    "category": "limitations",
-    "page_module": "Role Dashboard (/dashboard) & Signup (/signup)",
-    "authentication": "Required (Role: Government)",
-    "keywords": [
-      "government role status",
-      "government dashboard",
-      "under preparation",
-      "government official features"
     ],
-    "content": "Status of the Government Official Role:\n\nCurrent Platform Availability:\nUsers who register with the \"Government\" role (such as State Channelising Agency officers, District Industries Centre representatives, or development administrators) currently see an informational notice on their Dashboard (`/dashboard`):\n\"Government workspace is on hold for now. The government-official experience is being prepared. Your profile and the public business directory remain available while this workspace is on hold.\"\n\nWhat Government Accounts Can Access Today:\n1. Public Business Directory (`/businesses/details`): Search, filter, and inspect registered micro-enterprises and local producers across districts and states.\n2. User Profile (`/profile`): Maintain official designation, agency name, agency type (e.g., SCA), and contact details.\n\nUpcoming Capabilities:\nDedicated administrative tools for tracking district enterprise trends, monitoring scheme adoption rates, and communicating directly with regional entrepreneurs are under active development and will be unlocked in a future platform release.",
-    "user_questions": [
-      "Why is the government dashboard on hold?",
-      "What features can a Government account access right now?",
-      "When will the government official tools be ready?",
-      "Can a government official view local businesses?"
-    ],
-    "navigation_action": "As a Government user: Log in → Access the Business Directory (`/businesses/details`) and Profile (`/profile`).",
-    "related_chunks": [
-      "overview_002",
-      "nav_home_dashboard_001",
-      "nav_directory_001"
+    "redirection_link": null,
+    "allowed_roles": [
+      "enterpreneur",
+      "buyer",
+      "admin"
     ]
   }
 ]
