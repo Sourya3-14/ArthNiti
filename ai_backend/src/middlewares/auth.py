@@ -1,3 +1,4 @@
+from typing import Optional
 from jose import jwt, JWTError
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -9,6 +10,7 @@ import os
 SECRET_KEY = os.getenv("JWT_SECRET")
 ALGORITHM = "HS256"
 security = HTTPBearer() 
+optional_security = HTTPBearer(auto_error=False)
 
 def create_access_token(data: dict):
 
@@ -35,3 +37,20 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+
+async def optional_verify_token(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(optional_security)
+) -> Optional[str]:
+    """Extracts user_id if valid bearer token is present; returns None if unauthenticated."""
+    if not credentials or not credentials.credentials:
+        return None
+    token = credentials.credentials
+    try:
+        state = await is_token_blacklisted(token)
+        if state:
+            return None
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload.get("user_id")
+    except Exception:
+        return None
