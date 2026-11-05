@@ -3,12 +3,12 @@ import os
 from pathlib import Path
 
 import pandas as pd
-from sentence_transformers import SentenceTransformer
 from sqlalchemy import select
 
 from src.config.database import AsyncSessionLocal, Base, engine
 from src.schema.government_schemes import GovernmentScheme
 from src.schema.scheme_embedding import SchemeEmbedding
+from src.services.embedding_service import DEFAULT_EMBEDDING_MODEL_NAME as MODEL_NAME, get_embedding_model
 
 CSV_PATH = Path(
     os.getenv(
@@ -17,9 +17,7 @@ CSV_PATH = Path(
     )
 )
 
-MODEL_NAME = "BAAI/bge-small-en-v1.5"
-
-model = SentenceTransformer(MODEL_NAME)
+model = get_embedding_model()
 
 
 def clean(value):
