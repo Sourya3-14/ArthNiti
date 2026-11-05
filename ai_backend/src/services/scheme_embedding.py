@@ -1,15 +1,14 @@
-from sentence_transformers import SentenceTransformer
+# src/services/scheme_embedding.py
+"""
+Backward-compatible wrapper for scheme embedding generation.
+Delegates to the shared singleton EmbeddingService.
+"""
 
+from src.services.embedding_service import (
+    DEFAULT_EMBEDDING_MODEL_NAME as MODEL_NAME,
+    generate_embedding,
+    generate_batch_embeddings,
+    get_embedding_model,
+)
 
-MODEL_NAME = "BAAI/bge-small-en-v1.5"
-
-_model = SentenceTransformer(MODEL_NAME)
-
-
-def generate_embedding(text: str) -> list[float]:
-    embedding = _model.encode(
-        text,
-        normalize_embeddings=True,
-    )
-
-    return embedding.tolist()
+__all__ = ["MODEL_NAME", "generate_embedding", "generate_batch_embeddings", "get_embedding_model"]
