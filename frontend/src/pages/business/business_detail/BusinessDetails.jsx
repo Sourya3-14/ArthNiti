@@ -608,8 +608,35 @@ const BusinessDirectory = () => {
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="h-64 animate-pulse rounded-2xl border border-white/10 bg-white/5"
-              />
+                className="flex min-h-64 flex-col justify-between rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.06] p-5 shadow-md dark:shadow-xl backdrop-blur-xl animate-pulse"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <div className="h-11 w-11 shrink-0 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                      <div className="space-y-2">
+                        <div className="h-5 w-36 rounded-lg bg-slate-200 dark:bg-gray-800" />
+                        <div className="h-4 w-24 rounded bg-slate-200 dark:bg-gray-800/60" />
+                      </div>
+                    </div>
+                    <div className="h-6 w-16 rounded-full bg-slate-200 dark:bg-gray-800" />
+                  </div>
+
+                  <div className="mt-5 space-y-2">
+                    <div className="h-3.5 w-full rounded bg-slate-200 dark:bg-gray-800/60" />
+                    <div className="h-3.5 w-5/6 rounded bg-slate-200 dark:bg-gray-800/60" />
+                    <div className="h-3.5 w-2/3 rounded bg-slate-200 dark:bg-gray-800/60" />
+                  </div>
+                </div>
+
+                <div className="mt-5 space-y-3 border-t border-slate-100 dark:border-white/10 pt-4">
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded-full bg-slate-200 dark:bg-gray-800" />
+                    <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-gray-800/60" />
+                  </div>
+                  <div className="h-9 w-full rounded-xl bg-slate-200 dark:bg-gray-800/80" />
+                </div>
+              </div>
             ))}
           </div>
         ) : visibleBusinesses.length === 0 ? (

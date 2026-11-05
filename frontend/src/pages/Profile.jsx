@@ -898,17 +898,55 @@ const Profile = () => {
   if (loading) {
     return (
       <div className="relative min-h-screen overflow-hidden bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
-          <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
-        </div>
-
-        <div className="relative z-10 flex min-h-screen items-center justify-center p-6">
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
-              <Loader2 size={30} className="animate-spin text-blue-500" />
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 animate-pulse space-y-6">
+          {/* Header */}
+          <div className="space-y-3">
+            <div className="h-4 w-40 rounded bg-slate-200 dark:bg-gray-800" />
+            <div className="flex items-center justify-between">
+              <div className="space-y-2">
+                <div className="h-9 w-48 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-4 w-72 rounded bg-slate-200 dark:bg-gray-800/60" />
+              </div>
+              <div className="h-11 w-32 rounded-xl bg-slate-200 dark:bg-gray-800" />
             </div>
-            <p className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.loading}</p>
+          </div>
+
+          {/* Profile Identity Card */}
+          <div className="overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+              <div className="h-24 w-24 rounded-full bg-slate-200 dark:bg-gray-800 shrink-0" />
+              <div className="space-y-2.5 flex-1">
+                <div className="flex items-center gap-3">
+                  <div className="h-7 w-48 rounded-lg bg-slate-200 dark:bg-gray-800" />
+                  <div className="h-6 w-24 rounded-full bg-slate-200 dark:bg-gray-800" />
+                </div>
+                <div className="h-4 w-40 rounded bg-slate-200 dark:bg-gray-800/60" />
+                <div className="h-4 w-56 rounded bg-slate-200 dark:bg-gray-800/60" />
+              </div>
+            </div>
+          </div>
+
+          {/* Details Form Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 p-6 space-y-4 shadow-sm">
+              <div className="h-5 w-32 rounded bg-slate-200 dark:bg-gray-800 mb-4" />
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="space-y-1.5">
+                  <div className="h-3.5 w-20 rounded bg-slate-200 dark:bg-gray-800/60" />
+                  <div className="h-10 w-full rounded-xl bg-slate-200 dark:bg-gray-800" />
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 p-6 space-y-4 shadow-sm">
+              <div className="h-5 w-32 rounded bg-slate-200 dark:bg-gray-800 mb-4" />
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="space-y-1.5">
+                  <div className="h-3.5 w-20 rounded bg-slate-200 dark:bg-gray-800/60" />
+                  <div className="h-10 w-full rounded-xl bg-slate-200 dark:bg-gray-800" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

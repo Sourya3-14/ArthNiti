@@ -455,10 +455,56 @@ const FinancialAnalysis = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
-        <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center">
-          <div className="flex flex-col items-center">
-            <Loader2 className="mb-4 h-8 w-8 animate-spin text-blue-500" />
-            <p className="text-sm text-slate-600 dark:text-gray-400">{t.loading}</p>
+        <div className="mx-auto max-w-7xl animate-pulse space-y-6">
+          {/* Back button */}
+          <div className="h-5 w-36 rounded-md bg-slate-200 dark:bg-gray-800" />
+
+          {/* Header Banner */}
+          <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-6 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-2">
+                <div className="h-8 w-64 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-4 w-40 rounded bg-slate-200 dark:bg-gray-800/60" />
+              </div>
+              <div className="h-10 w-36 rounded-xl bg-slate-200 dark:bg-gray-800" />
+            </div>
+          </div>
+
+          {/* 4 KPI Metric Cards */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-5 shadow-sm"
+              >
+                <div className="h-4 w-28 rounded bg-slate-200 dark:bg-gray-800/60 mb-3" />
+                <div className="h-8 w-36 rounded-lg bg-slate-200 dark:bg-gray-800 mb-2" />
+                <div className="h-3.5 w-20 rounded bg-slate-200 dark:bg-gray-800/50" />
+              </div>
+            ))}
+          </div>
+
+          {/* Tabs Navigation Bar */}
+          <div className="flex gap-2 border-b border-slate-200 dark:border-gray-800 pb-3">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <div key={idx} className="h-9 w-28 rounded-xl bg-slate-200 dark:bg-gray-800" />
+            ))}
+          </div>
+
+          {/* Financial Breakdown Table Skeleton */}
+          <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-6 shadow-sm">
+            <div className="h-6 w-48 rounded bg-slate-200 dark:bg-gray-800 mb-6" />
+            <div className="space-y-3">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-between border-b border-slate-100 dark:border-gray-800/60 py-3"
+                >
+                  <div className="h-4 w-1/3 rounded bg-slate-200 dark:bg-gray-800/60" />
+                  <div className="h-4 w-24 rounded bg-slate-200 dark:bg-gray-800" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

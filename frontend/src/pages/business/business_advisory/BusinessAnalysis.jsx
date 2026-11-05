@@ -684,10 +684,58 @@ const BusinessAnalysis = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
-        <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center">
-          <div className="flex flex-col items-center">
-            <Loader2 className="mb-4 h-8 w-8 animate-spin text-blue-500" />
-            <p className="text-sm text-slate-600 dark:text-gray-400">{t.loading}</p>
+        <div className="mx-auto max-w-7xl animate-pulse space-y-6">
+          {/* Back button skeleton */}
+          <div className="h-5 w-36 rounded-md bg-slate-200 dark:bg-gray-800" />
+
+          {/* Business Info Header Banner skeleton */}
+          <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-6 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-60 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                  <div className="h-6 w-20 rounded-full bg-slate-200 dark:bg-gray-800" />
+                </div>
+                <div className="h-4 w-44 rounded bg-slate-200 dark:bg-gray-800/60" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-32 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-10 w-28 rounded-xl bg-slate-200 dark:bg-gray-800" />
+              </div>
+            </div>
+          </div>
+
+          {/* 4 Module Evidence Cards Skeletons */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-5 shadow-sm"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                  <div className="h-4 w-12 rounded bg-slate-200 dark:bg-gray-800/60" />
+                </div>
+                <div className="h-4 w-32 rounded bg-slate-200 dark:bg-gray-800 mb-1.5" />
+                <div className="h-3.5 w-44 rounded bg-slate-200 dark:bg-gray-800/60" />
+              </div>
+            ))}
+          </div>
+
+          {/* Feasibility Report Skeleton */}
+          <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-8 shadow-sm">
+            <div className="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-gray-800 mb-6">
+              <div className="h-7 w-52 rounded-lg bg-slate-200 dark:bg-gray-800" />
+              <div className="h-6 w-24 rounded-full bg-slate-200 dark:bg-gray-800" />
+            </div>
+            <div className="space-y-4">
+              <div className="h-4 w-full rounded bg-slate-200 dark:bg-gray-800/60" />
+              <div className="h-4 w-11/12 rounded bg-slate-200 dark:bg-gray-800/60" />
+              <div className="h-4 w-4/5 rounded bg-slate-200 dark:bg-gray-800/60" />
+              <div className="h-28 w-full rounded-2xl bg-slate-100 dark:bg-gray-800/40 my-6" />
+              <div className="h-4 w-full rounded bg-slate-200 dark:bg-gray-800/60" />
+              <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-gray-800/60" />
+            </div>
           </div>
         </div>
       </div>

@@ -342,11 +342,70 @@ const FinanceGeneration = ({
         )}
 
         {loading ? (
-          <div className="rounded-3xl border border-gray-800 bg-gray-900/60 p-12 text-center shadow-2xl backdrop-blur-xl">
-            <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-400" />
-            <p className="mt-4 text-sm font-semibold text-gray-300">
-              {isRegeneration ? t.regenerating : t.generating}
-            </p>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between rounded-2xl border border-blue-500/20 bg-blue-500/5 px-6 py-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                  <Sparkles size={18} className="animate-spin" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">
+                    {isRegeneration ? t.regenerating : t.generating}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-gray-400">
+                    Calculating multi-year cash flow models, debt servicing & financial ratios...
+                  </p>
+                </div>
+              </div>
+              <div className="h-2 w-24 overflow-hidden rounded-full bg-blue-500/20">
+                <div className="h-full w-full animate-pulse bg-blue-500" />
+              </div>
+            </div>
+
+            {/* Financial Analysis Demo Template Skeleton */}
+            <div className="space-y-6 animate-pulse">
+              <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                {[
+                  { label: "Est. Monthly Revenue", val: "w-24" },
+                  { label: "Operating Costs", val: "w-20" },
+                  { label: "Projected Margin", val: "w-16" },
+                  { label: "Break-Even Month", val: "w-12" },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 shadow-sm"
+                  >
+                    <p className="text-xs font-semibold uppercase text-slate-400 dark:text-gray-500">
+                      {item.label}
+                    </p>
+                    <div className={`mt-3 h-7 ${item.val} rounded-lg bg-slate-200 dark:bg-gray-800`} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Schedule Table Skeleton */}
+              <div className="overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-6 shadow-sm">
+                <div className="mb-4 flex items-center justify-between border-b border-slate-200 dark:border-gray-800 pb-4">
+                  <div className="h-5 w-48 rounded bg-slate-200 dark:bg-gray-800" />
+                  <div className="h-4 w-28 rounded bg-slate-200 dark:bg-gray-800" />
+                </div>
+                <div className="space-y-3">
+                  {[1, 2, 3, 4, 5].map((row) => (
+                    <div
+                      key={row}
+                      className="flex items-center justify-between rounded-xl border border-slate-100 dark:border-gray-800/80 bg-slate-50 dark:bg-gray-950/40 px-4 py-3"
+                    >
+                      <div className="h-4 w-32 rounded bg-slate-200 dark:bg-gray-800" />
+                      <div className="flex gap-6">
+                        <div className="h-4 w-20 rounded bg-slate-200 dark:bg-gray-800" />
+                        <div className="h-4 w-20 rounded bg-slate-200 dark:bg-gray-800" />
+                        <div className="h-4 w-16 rounded bg-slate-200 dark:bg-gray-800" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <>

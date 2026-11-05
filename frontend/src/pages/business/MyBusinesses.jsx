@@ -751,13 +751,50 @@ const MyBusinesses = () => {
         )}
 
         {loading && (
-          <div className="flex min-h-[420px] items-center justify-center rounded-3xl border border-slate-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/50 backdrop-blur-xl shadow-sm">
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
-                <Loader2 size={30} className="animate-spin text-blue-600 dark:text-blue-400" />
-              </div>
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 text-sm text-slate-400 dark:text-gray-500">
+              <div className="h-4 w-4 rounded bg-slate-200 dark:bg-gray-800 animate-pulse" />
+              <div className="h-4 w-32 rounded bg-slate-200 dark:bg-gray-800 animate-pulse" />
+            </div>
 
-              <p className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.loading}</p>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col justify-between rounded-3xl border border-slate-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/80 p-6 shadow-sm backdrop-blur-xl animate-pulse"
+                >
+                  <div>
+                    {/* Top image placeholder */}
+                    <div className="relative mb-5 h-44 w-full overflow-hidden rounded-2xl bg-slate-200 dark:bg-gray-800/80">
+                      <div className="absolute right-3 top-3 h-6 w-20 rounded-full bg-slate-300 dark:bg-gray-700" />
+                    </div>
+
+                    {/* Category pill */}
+                    <div className="mb-2.5 h-5 w-24 rounded-full bg-slate-200 dark:bg-gray-800" />
+
+                    {/* Title */}
+                    <div className="mb-2.5 h-6 w-3/4 rounded-lg bg-slate-200 dark:bg-gray-800" />
+
+                    {/* Description lines */}
+                    <div className="space-y-1.5 mb-5">
+                      <div className="h-3.5 w-full rounded bg-slate-200 dark:bg-gray-800/60" />
+                      <div className="h-3.5 w-5/6 rounded bg-slate-200 dark:bg-gray-800/60" />
+                    </div>
+
+                    {/* Location */}
+                    <div className="mb-6 flex items-center gap-2">
+                      <div className="h-4 w-4 rounded-full bg-slate-200 dark:bg-gray-800" />
+                      <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-gray-800/60" />
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-gray-800/60">
+                    <div className="h-10 flex-1 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                    <div className="h-10 w-28 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

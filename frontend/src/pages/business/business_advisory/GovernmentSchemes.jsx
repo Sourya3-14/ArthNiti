@@ -466,8 +466,8 @@ const GovernmentSchemes = () => {
       } else {
         setError(
           requestError?.response?.data?.detail ||
-            requestError?.message ||
-            t.errorTitle,
+          requestError?.message ||
+          t.errorTitle,
         );
       }
     } finally {
@@ -540,10 +540,48 @@ const GovernmentSchemes = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-gray-950 px-4 py-8 text-slate-900 dark:text-white sm:px-6 lg:px-8">
-        <div className="mx-auto flex min-h-[70vh] max-w-7xl items-center justify-center">
-          <div className="flex items-center gap-3 text-slate-600 dark:text-gray-400">
-            <Loader2 size={22} className="animate-spin text-blue-500" />
-            {t.loading}
+        <div className="mx-auto max-w-7xl animate-pulse space-y-6">
+          {/* Back button */}
+          <div className="h-5 w-36 rounded-md bg-slate-200 dark:bg-gray-800" />
+
+          {/* Header Banner */}
+          <div className="rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-6 shadow-sm">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-2">
+                <div className="h-8 w-60 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-4 w-44 rounded bg-slate-200 dark:bg-gray-800/60" />
+              </div>
+              <div className="flex gap-3">
+                <div className="h-10 w-28 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-10 w-32 rounded-xl bg-slate-200 dark:bg-gray-800" />
+              </div>
+            </div>
+          </div>
+
+          {/* Schemes Grid */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col justify-between rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-6 shadow-sm"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <div className="h-6 w-20 rounded-full bg-slate-200 dark:bg-gray-800" />
+                    <div className="h-6 w-16 rounded-full bg-slate-200 dark:bg-gray-800/60" />
+                  </div>
+                  <div className="h-5 w-4/5 rounded-lg bg-slate-200 dark:bg-gray-800 mb-2" />
+                  <div className="h-4 w-3/5 rounded bg-slate-200 dark:bg-gray-800/60 mb-5" />
+
+                  <div className="rounded-2xl bg-slate-50 dark:bg-gray-950/60 p-4 border border-slate-100 dark:border-gray-800/80 space-y-2 mb-5">
+                    <div className="h-3.5 w-full rounded bg-slate-200 dark:bg-gray-800/60" />
+                    <div className="h-3.5 w-4/5 rounded bg-slate-200 dark:bg-gray-800/60" />
+                  </div>
+                </div>
+
+                <div className="h-10 w-full rounded-xl bg-slate-200 dark:bg-gray-800 mt-4" />
+              </div>
+            ))}
           </div>
         </div>
       </div>

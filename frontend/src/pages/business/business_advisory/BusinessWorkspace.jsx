@@ -687,11 +687,16 @@ const BusinessWorkspace = () => {
 
             <div className="flex-1 overflow-y-auto p-3">
               {sessionsLoading && (
-                <div className="flex flex-col items-center justify-center py-12">
-                  <Loader2 size={20} className="animate-spin text-blue-500 dark:text-blue-400" />
-                  <p className="mt-2 text-xs text-slate-500 dark:text-gray-500">
-                    {t.loadingConversations}
-                  </p>
+                <div className="space-y-2 p-1">
+                  {Array.from({ length: 4 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-xl border border-slate-200/70 dark:border-gray-800/80 bg-white/60 dark:bg-gray-900/40 p-3 animate-pulse"
+                    >
+                      <div className="h-3.5 w-4/5 rounded bg-slate-200 dark:bg-gray-800 mb-2" />
+                      <div className="h-2.5 w-1/3 rounded bg-slate-200 dark:bg-gray-800/60" />
+                    </div>
+                  ))}
                 </div>
               )}
 
@@ -831,8 +836,29 @@ const BusinessWorkspace = () => {
               )}
 
               {activeSessionId && messagesLoading && (
-                <div className="flex h-full min-h-[300px] items-center justify-center">
-                  <Loader2 size={24} className="animate-spin text-blue-500 dark:text-blue-400" />
+                <div className="space-y-6 py-4">
+                  {/* User message skeleton */}
+                  <div className="flex justify-end">
+                    <div className="max-w-[75%] rounded-3xl rounded-tr-sm bg-blue-500/10 dark:bg-blue-600/20 border border-blue-500/20 p-4 animate-pulse">
+                      <div className="h-3.5 w-48 rounded bg-blue-500/30 mb-2" />
+                      <div className="h-3.5 w-32 rounded bg-blue-500/20" />
+                    </div>
+                  </div>
+
+                  {/* Assistant response skeleton */}
+                  <div className="flex justify-start">
+                    <div className="max-w-[80%] rounded-3xl rounded-tl-sm border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/80 p-5 shadow-sm animate-pulse">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="h-6 w-6 rounded-lg bg-blue-500/20" />
+                        <div className="h-3.5 w-24 rounded bg-slate-200 dark:bg-gray-800" />
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-3.5 w-full rounded bg-slate-200 dark:bg-gray-800/60" />
+                        <div className="h-3.5 w-5/6 rounded bg-slate-200 dark:bg-gray-800/60" />
+                        <div className="h-3.5 w-2/3 rounded bg-slate-200 dark:bg-gray-800/60" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 

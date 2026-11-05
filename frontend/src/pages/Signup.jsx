@@ -50,16 +50,16 @@ const InputField = ({
     <div>
       <label
         htmlFor={name}
-        className="block text-sm font-medium text-gray-300 mb-2"
+        className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
       >
         {label}
-        {required && <span className="text-red-400 ml-1">*</span>}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
 
-      <div className="relative">
+      <div className="relative group/input">
         {Icon && (
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Icon className="h-5 w-5 text-gray-500" />
+            <Icon className="h-5 w-5 text-slate-400 dark:text-gray-500 group-focus-within/input:text-blue-500 transition-colors" />
           </div>
         )}
 
@@ -77,19 +77,19 @@ const InputField = ({
             ${Icon ? "pl-12" : "pl-4"}
             ${isPassword ? "pr-12" : "pr-4"}
             py-3
-            bg-gray-950/70
+            bg-slate-50 dark:bg-gray-950/80
             border
-            border-gray-700
+            border-slate-200 dark:border-gray-800
             rounded-xl
-            text-white
-            placeholder-gray-500
+            text-slate-900 dark:text-white
+            placeholder-slate-400 dark:placeholder-gray-500
             outline-none
             transition-all
             duration-200
-            hover:border-gray-600
             focus:border-blue-500
-            focus:ring-2
-            focus:ring-blue-500/20
+            focus:ring-1
+            focus:ring-blue-500
+            shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
             disabled:opacity-60
             disabled:cursor-not-allowed
           `}
@@ -101,7 +101,7 @@ const InputField = ({
             onClick={onTogglePassword}
             tabIndex={-1}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-blue-400 transition-colors focus:outline-none"
+            className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:outline-none"
           >
             {showPassword ? (
               <EyeOff className="h-5 w-5" />
@@ -133,16 +133,16 @@ const SelectField = ({
     <div>
       <label
         htmlFor={name}
-        className="block text-sm font-medium text-gray-300 mb-2"
+        className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
       >
         {label}
-        {required && <span className="text-red-400 ml-1">*</span>}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
 
-      <div className="relative">
+      <div className="relative group/select">
         {Icon && (
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-            <Icon className="h-5 w-5 text-gray-500" />
+            <Icon className="h-5 w-5 text-slate-400 dark:text-gray-500 group-focus-within/select:text-blue-500 transition-colors" />
           </div>
         )}
 
@@ -159,18 +159,18 @@ const SelectField = ({
             ${Icon ? "pl-12" : "pl-4"}
             pr-10
             py-3
-            bg-gray-950/70
+            bg-slate-50 dark:bg-gray-950/80
             border
-            border-gray-700
+            border-slate-200 dark:border-gray-800
             rounded-xl
-            text-white
+            text-slate-900 dark:text-white
             outline-none
             transition-all
             duration-200
-            hover:border-gray-600
             focus:border-blue-500
-            focus:ring-2
-            focus:ring-blue-500/20
+            focus:ring-1
+            focus:ring-blue-500
+            shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
             disabled:opacity-50
             disabled:cursor-not-allowed
           `}
@@ -179,14 +179,14 @@ const SelectField = ({
             <option
               key={option.value}
               value={option.value}
-              className="bg-gray-900 text-white"
+              className="bg-white dark:bg-gray-900 text-slate-900 dark:text-white"
             >
               {option.label}
             </option>
           ))}
         </select>
 
-        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 pointer-events-none" />
+        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 dark:text-gray-500 pointer-events-none" />
       </div>
     </div>
   );
@@ -200,14 +200,14 @@ const SectionHeader = ({ icon: Icon, title, description }) => {
   return (
     <div className="flex items-start gap-3 mb-6">
       <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-        <Icon className="w-5 h-5 text-blue-400" />
+        <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h3>
 
         {description && (
-          <p className="text-sm text-gray-500 mt-1">{description}</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">{description}</p>
         )}
       </div>
     </div>
@@ -691,7 +691,7 @@ const Signup = () => {
                 {/* PERSONAL INFORMATION                                   */}
                 {/* ====================================================== */}
 
-                <section className="pb-8 border-b border-gray-800">
+                <section className="pb-8 border-b border-slate-200 dark:border-gray-800">
                   <SectionHeader
                     icon={User}
                     title={t.sec1Title}
@@ -732,7 +732,7 @@ const Signup = () => {
                       {/* EMAIL VERIFICATION BLOCK */}
                       <div className="mt-3">
                         {emailVerified ? (
-                          <div className="flex items-center gap-2 text-sm text-green-400">
+                          <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
                             <CheckCircle2 size={16} />
                             <span>{t.emailVerifiedMsg}</span>
                           </div>
@@ -746,12 +746,12 @@ const Signup = () => {
                                 className="
                                   inline-flex items-center gap-2
                                   px-4 py-2
-                                  rounded-lg
+                                  rounded-xl
                                   border border-blue-500/30
-                                  bg-blue-500/10
-                                  text-blue-400
+                                  bg-blue-50 dark:bg-blue-500/10
+                                  text-blue-600 dark:text-blue-400
                                   text-sm font-semibold
-                                  hover:bg-blue-500/20
+                                  hover:bg-blue-100 dark:hover:bg-blue-500/20
                                   disabled:opacity-50
                                   disabled:cursor-not-allowed
                                   transition-colors
@@ -783,15 +783,16 @@ const Signup = () => {
                                   className="
                                     flex-1
                                     px-4 py-2.5
-                                    bg-gray-950/70
-                                    border border-gray-700
-                                    rounded-lg
-                                    text-white
-                                    placeholder-gray-500
+                                    bg-slate-50 dark:bg-gray-950/80
+                                    border border-slate-200 dark:border-gray-800
+                                    rounded-xl
+                                    text-slate-900 dark:text-white
+                                    placeholder-slate-400 dark:placeholder-gray-500
                                     outline-none
                                     focus:border-blue-500
-                                    focus:ring-2
-                                    focus:ring-blue-500/20
+                                    focus:ring-1
+                                    focus:ring-blue-500
+                                    shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
                                   "
                                 />
 
@@ -802,7 +803,7 @@ const Signup = () => {
                                   className="
                                     inline-flex items-center justify-center gap-2
                                     px-5 py-2.5
-                                    rounded-lg
+                                    rounded-xl
                                     bg-blue-600
                                     text-white
                                     text-sm font-semibold
@@ -827,8 +828,8 @@ const Signup = () => {
                                   onClick={handleSendOtp}
                                   disabled={otpLoading}
                                   className="
-                                    text-xs text-gray-500
-                                    hover:text-gray-300
+                                    text-xs text-slate-500 dark:text-gray-400
+                                    hover:text-slate-800 dark:hover:text-gray-200
                                     underline
                                     disabled:opacity-50
                                     self-center
@@ -840,13 +841,13 @@ const Signup = () => {
                             )}
 
                             {otpSent && !otpError && (
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-slate-500 dark:text-gray-400">
                                 {t.otpSentMsg}
                               </p>
                             )}
 
                             {otpError && (
-                              <p className="text-xs text-red-400">{otpError}</p>
+                              <p className="text-xs text-red-500 dark:text-red-400">{otpError}</p>
                             )}
                           </div>
                         )}
@@ -885,14 +886,14 @@ const Signup = () => {
                 {/* ACCOUNT TYPE                                           */}
                 {/* ====================================================== */}
 
-                <section className="py-8 border-b border-gray-800">
+                <section className="py-8 border-b border-slate-200 dark:border-gray-800">
                   <SectionHeader
                     icon={BriefcaseBusiness}
                     title={t.sec2Title}
                     description={t.sec2Desc}
                   />
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       {
                         value: "enterpreneur",
@@ -904,11 +905,6 @@ const Signup = () => {
                         title: t.roleBuyer,
                         description: t.roleBuyerDesc,
                       },
-                      // {
-                      //   value: "government",
-                      //   title: t.roleGov,
-                      //   description: t.roleGovDesc,
-                      // },
                     ].map((role) => (
                       <label
                         key={role.value}
@@ -922,8 +918,8 @@ const Signup = () => {
                           duration-200
                           ${
                             formData.role === role.value
-                              ? "border-blue-500 bg-blue-500/10 ring-2 ring-blue-500/20"
-                              : "border-gray-700 bg-gray-950/50 hover:border-gray-600"
+                              ? "border-blue-500 bg-blue-50/70 dark:bg-blue-500/10 ring-2 ring-blue-500/20"
+                              : "border-slate-200 dark:border-gray-800 bg-slate-50/60 dark:bg-gray-950/50 hover:border-slate-300 dark:hover:border-gray-700"
                           }
                         `}
                       >
@@ -938,11 +934,11 @@ const Signup = () => {
 
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="font-semibold text-white">
+                            <p className="font-semibold text-slate-900 dark:text-white">
                               {role.title}
                             </p>
 
-                            <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                            <p className="text-xs text-slate-500 dark:text-gray-400 mt-1 leading-relaxed">
                               {role.description}
                             </p>
                           </div>
@@ -953,7 +949,7 @@ const Signup = () => {
                               ${
                                 formData.role === role.value
                                   ? "border-blue-500"
-                                  : "border-gray-600"
+                                  : "border-slate-300 dark:border-gray-600"
                               }
                             `}
                           >
@@ -971,7 +967,7 @@ const Signup = () => {
                 {/* CONTACT INFORMATION                                    */}
                 {/* ====================================================== */}
 
-                <section className="py-8 border-b border-gray-800">
+                <section className="py-8 border-b border-slate-200 dark:border-gray-800">
                   <SectionHeader
                     icon={Phone}
                     title={t.sec3Title}
@@ -982,13 +978,13 @@ const Signup = () => {
                     <div className="md:col-span-1">
                       <label
                         htmlFor="country_code"
-                        className="block text-sm font-medium text-gray-300 mb-2"
+                        className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
                       >
                         {t.countryCode}
-                        <span className="text-red-400 ml-1">*</span>
+                        <span className="text-red-500 ml-1">*</span>
                       </label>
 
-                      <div className="relative">
+                      <div className="relative group/country">
                         <select
                           id="country_code"
                           name="country_code"
@@ -1000,29 +996,30 @@ const Signup = () => {
                             px-4
                             pr-9
                             py-3
-                            bg-gray-950/70
+                            bg-slate-50 dark:bg-gray-950/80
                             border
-                            border-gray-700
+                            border-slate-200 dark:border-gray-800
                             rounded-xl
-                            text-white
+                            text-slate-900 dark:text-white
                             outline-none
                             focus:border-blue-500
-                            focus:ring-2
-                            focus:ring-blue-500/20
+                            focus:ring-1
+                            focus:ring-blue-500
+                            shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
                           "
                         >
                           {countries.map((country) => (
                             <option
                               key={`${country.isoCode}-${country.phonecode}`}
                               value={`+${country.phonecode}`}
-                              className="bg-gray-900"
+                              className="bg-white dark:bg-gray-900 text-slate-900 dark:text-white"
                             >
                               {country.flag} +{country.phonecode}
                             </option>
                           ))}
                         </select>
 
-                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-gray-500 pointer-events-none" />
                       </div>
                     </div>
 
@@ -1039,58 +1036,6 @@ const Signup = () => {
                     </div>
                   </div>
                 </section>
-
-                {/* ====================================================== */}
-                {/* GOVERNMENT INFORMATION                                 */}
-                {/* ====================================================== */}
-
-                {formData.role === "government" && (
-                  <section className="py-8 border-b border-gray-800">
-                    <SectionHeader
-                      icon={Building2}
-                      title={t.sec4Title}
-                      description={t.sec4Desc}
-                    />
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <InputField
-                        name="designation"
-                        label={t.designation}
-                        placeholder={t.desigPlaceholder}
-                        icon={BriefcaseBusiness}
-                        value={formData.designation}
-                        onChange={handleChange}
-                      />
-
-                      <InputField
-                        name="agency_name"
-                        label={t.agencyName}
-                        placeholder={t.agencyPlaceholder}
-                        icon={Building2}
-                        value={formData.agency_name}
-                        onChange={handleChange}
-                      />
-
-                      <SelectField
-                        name="agency_type"
-                        label={t.agencyType}
-                        value={formData.agency_type}
-                        onChange={handleChange}
-                        icon={Building2}
-                        options={[
-                          {
-                            value: "sca",
-                            label: "SCA",
-                          },
-                          {
-                            value: "ca",
-                            label: "CA",
-                          },
-                        ]}
-                      />
-                    </div>
-                  </section>
-                )}
 
                 {/* ====================================================== */}
                 {/* LOCATION                                               */}
@@ -1126,14 +1071,14 @@ const Signup = () => {
                       <div>
                         <label
                           htmlFor="state"
-                          className="block text-sm font-medium text-gray-300 mb-2"
+                          className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
                         >
                           {t.state}
-                          <span className="text-red-400 ml-1">*</span>
+                          <span className="text-red-500 ml-1">*</span>
                         </label>
 
-                        <div className="relative">
-                          <Map className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none z-10" />
+                        <div className="relative group/state">
+                          <Map className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-gray-500 pointer-events-none z-10 group-focus-within/state:text-blue-500 transition-colors" />
 
                           <input
                             id="state"
@@ -1150,16 +1095,17 @@ const Signup = () => {
                               pl-12
                               pr-4
                               py-3
-                              bg-gray-950/70
+                              bg-slate-50 dark:bg-gray-950/80
                               border
-                              border-gray-700
+                              border-slate-200 dark:border-gray-800
                               rounded-xl
-                              text-white
-                              placeholder-gray-500
+                              text-slate-900 dark:text-white
+                              placeholder-slate-400 dark:placeholder-gray-500
                               outline-none
                               focus:border-blue-500
-                              focus:ring-2
-                              focus:ring-blue-500/20
+                              focus:ring-1
+                              focus:ring-blue-500
+                              shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
                             "
                           />
 
@@ -1188,14 +1134,14 @@ const Signup = () => {
                       <div>
                         <label
                           htmlFor="city"
-                          className="block text-sm font-medium text-gray-300 mb-2"
+                          className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
                         >
                           {t.city}
-                          <span className="text-red-400 ml-1">*</span>
+                          <span className="text-red-500 ml-1">*</span>
                         </label>
 
-                        <div className="relative">
-                          <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none z-10" />
+                        <div className="relative group/city">
+                          <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-gray-500 pointer-events-none z-10 group-focus-within/city:text-blue-500 transition-colors" />
 
                           <input
                             id="city"
@@ -1212,16 +1158,17 @@ const Signup = () => {
                               pl-12
                               pr-4
                               py-3
-                              bg-gray-950/70
+                              bg-slate-50 dark:bg-gray-950/80
                               border
-                              border-gray-700
+                              border-slate-200 dark:border-gray-800
                               rounded-xl
-                              text-white
-                              placeholder-gray-500
+                              text-slate-900 dark:text-white
+                              placeholder-slate-400 dark:placeholder-gray-500
                               outline-none
                               focus:border-blue-500
-                              focus:ring-2
-                              focus:ring-blue-500/20
+                              focus:ring-1
+                              focus:ring-blue-500
+                              shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
                             "
                           />
 
@@ -1261,14 +1208,14 @@ const Signup = () => {
                     <div>
                       <label
                         htmlFor="address"
-                        className="block text-sm font-medium text-gray-300 mb-2"
+                        className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2"
                       >
                         {t.address}
-                        <span className="text-red-400 ml-1">*</span>
+                        <span className="text-red-500 ml-1">*</span>
                       </label>
 
-                      <div className="relative">
-                        <MapPin className="absolute left-4 top-4 w-5 h-5 text-gray-500 pointer-events-none" />
+                      <div className="relative group/address">
+                        <MapPin className="absolute left-4 top-4 w-5 h-5 text-slate-400 dark:text-gray-500 pointer-events-none group-focus-within/address:text-blue-500 transition-colors" />
 
                         <textarea
                           id="address"
@@ -1283,17 +1230,18 @@ const Signup = () => {
                             pl-12
                             pr-4
                             py-3
-                            bg-gray-950/70
+                            bg-slate-50 dark:bg-gray-950/80
                             border
-                            border-gray-700
+                            border-slate-200 dark:border-gray-800
                             rounded-xl
-                            text-white
-                            placeholder-gray-500
+                            text-slate-900 dark:text-white
+                            placeholder-slate-400 dark:placeholder-gray-500
                             outline-none
                             resize-none
                             focus:border-blue-500
-                            focus:ring-2
-                            focus:ring-blue-500/20
+                            focus:ring-1
+                            focus:ring-blue-500
+                            shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]
                           "
                         />
                       </div>
@@ -1348,20 +1296,20 @@ const Signup = () => {
                   </button>
 
                   {!emailVerified && (
-                    <p className="text-center text-xs text-amber-400 mt-3">
+                    <p className="text-center text-xs text-amber-500 dark:text-amber-400 mt-3 font-medium">
                       Verify your email to enable account creation.
                     </p>
                   )}
 
-                  <p className="text-center text-sm text-gray-500 mt-5">
+                  <p className="text-center text-sm text-slate-500 dark:text-gray-400 mt-5">
                     {t.terms}
                   </p>
 
-                  <div className="text-center text-sm text-gray-400 mt-4">
+                  <div className="text-center text-sm text-slate-600 dark:text-gray-400 mt-4">
                     {t.haveAccount}
                     <Link
                       to="/login"
-                      className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-semibold transition-colors ml-1"
                     >
                       {t.signIn}
                     </Link>

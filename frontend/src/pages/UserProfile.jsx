@@ -643,13 +643,72 @@ const UserProfile = () => {
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
           <div className="absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-indigo-600/10 blur-3xl" />
+          <div className="absolute -bottom-40 right-1/3 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
         </div>
-        <div className="relative z-10 flex min-h-screen items-center justify-center p-6">
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-50 dark:bg-blue-500/10">
-              <Loader2 size={30} className="animate-spin text-blue-500" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 animate-pulse">
+          {/* Navigation bar skeleton */}
+          <div className="mb-6 flex items-center justify-between">
+            <div className="h-9 w-24 rounded-xl bg-slate-200 dark:bg-gray-800" />
+            <div className="h-5 w-32 rounded-md bg-slate-200 dark:bg-gray-800" />
+          </div>
+
+          {/* Profile Card Header Skeleton */}
+          <div className="mb-6 overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+              <div className="h-24 w-24 shrink-0 rounded-2xl bg-slate-200 dark:bg-gray-800 sm:h-28 sm:w-28" />
+              <div className="min-w-0 flex-1 space-y-3">
+                <div className="h-8 w-56 rounded-lg bg-slate-200 dark:bg-gray-800" />
+                <div className="h-6 w-28 rounded-full bg-slate-200 dark:bg-gray-800" />
+                <div className="mt-4 grid grid-cols-1 gap-3 pt-2 sm:grid-cols-2">
+                  <div className="h-5 w-48 rounded bg-slate-200 dark:bg-gray-800" />
+                  <div className="h-5 w-40 rounded bg-slate-200 dark:bg-gray-800" />
+                </div>
+              </div>
             </div>
-            <p className="text-sm font-medium text-slate-600 dark:text-gray-400">{t.loading}</p>
+          </div>
+
+          {/* Info Grid Sections Skeletons */}
+          <div className="space-y-6">
+            {/* Personal Information Skeleton */}
+            <div className="overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm">
+              <div className="flex items-center gap-3 border-b border-slate-200 dark:border-gray-800 px-6 py-5">
+                <div className="h-10 w-10 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-5 w-44 rounded bg-slate-200 dark:bg-gray-800" />
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4">
+                      <div className="h-3 w-20 rounded bg-slate-200 dark:bg-gray-800" />
+                      <div className="mt-2 h-5 w-36 rounded bg-slate-200 dark:bg-gray-800" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Address Information Skeleton */}
+            <div className="overflow-hidden rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 shadow-sm">
+              <div className="flex items-center gap-3 border-b border-slate-200 dark:border-gray-800 px-6 py-5">
+                <div className="h-10 w-10 rounded-xl bg-slate-200 dark:bg-gray-800" />
+                <div className="h-5 w-40 rounded bg-slate-200 dark:bg-gray-800" />
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4 sm:col-span-2">
+                    <div className="h-3 w-20 rounded bg-slate-200 dark:bg-gray-800" />
+                    <div className="mt-2 h-5 w-3/4 rounded bg-slate-200 dark:bg-gray-800" />
+                  </div>
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-950/60 p-4">
+                      <div className="h-3 w-16 rounded bg-slate-200 dark:bg-gray-800" />
+                      <div className="mt-2 h-5 w-28 rounded bg-slate-200 dark:bg-gray-800" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
