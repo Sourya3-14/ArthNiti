@@ -39,7 +39,8 @@ async def lifespan(app: FastAPI):
             count = (await session.execute(select(func.count(KnowledgeBaseChunk.id)))).scalar() or 0
             if count == 0:
                 print("[KnowledgeBase] knowledge_base_chunks table empty. Initializing sync...")
-                await sync_knowledge_base_pipeline(session)
+                # await sync_knowledge_base_pipeline(session)
+                # cant be done here cause render deployment fails as startup time ram is not available much 
     except Exception as e:
         print(f"[KnowledgeBase] Warning during knowledge base check/sync: {e}")
 

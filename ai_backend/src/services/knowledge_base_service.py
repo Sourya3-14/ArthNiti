@@ -32,11 +32,11 @@ async def load_kb_document(filename: str) -> Optional[dict]:
     2. Otherwise attempts to download from Supabase Object Storage if configured.
     """
     # 1. Local path
-    local_path = KB_DIR / filename
-    if local_path.exists():
-        logger.info(f"[KnowledgeBaseService] Loading '{filename}' from local path: {local_path}")
-        with open(local_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+    # local_path = KB_DIR / filename
+    # if local_path.exists():
+    #     logger.info(f"[KnowledgeBaseService] Loading '{filename}' from local path: {local_path}")
+    #     with open(local_path, "r", encoding="utf-8") as f:
+    #         return json.load(f)
 
     # 2. Try Supabase Storage if local file does not exist
     if SUPABASE_URL and SUPABASE_KEY and SUPABASE_KB_BUCKET:
@@ -119,9 +119,6 @@ async def sync_knowledge_base_pipeline(
         if isinstance(doc, dict):
             incoming_version = str(doc.get("version", "1.0.0"))
             chunks = doc.get("chunks", [])
-        elif isinstance(doc, list):
-            incoming_version = "1.0.0"
-            chunks = doc
         else:
             logger.error(f"[KnowledgeBaseService] Unsupported format in '{filename}'")
             continue
