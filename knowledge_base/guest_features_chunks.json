@@ -1,209 +1,250 @@
-[
-  {
-    "chunk_id": "feat_overview_001",
-    "title": "Platform Overview: What is ArthNiti (Finance Assistant)",
-    "category": "features",
-    "keywords": [
-      "what is arthniti",
-      "platform features",
-      "overview",
-      "finance assistant",
-      "rural business",
-      "micro enterprise",
-      "capabilities"
-    ],
-    "content": "ArthNiti (Finance Assistant) is an AI-driven hyper-local business advisory and financial structuring platform designed for rural and semi-urban entrepreneurs, cooperative societies, and buyers. The platform transforms complex institutional consulting into automated, accessible insights—evaluating feasibility, estimating financials, identifying subsidies, and connecting producers with commercial buyers.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_demographics_002",
-    "title": "Hyper-Local Demographics & Market Sizing Intelligence",
-    "category": "features",
-    "keywords": [
-      "demographics",
-      "population analysis",
-      "market demand",
-      "village census",
-      "purchasing power",
-      "target audience"
-    ],
-    "content": "ArthNiti delivers hyper-local demographic intelligence down to village, block, and district levels. The platform calculates total addressable market sizing, customer density, household spending patterns, and target audience segments within customizable catchment radii (from 2 km to 50 km). This ensures business ideas are grounded in real local demand.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_competitor_003",
-    "title": "Competitor Density & Market Gap Mapping",
-    "category": "features",
-    "keywords": [
-      "competitor analysis",
-      "market saturation",
-      "competitor density",
-      "market gap",
-      "local competition"
-    ],
-    "content": "The platform analyzes existing local competitors within the target geographic area. It evaluates competitive density, saturation indices, price points, and market gaps, helping entrepreneurs identify underserved product niches, competitive moats, and differentiation strategies before investing capital.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_mandi_pricing_004",
-    "title": "Real-Time Mandi Market Pricing & Agricultural Trends",
-    "category": "features",
-    "keywords": [
-      "mandi rates",
-      "market price",
-      "apmc prices",
-      "crop prices",
-      "commodity rates",
-      "wholesale pricing"
-    ],
-    "content": "ArthNiti tracks live wholesale and retail market prices across regional APMC mandis and trade hubs. It provides historical price trends, seasonal peaks, and price forecasting to help businesses determine optimal procurement timing, selling rates, and maximum profit margins.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_supply_chain_005",
-    "title": "Supply Chain & Raw Material Sourcing Intelligence",
-    "category": "features",
-    "keywords": [
-      "supply chain",
-      "raw materials",
-      "suppliers",
-      "vendor sourcing",
-      "wholesale suppliers",
-      "input costs"
-    ],
-    "content": "The platform maps local, regional, and national suppliers for essential raw materials and manufacturing inputs. It benchmarks raw material costs, minimum order quantities, supplier lead times, and alternative suppliers to build resilient input supply chains for micro-enterprises.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_logistics_006",
-    "title": "Logistics & Freight Cost Optimization",
-    "category": "features",
-    "keywords": [
-      "logistics",
-      "transportation costs",
-      "freight rates",
-      "last mile delivery",
-      "distribution costs"
-    ],
-    "content": "ArthNiti calculates estimated freight and transit expenses based on road networks, vehicle types (mini-trucks, tractors, commercial freight), distance, and road conditions. It highlights cold-storage access, transit loss risks, and distribution hub locations to minimize transportation overhead.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_financial_planning_007",
-    "title": "Automated Financial Modeling & Viability Structuring",
-    "category": "features",
-    "keywords": [
-      "financial analysis",
-      "loan projections",
-      "capex opex",
-      "cash flow projection",
-      "working capital",
-      "break even analysis",
-      "dscr"
-    ],
-    "content": "ArthNiti generates institutional-grade financial plans including capital expenditure (CapEx), monthly operational expenditure (OpEx), working capital requirements, 3-year cash flow projections, debt service coverage ratio (DSCR), and break-even timelines. These reports are formatted to bank loan appraisal standards.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_gov_schemes_008",
-    "title": "Government Schemes & Subsidy Matching Engine",
-    "category": "features",
-    "keywords": [
-      "government schemes",
-      "subsidies",
-      "pmegp",
-      "pmfme",
-      "mudra loan",
-      "stand up india",
-      "state grants"
-    ],
-    "content": "The platform features a vector-powered search engine indexing hundreds of central and state government schemes (e.g., PMEGP, PMFME, Mudra, NABARD, state industrial policies). It assesses entrepreneur eligibility (caste, gender, location, project scale) and matches them with maximum capital subsidies, interest subventions, and direct application portals.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_business_assistant_009",
-    "title": "24/7 AI Business Advisor & Multi-Modal Assistant",
-    "category": "features",
-    "keywords": [
-      "ai assistant",
-      "business chat",
-      "advisory chatbot",
-      "consultant",
-      "multimodal",
-      "invoice analysis"
-    ],
-    "content": "Entrepreneurs enjoy an integrated conversational AI advisor trained on rural business dynamics. The assistant can inspect uploaded photos of handwritten ledgers, invoices, raw materials, and machinery, providing tailored diagnostic advice, pricing suggestions, and troubleshooting assistance.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_buyer_marketplace_010",
-    "title": "B2B Marketplace & Buyer-Supplier Discovery",
-    "category": "features",
-    "keywords": [
-      "buyer marketplace",
-      "procurement",
-      "b2b sourcing",
-      "bulk purchase",
-      "wholesale buyers",
-      "rural suppliers"
-    ],
-    "content": "ArthNiti bridges grassroots producers with bulk commercial buyers, institutional procurers, and food processing corporations. Buyers can browse verified rural businesses, assess verified production capacity and grade certifications, and initiate direct procurement inquiries without intermediary markups.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_multilingual_011",
-    "title": "Native Multilingual & Regional Language Support",
-    "category": "features",
-    "keywords": [
-      "languages",
-      "multilingual",
-      "hindi",
-      "bengali",
-      "vernacular",
-      "regional languages"
-    ],
-    "content": "ArthNiti is built from the ground up to support regional Indian languages including English, Hindi, and Bengali. All feasibility reports, financial breakdowns, scheme details, and chat conversations can be viewed and interacted with in the user's preferred native language.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_security_privacy_012",
-    "title": "Data Privacy, Bank-Grade Security & Isolation",
-    "category": "features",
-    "keywords": [
-      "security",
-      "privacy",
-      "data protection",
-      "confidentiality",
-      "encryption"
-    ],
-    "content": "Platform security adheres to strict data privacy principles. User records, business ledgers, financial projections, and proprietary location data are isolated with row-level security and strong cryptographic encryption. Private financial records are never shared across accounts.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_user_roles_013",
-    "title": "Supported Roles: Entrepreneurs and Buyers",
-    "category": "features",
-    "keywords": [
-      "user roles",
-      "entrepreneur account",
-      "buyer account",
-      "roles"
-    ],
-    "content": "ArthNiti supports two key roles: 1) Entrepreneurs who create business profiles, run hyper-local feasibility studies, access financial structuring, and match with government schemes; and 2) Buyers who discover rural producers and source products directly through the marketplace.",
-    "redirection_link": null
-  },
-  {
-    "chunk_id": "feat_getting_started_014",
-    "title": "Getting Started: Fast Registration & Onboarding Process",
-    "category": "features",
-    "keywords": [
-      "getting started",
-      "signup",
-      "how to register",
-      "account creation",
-      "login"
-    ],
-    "content": "Starting with ArthNiti requires only a quick registration with your email and mobile number. Select your role as an Entrepreneur or Buyer, complete your profile, and gain immediate access to comprehensive market intelligence tools and personalized dashboards.",
-    "redirection_link": "/signup"
-  }
-]
+{
+  "version": "1.0.0",
+  "document_type": "guest_features_kb",
+  "title": "ArthNiti Guest Features Knowledge Base",
+  "description": "Knowledge base for unauthenticated visitors and guests explaining platform capabilities and intelligence modules with zero navigation instructions.",
+  "updated_at": "2026-11-06T14:00:00Z",
+  "total_chunks": 15,
+  "chunks": [
+    {
+      "chunk_id": "feat_overview_001",
+      "title": "Platform Overview: What is ArthNiti (Finance Assistant)",
+      "category": "features",
+      "keywords": [
+        "what is arthniti",
+        "platform features",
+        "overview",
+        "finance assistant",
+        "rural business",
+        "micro enterprise",
+        "capabilities"
+      ],
+      "content": "ArthNiti (Finance Assistant) is an AI-driven hyper-local business advisory and financial structuring platform designed for rural and semi-urban entrepreneurs, cooperative societies, and buyers. The platform transforms complex institutional consulting into automated, accessible insights—evaluating feasibility, estimating financials, identifying subsidies, and connecting producers with commercial buyers.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_demographics_002",
+      "title": "Hyper-Local Demographics & Market Sizing Intelligence",
+      "category": "features",
+      "keywords": [
+        "demographics",
+        "population analysis",
+        "market demand",
+        "village census",
+        "purchasing power",
+        "target audience"
+      ],
+      "content": "ArthNiti delivers hyper-local demographic intelligence down to village, block, and district levels. The platform calculates total addressable market sizing, customer density, household spending patterns, and target audience segments within customizable catchment radii (from 2 km to 50 km). This ensures business ideas are grounded in real local demand.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_competitor_003",
+      "title": "Competitor Density & Market Gap Mapping",
+      "category": "features",
+      "keywords": [
+        "competitor analysis",
+        "market saturation",
+        "competitor density",
+        "market gap",
+        "local competition"
+      ],
+      "content": "The platform analyzes existing local competitors within the target geographic area. It evaluates competitive density, saturation indices, price points, and market gaps, helping entrepreneurs identify underserved product niches, competitive moats, and differentiation strategies before investing capital.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_mandi_pricing_004",
+      "title": "Real-Time Mandi Market Pricing & Agricultural Trends",
+      "category": "features",
+      "keywords": [
+        "mandi rates",
+        "market price",
+        "apmc prices",
+        "crop prices",
+        "commodity rates",
+        "wholesale pricing"
+      ],
+      "content": "ArthNiti tracks live wholesale and retail market prices across regional APMC mandis and trade hubs. It provides historical price trends, seasonal peaks, and price forecasting to help businesses determine optimal procurement timing, selling rates, and maximum profit margins.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_supply_chain_005",
+      "title": "Supply Chain & Raw Material Sourcing Intelligence",
+      "category": "features",
+      "keywords": [
+        "supply chain",
+        "raw materials",
+        "suppliers",
+        "vendor sourcing",
+        "wholesale suppliers",
+        "input costs"
+      ],
+      "content": "The platform maps local, regional, and national suppliers for essential raw materials and manufacturing inputs. It benchmarks raw material costs, minimum order quantities, supplier lead times, and alternative suppliers to build resilient input supply chains for micro-enterprises.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_logistics_006",
+      "title": "Logistics & Freight Cost Optimization",
+      "category": "features",
+      "keywords": [
+        "logistics",
+        "transportation costs",
+        "freight rates",
+        "last mile delivery",
+        "distribution costs"
+      ],
+      "content": "ArthNiti calculates estimated freight and transit expenses based on road networks, vehicle types (mini-trucks, tractors, commercial freight), distance, and road conditions. It highlights cold-storage access, transit loss risks, and distribution hub locations to minimize transportation overhead.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_financial_planning_007",
+      "title": "Automated Financial Modeling & Viability Structuring",
+      "category": "features",
+      "keywords": [
+        "financial analysis",
+        "loan projections",
+        "capex opex",
+        "cash flow projection",
+        "working capital",
+        "break even analysis",
+        "dscr"
+      ],
+      "content": "ArthNiti generates institutional-grade financial plans including capital expenditure (CapEx), monthly operational expenditure (OpEx), working capital requirements, 3-year cash flow projections, debt service coverage ratio (DSCR), and break-even timelines. These reports are formatted to bank loan appraisal standards.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_gov_schemes_008",
+      "title": "Government Schemes & Subsidy Matching Engine",
+      "category": "features",
+      "keywords": [
+        "government schemes",
+        "subsidies",
+        "pmegp",
+        "pmfme",
+        "mudra loan",
+        "stand up india",
+        "state grants"
+      ],
+      "content": "The platform features a vector-powered search engine indexing hundreds of central and state government schemes (e.g., PMEGP, PMFME, Mudra, NABARD, state industrial policies). It assesses entrepreneur eligibility (caste, gender, location, project scale) and matches them with maximum capital subsidies, interest subventions, and direct application portals.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_business_assistant_009",
+      "title": "24/7 AI Business Advisor & Multi-Modal Assistant",
+      "category": "features",
+      "keywords": [
+        "ai assistant",
+        "business chat",
+        "advisory chatbot",
+        "consultant",
+        "multimodal",
+        "invoice analysis"
+      ],
+      "content": "Entrepreneurs enjoy an integrated conversational AI advisor trained on rural business dynamics. The assistant can inspect uploaded photos of handwritten ledgers, invoices, raw materials, and machinery, providing tailored diagnostic advice, pricing suggestions, and troubleshooting assistance.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_buyer_marketplace_010",
+      "title": "B2B Marketplace & Buyer-Supplier Discovery",
+      "category": "features",
+      "keywords": [
+        "buyer marketplace",
+        "procurement",
+        "b2b sourcing",
+        "bulk purchase",
+        "wholesale buyers",
+        "rural suppliers"
+      ],
+      "content": "ArthNiti bridges grassroots producers with bulk commercial buyers, institutional procurers, and food processing corporations. Buyers can browse verified rural businesses, assess verified production capacity and grade certifications, and initiate direct procurement inquiries without intermediary markups.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_multilingual_011",
+      "title": "Native Multilingual & Regional Language Support",
+      "category": "features",
+      "keywords": [
+        "languages",
+        "multilingual",
+        "hindi",
+        "bengali",
+        "english",
+        "vernacular",
+        "regional languages",
+        "bhasha"
+      ],
+      "content": "ArthNiti is engineered from the ground up with native multilingual capabilities supporting English, Hindi, and Bengali. All market intelligence insights, hyper-local feasibility reports, financial breakdowns, government schemes, and AI chat advisory adapt dynamically to the user's preferred language for seamless accessibility across diverse linguistic communities.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_security_privacy_012",
+      "title": "Data Privacy, Bank-Grade Security & Isolation",
+      "category": "features",
+      "keywords": [
+        "security",
+        "privacy",
+        "data protection",
+        "confidentiality",
+        "encryption"
+      ],
+      "content": "Platform security adheres to strict data privacy principles. User records, business ledgers, financial projections, and proprietary location data are isolated with row-level security and strong cryptographic encryption. Private financial records are never shared across accounts.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_user_roles_013",
+      "title": "Supported Roles: Entrepreneurs and Buyers",
+      "category": "features",
+      "keywords": [
+        "user roles",
+        "entrepreneur account",
+        "buyer account",
+        "roles"
+      ],
+      "content": "ArthNiti supports two key roles: 1) Entrepreneurs who create business profiles, run hyper-local feasibility studies, access financial structuring, and match with government schemes; and 2) Buyers who discover rural producers and source products directly through the marketplace.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_theme_personalization_015",
+      "title": "Personalized Display Themes: Light, Dark, and System Modes",
+      "category": "features",
+      "keywords": [
+        "theme",
+        "dark mode",
+        "light mode",
+        "system theme",
+        "appearance",
+        "display personalization",
+        "visual comfort"
+      ],
+      "content": "ArthNiti delivers an adaptable visual experience with built-in support for Light Mode, Dark Mode, and automatic System Default synchronization. Users can choose high-contrast light display for bright daytime conditions, an eye-friendly dark aesthetic to reduce fatigue in low-light environments, or an auto-sync option that effortlessly matches their device and browser theme.",
+      "redirection_link": null,
+      "doc_version": "1.0.0"
+    },
+    {
+      "chunk_id": "feat_getting_started_014",
+      "title": "Getting Started: Fast Registration & Onboarding Process",
+      "category": "features",
+      "keywords": [
+        "getting started",
+        "signup",
+        "how to register",
+        "account creation",
+        "login"
+      ],
+      "content": "Starting with ArthNiti requires only a quick registration with your email and mobile number. Select your role as an Entrepreneur or Buyer, complete your profile, and gain immediate access to comprehensive market intelligence tools and personalized dashboards.",
+      "redirection_link": "/signup",
+      "doc_version": "1.0.0"
+    }
+  ]
+}
