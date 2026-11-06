@@ -23,6 +23,13 @@ class KnowledgeBaseChunk(Base):
         index=True,
     )
 
+    version = Column(
+        String(50),
+        nullable=False,
+        default="1.0.0",
+        index=True,
+    )
+
     is_guest = Column(
         Boolean,
         default=False,
@@ -108,4 +115,3 @@ class KnowledgeBaseChunk(Base):
             postgresql_ops={"embedding": "vector_cosine_ops"},
         ),
     )
-

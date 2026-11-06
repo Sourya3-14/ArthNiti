@@ -4,9 +4,8 @@ import logging
 from pathlib import Path
 from typing import Optional, Any
 import httpx
-from sqlalchemy import select, delete, func
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from fastapi import HTTPException
 
 from src.schema.knowledge_base_chunk import KnowledgeBaseChunk
@@ -14,135 +13,58 @@ from src.services.embedding_service import generate_embedding, generate_batch_em
 
 logger = logging.getLogger("knowledge_base_service")
 
-# Storage & Path Configurations
+# Storage Configurations
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY") or os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 SUPABASE_KB_BUCKET = os.getenv("SUPABASE_KB_BUCKET", "knowledge-base")
 SUPABASE_KB_PREFIX = os.getenv("SUPABASE_KB_PREFIX", "")
 
-# DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
-# LOCAL_MAIN_KB_PATH = DATA_DIR / "chunks.json"
-# LOCAL_GUEST_KB_PATH = DATA_DIR / "guest_features_chunks.json"
+KB_DIR = Path(__file__).resolve().parents[3] / "knowledge_base"
 
 
 # ---------------------------------------------------------------------------
-# Supabase Object Storage Client
+# Storage / Local File Loading Helpers
 # ---------------------------------------------------------------------------
-async def fetch_storage_file_list() -> list[str]:
+async def load_kb_document(filename: str) -> Optional[dict]:
     """
-    Lists file names in the Supabase Object Storage bucket.
-    Returns empty list if credentials are not configured or call fails.
+    Loads knowledge base JSON document:
+    1. Loads from local file in `knowledge_base/<filename>` if available.
+    2. Otherwise attempts to download from Supabase Object Storage if configured.
     """
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        logger.info("[KnowledgeBaseService] Supabase URL or Key not set. Skipping remote bucket listing.")
-        return []
+    # 1. Local path
+    local_path = KB_DIR / filename
+    if local_path.exists():
+        logger.info(f"[KnowledgeBaseService] Loading '{filename}' from local path: {local_path}")
+        with open(local_path, "r", encoding="utf-8") as f:
+            return json.load(f)
 
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-        "Content-Type": "application/json",
-    }
-    list_url = f"{SUPABASE_URL}/storage/v1/object/list/{SUPABASE_KB_BUCKET}"
-    payload = {
-        "prefix": SUPABASE_KB_PREFIX,
-        "limit": 100,
-        "sortBy": {"column": "name", "order": "asc"},
-    }
-
-    try:
-        async with httpx.AsyncClient(timeout=15.0) as client:
-            resp = await client.post(list_url, headers=headers, json=payload)
-            if resp.status_code == 200:
-                data = resp.json()
-                file_names = [item["name"] for item in data if item.get("name") and not item.get("id") is None]
-                return file_names
-            else:
-                logger.warning(
-                    f"[KnowledgeBaseService] Failed to list bucket '{SUPABASE_KB_BUCKET}': {resp.status_code} - {resp.text}"
-                )
-                return []
-    except Exception as e:
-        logger.warning(f"[KnowledgeBaseService] Error connecting to Supabase Object Storage: {e}")
-        return []
-
-
-async def download_storage_file(file_name: str) -> Optional[str]:
-    """
-    Downloads text content of a file from Supabase Object Storage.
-    """
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        return None
-
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-    }
-    path_with_prefix = f"{SUPABASE_KB_PREFIX}/{file_name}".lstrip("/")
-    download_url = f"{SUPABASE_URL}/storage/v1/object/authenticated/{SUPABASE_KB_BUCKET}/{path_with_prefix}"
-
-    try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.get(download_url, headers=headers)
-            if resp.status_code == 200:
-                return resp.text
-            else:
-                logger.warning(
-                    f"[KnowledgeBaseService] Failed to download '{file_name}': {resp.status_code}"
-                )
-                return None
-    except Exception as e:
-        logger.warning(f"[KnowledgeBaseService] Error downloading '{file_name}': {e}")
-        return None
-
-
-# ---------------------------------------------------------------------------
-# Document Chunking & Ingestion Helpers
-# ---------------------------------------------------------------------------
-def chunk_raw_text_document(
-    filename: str,
-    text: str,
-    chunk_size: int = 800,
-    chunk_overlap: int = 150,
-) -> list[dict]:
-    """
-    Splits raw text or markdown into structured chunks with metadata using RecursiveCharacterTextSplitter.
-    """
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap,
-        separators=["\n\n", "\n", " ", ""],
-    )
-    docs = splitter.split_text(text)
-    base_name = Path(filename).stem.replace("_", " ").title()
-
-    chunks = []
-    is_guest = "guest" in filename.lower() or "feature" in filename.lower()
-
-    for idx, doc_text in enumerate(docs):
-        chunk_id = f"{Path(filename).stem}_{idx + 1:03d}"
-        chunk = {
-            "chunk_id": chunk_id,
-            "title": f"{base_name} (Part {idx + 1})",
-            "category": "features" if is_guest else "general",
-            "is_guest": is_guest,
-            "allowed_roles": None if is_guest else ["enterpreneur", "buyer", "admin"],
-            "page_module": None,
-            "navigation_action": None,
-            "redirection_link": None,
-            "keywords": [base_name.lower()],
-            "content": doc_text.strip(),
+    # 2. Try Supabase Storage if local file does not exist
+    if SUPABASE_URL and SUPABASE_KEY and SUPABASE_KB_BUCKET:
+        path_with_prefix = f"{SUPABASE_KB_PREFIX}/{filename}".lstrip("/")
+        download_url = f"{SUPABASE_URL}/storage/v1/object/authenticated/{SUPABASE_KB_BUCKET}/{path_with_prefix}"
+        headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
         }
-        chunks.append(chunk)
+        try:
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                resp = await client.get(download_url, headers=headers)
+                if resp.status_code == 200:
+                    logger.info(f"[KnowledgeBaseService] Successfully downloaded '{filename}' from Supabase Storage.")
+                    return resp.json()
+        except Exception as e:
+            logger.warning(f"[KnowledgeBaseService] Could not fetch '{filename}' from Supabase Storage: {e}")
 
-    return chunks
+    logger.error(f"[KnowledgeBaseService] Knowledge base file '{filename}' not found.")
+    return None
 
 
 def build_chunk_embedding_text(chunk: dict, is_guest: bool) -> str:
     """
     Builds the formatted text string to pass into the embedding model.
     """
+    redir = f"\nRedirection: {chunk.get('redirection_link')}" if chunk.get("redirection_link") else ""
     if is_guest:
-        redir = f"\nRedirection: {chunk.get('redirection_link')}" if chunk.get("redirection_link") else ""
         return (
             f"Feature Title: {chunk.get('title', '')}\n"
             f"Keywords: {', '.join(chunk.get('keywords', []) or [])}\n"
@@ -150,7 +72,6 @@ def build_chunk_embedding_text(chunk: dict, is_guest: bool) -> str:
             f"{redir}"
         )
     else:
-        redir = f"\nRedirection: {chunk.get('redirection_link')}" if chunk.get("redirection_link") else ""
         return (
             f"Title: {chunk.get('title', '')}\n"
             f"Keywords: {', '.join(chunk.get('keywords', []) or [])}\n"
@@ -161,109 +82,121 @@ def build_chunk_embedding_text(chunk: dict, is_guest: bool) -> str:
         )
 
 
-async def ingest_chunk_list(
+# ---------------------------------------------------------------------------
+# Main Synchronization Pipeline with Version Verification
+# ---------------------------------------------------------------------------
+async def sync_knowledge_base_pipeline(
     db: AsyncSession,
-    chunks: list[dict],
-    is_guest: bool,
-) -> int:
-    """
-    Batches, generates embeddings for, and persists chunk records to knowledge_base_chunks.
-    """
-    if not chunks:
-        return 0
-
-    texts_to_embed = [build_chunk_embedding_text(c, is_guest=is_guest) for c in chunks]
-    embeddings = generate_batch_embeddings(texts_to_embed, batch_size=32)
-
-    inserted_count = 0
-    for chunk_data, emb_text, emb_vec in zip(chunks, texts_to_embed, embeddings):
-        chunk_id = chunk_data.get("chunk_id")
-        if not chunk_id:
-            continue
-
-        # Check if record already exists to perform upsert
-        stmt = select(KnowledgeBaseChunk).where(KnowledgeBaseChunk.chunk_id == chunk_id)
-        existing = (await db.execute(stmt)).scalar_one_or_none()
-
-        if existing:
-            existing.title = chunk_data.get("title", existing.title)
-            existing.category = chunk_data.get("category", existing.category)
-            existing.is_guest = is_guest
-            existing.allowed_roles = chunk_data.get("allowed_roles") if not is_guest else None
-            existing.page_module = chunk_data.get("page_module") if not is_guest else None
-            existing.navigation_action = chunk_data.get("navigation_action") if not is_guest else None
-            existing.redirection_link = chunk_data.get("redirection_link")
-            existing.keywords = chunk_data.get("keywords")
-            existing.user_questions = chunk_data.get("user_questions")
-            existing.content = chunk_data.get("content", "")
-            existing.embedding_text = emb_text
-            existing.embedding = emb_vec
-        else:
-            record = KnowledgeBaseChunk(
-                chunk_id=chunk_id,
-                title=chunk_data.get("title", ""),
-                category=chunk_data.get("category", "general"),
-                is_guest=is_guest,
-                allowed_roles=chunk_data.get("allowed_roles") if not is_guest else None,
-                page_module=chunk_data.get("page_module") if not is_guest else None,
-                navigation_action=chunk_data.get("navigation_action") if not is_guest else None,
-                redirection_link=chunk_data.get("redirection_link"),
-                keywords=chunk_data.get("keywords"),
-                user_questions=chunk_data.get("user_questions"),
-                content=chunk_data.get("content", ""),
-                embedding_text=emb_text,
-                embedding=emb_vec,
-            )
-            db.add(record)
-        inserted_count += 1
-
-    await db.commit()
-    return inserted_count
-
-
-# ---------------------------------------------------------------------------
-# Main Synchronization Pipeline
-# ---------------------------------------------------------------------------
-async def sync_knowledge_base_pipeline(db: AsyncSession) -> dict[str, Any]:
+    force: bool = False,
+) -> dict[str, Any]:
     """
     Synchronizes the Knowledge Base:
-    1. Attempts to list and download docs from Supabase Object Storage bucket.
-    2. If files are found in bucket: parses, chunks, embeds, and stores them in pgvector.
-    3. If Supabase is not configured or bucket empty: falls back to local data files (chunks.json and guest_features_chunks.json).
+    - Checks document version from JSON against the version stored in knowledge_base_chunks.
+    - If version matches and force=False: skips re-chunking and embedding generation.
+    - If version mismatches (or table empty or force=True):
+        1. Deletes all old chunks from knowledge_base_chunks for that document (guest vs authenticated).
+        2. Generates embeddings for all incoming chunks.
+        3. Inserts the new chunks with the updated version.
     """
-    stats = {"supabase_files": 0, "chunks_ingested": 0, "source": "local"}
+    stats = {
+        "updated_files": [],
+        "skipped_files": [],
+        "chunks_ingested": 0,
+    }
 
-    storage_files = await fetch_storage_file_list()
+    # The two knowledge base documents: (filename, is_guest)
+    kb_files = [
+        ("chunks.json", False),
+        ("guest_features_chunks.json", True),
+    ]
 
-    if storage_files:
-        stats["supabase_files"] = len(storage_files)
-        stats["source"] = "supabase_storage"
-        logger.info(f"[KnowledgeBaseService] Found {len(storage_files)} files in Supabase Storage.")
+    for filename, is_guest in kb_files:
+        doc = await load_kb_document(filename)
+        if not doc:
+            continue
 
-        for filename in storage_files:
-            content = await download_storage_file(filename)
-            if not content:
-                continue
+        # Extract version and chunks list
+        if isinstance(doc, dict):
+            incoming_version = str(doc.get("version", "1.0.0"))
+            chunks = doc.get("chunks", [])
+        elif isinstance(doc, list):
+            incoming_version = "1.0.0"
+            chunks = doc
+        else:
+            logger.error(f"[KnowledgeBaseService] Unsupported format in '{filename}'")
+            continue
 
-            if filename.endswith(".json"):
-                try:
-                    data = json.loads(content)
-                    if isinstance(data, list):
-                        is_guest = "guest" in filename.lower()
-                        count = await ingest_chunk_list(db, data, is_guest=is_guest)
-                        stats["chunks_ingested"] += count
-                except Exception as e:
-                    logger.error(f"[KnowledgeBaseService] Failed to parse JSON file '{filename}': {e}")
-            elif filename.endswith((".md", ".txt")):
-                raw_chunks = chunk_raw_text_document(filename, content)
-                is_guest = "guest" in filename.lower()
-                count = await ingest_chunk_list(db, raw_chunks, is_guest=is_guest)
-                stats["chunks_ingested"] += count
+        # 1. Compare version with existing chunks in the table
+        stmt = (
+            select(KnowledgeBaseChunk.version)
+            .where(KnowledgeBaseChunk.is_guest == is_guest)
+            .limit(1)
+        )
+        db_version = (await db.execute(stmt)).scalar_one_or_none()
 
-        return stats
-    else:
-        logger.info("[KnowledgeBaseService] No files found in Supabase Storage. Falling back to local data files.")
-        raise HTTPException(status_code=404, detail="No files found in Supabase Storage. Please upload knowledge base files or configure Supabase credentials.")
+        # If version matches and not forced, skip!
+        if db_version == incoming_version and not force:
+            logger.info(
+                f"[KnowledgeBaseService] '{filename}' is already at version {incoming_version} in DB. Skipping."
+            )
+            stats["skipped_files"].append({
+                "file": filename,
+                "version": incoming_version,
+                "reason": "version_match",
+            })
+            continue
+
+        logger.info(
+            f"[KnowledgeBaseService] Version mismatch for '{filename}' "
+            f"(DB version: {db_version} -> Incoming version: {incoming_version}). "
+            f"Removing old entries and re-chunking..."
+        )
+
+        # 2. Remove all old entries for this knowledge base from the table
+        await db.execute(
+            delete(KnowledgeBaseChunk).where(KnowledgeBaseChunk.is_guest == is_guest)
+        )
+        await db.commit()
+
+        # 3. Generate embeddings and insert new chunks
+        if chunks:
+            texts_to_embed = [build_chunk_embedding_text(c, is_guest=is_guest) for c in chunks]
+            embeddings = generate_batch_embeddings(texts_to_embed, batch_size=32)
+
+            for c, emb_text, emb_vec in zip(chunks, texts_to_embed, embeddings):
+                chunk_id = c.get("chunk_id")
+                if not chunk_id:
+                    continue
+
+                record = KnowledgeBaseChunk(
+                    chunk_id=chunk_id,
+                    version=incoming_version,
+                    is_guest=is_guest,
+                    title=c.get("title", ""),
+                    category=c.get("category", "general"),
+                    allowed_roles=c.get("allowed_roles") if not is_guest else None,
+                    page_module=c.get("page_module") if not is_guest else None,
+                    navigation_action=c.get("navigation_action") if not is_guest else None,
+                    redirection_link=c.get("redirection_link"),
+                    keywords=c.get("keywords"),
+                    user_questions=c.get("user_questions"),
+                    content=c.get("content", ""),
+                    embedding_text=emb_text,
+                    embedding=emb_vec,
+                )
+                db.add(record)
+
+            await db.commit()
+            stats["chunks_ingested"] += len(chunks)
+
+        stats["updated_files"].append({
+            "file": filename,
+            "old_version": db_version,
+            "new_version": incoming_version,
+            "chunks_stored": len(chunks),
+        })
+
+    return stats
 
 
 # ---------------------------------------------------------------------------
@@ -307,4 +240,3 @@ async def search_similar_knowledge_chunks(
 
     result = await db.execute(stmt)
     return result.all()
-
