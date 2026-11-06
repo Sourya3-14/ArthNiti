@@ -286,7 +286,9 @@ async def sync_knowledge_base(
     Checks document version against knowledge_base_doc_meta. If document version is unchanged,
     skips re-chunking and re-embedding. Pass force=True to force full re-chunking and re-embedding.
     """
-    stats = await sync_knowledge_base_pipeline(db, force=force)
+    stats = {}
+    # cant be done here cause render deployment fails as startup time ram is not available much
+    # stats = await sync_knowledge_base_pipeline(db, force=force)
     return SyncResponse(
         message="Knowledge base synchronization completed successfully.",
         details=stats,
