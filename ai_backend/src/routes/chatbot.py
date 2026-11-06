@@ -1,10 +1,14 @@
 import os
-from typing import Optional
+from typing import Optional, Dict
 
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.chat_history import BaseChatMessageHistory
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -24,11 +28,52 @@ router = APIRouter()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Initialize Chat Model with LangChain (.invoke ready)
 llm = ChatGoogleGenerativeAI(
     model=GEMINI_MODEL_NAME,
     google_api_key=GEMINI_API_KEY,
     temperature=0.2,
+)
+
+# ---------------------------------------------------------
+# Session History Storage
+# (Note: In production, consider replacing the in-memory dict
+# with RedisChatMessageHistory or PostgresChatMessageHistory)
+# ---------------------------------------------------------
+session_store: Dict[str, ChatMessageHistory] = {}
+
+
+def get_session_history(session_id: str) -> BaseChatMessageHistory:
+    if session_id not in session_store:
+        session_store[session_id] = ChatMessageHistory()
+    return session_store[session_id]
+
+
+# ---------------------------------------------------------
+# Prompt Pipeline Definition
+# ---------------------------------------------------------
+prompt_template = ChatPromptTemplate.from_messages(
+    [
+        ("system", "{system_instruction}"),
+        MessagesPlaceholder(variable_name="history"),
+        (
+            "human",
+            "Retrieved Platform Context:\n{context}\n\n"
+            "User Question: {question}\n"
+            "Requested Language: {language}\n\n"
+            "Provide a helpful, precise, and polite response following your system instructions and strict role boundaries.",
+        ),
+    ]
+)
+
+# Runnable pipeline
+rag_chain = prompt_template | llm
+
+# Wrap with history tracking
+runnable_with_history = RunnableWithMessageHistory(
+    rag_chain,
+    get_session_history,
+    input_messages_key="question",
+    history_messages_key="history",
 )
 
 
@@ -47,6 +92,7 @@ def extract_english_field(field_val) -> str:
 # ---------------------------------------------------------
 class ChatRequest(BaseModel):
     message: str
+    session_id: Optional[str] = "default_session"
     language: Optional[str] = "English"
 
 
@@ -71,6 +117,7 @@ class SyncResponse(BaseModel):
 BASE_SITE_ASSISTANT_SYSTEM_INSTRUCTION = """
 You are the ArthNiti Site Assistant (Customer Onboarding & Platform Helper).
 Greet visitors properly if they greet you and ask them for their queries.
+Greet them only once per session. If they greet you again, acknowledge but do not repeat the greeting.
 Your primary mission is to help visitors and registered users understand the platform, its features, workflows, and benefits.
 
 STRICT ROLE-BASED OPERATIONAL GUARDRAILS:
@@ -124,9 +171,11 @@ async def chat_onboarding(
             first_name = extract_english_field(user.first_name)
             last_name = extract_english_field(user.last_name)
             full_name = f"{first_name} {last_name}".strip()
-            raw_role = getattr(user.role, "value", user.role) if user.role else "enterpreneur"
+            raw_role = (
+                getattr(user.role, "value", user.role) if user.role else "enterpreneur"
+            )
             user_role = str(raw_role).lower().strip()
-            # Normalize role string (only buyer, enterpreneur, admin)
+
             if "buy" in user_role:
                 user_role = "buyer"
             elif "enterp" in user_role or "entre" in user_role:
@@ -154,6 +203,9 @@ async def chat_onboarding(
                 f"Address them by name if greeting, and strictly enforce the operational guardrails for the {user_role} role."
             )
 
+    # Resolve session_id (use user_id if authenticated, or request session_id)
+    session_id = f"user_{user_id}" if user_id else f"guest_{payload.session_id}"
+
     # 2. Retrieve role-gated chunks from pgvector database
     matched_results = await search_similar_knowledge_chunks(
         db=db,
@@ -165,7 +217,11 @@ async def chat_onboarding(
     # 3. Build RAG prompt context based on role
     context_items = []
     for chunk, _similarity in matched_results:
-        redir_info = f"\nRedirection Link: {chunk.redirection_link}" if chunk.redirection_link else ""
+        redir_info = (
+            f"\nRedirection Link: {chunk.redirection_link}"
+            if chunk.redirection_link
+            else ""
+        )
         if user_role == "guest":
             context_items.append(
                 f"Feature Chunk ID: {chunk.chunk_id}\n"
@@ -184,25 +240,20 @@ async def chat_onboarding(
             )
 
     context_str = "\n\n---\n\n".join(context_items)
-
     dynamic_system_instruction = (
         f"{BASE_SITE_ASSISTANT_SYSTEM_INSTRUCTION}\n{user_context}"
     )
 
-    prompt = f"""Retrieved Platform Context:
-{context_str}
-
-User Question: {payload.message}
-Requested Language: {payload.language or "English"}
-
-Provide a helpful, precise, and polite response following your system instructions and strict role boundaries."""
-
-    # 4. Generate response using LangChain .invoke()
-    messages = [
-        SystemMessage(content=dynamic_system_instruction),
-        HumanMessage(content=prompt),
-    ]
-    response = llm.invoke(messages)
+    # 4. Generate response using RunnableWithMessageHistory
+    response = await runnable_with_history.ainvoke(
+        {
+            "system_instruction": dynamic_system_instruction,
+            "context": context_str,
+            "question": payload.message,
+            "language": payload.language or "English",
+        },
+        config={"configurable": {"session_id": session_id}},
+    )
 
     reply_text = (
         response.content
@@ -227,13 +278,15 @@ Provide a helpful, precise, and polite response following your system instructio
 
 @router.post("/sync-kb", response_model=SyncResponse)
 async def sync_knowledge_base(
+    force: bool = False,
     db: AsyncSession = Depends(get_db),
 ):
     """
     Triggers synchronization from Supabase Object Storage (or local fallback).
-    Inserts and updates knowledge_base_chunks along with vector embeddings.
+    Checks document version against knowledge_base_doc_meta. If document version is unchanged,
+    skips re-chunking and re-embedding. Pass force=True to force full re-chunking and re-embedding.
     """
-    stats = await sync_knowledge_base_pipeline(db)
+    stats = await sync_knowledge_base_pipeline(db, force=force)
     return SyncResponse(
         message="Knowledge base synchronization completed successfully.",
         details=stats,
