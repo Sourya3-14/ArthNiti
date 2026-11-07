@@ -1191,9 +1191,9 @@ const Home = () => {
             </div>
           </div>
 
-          <p className="text-xs text-slate-500 dark:text-gray-500">
+          {/* <p className="text-xs text-slate-500 dark:text-gray-500">
             SIH 2026 • Problem Statement 26091
-          </p>
+          </p> */}
         </div>
       </footer>
     </div>
