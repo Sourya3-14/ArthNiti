@@ -1,5 +1,6 @@
 import os
 import httpx
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,10 +9,10 @@ APPS_SCRIPT_URL = os.getenv("APPS_SCRIPT_URL")
 APPS_SCRIPT_SECRET = os.getenv("APPS_SCRIPT_SECRET")
 
 
-async def _send_email(email: str, subject: str, body: str):
-    if not APPS_SCRIPT_URL or not APPS_SCRIPT_SECRET:
-        raise ValueError("Google Apps Script email configuration is missing")
+logger = logging.getLogger(__name__)
 
+
+async def _send_email(email: str, subject: str, body: str):
     payload = {
         "token": APPS_SCRIPT_SECRET,
         "to": email,
@@ -19,16 +20,26 @@ async def _send_email(email: str, subject: str, body: str):
         "body": body,
     }
 
-    async with httpx.AsyncClient(follow_redirects=True, timeout=30) as client:
-        response = await client.post(APPS_SCRIPT_URL, json=payload)
-        response.raise_for_status()
+    try:
+        async with httpx.AsyncClient(follow_redirects=True, timeout=60) as client:
+            response = await client.post(APPS_SCRIPT_URL, json=payload)
 
-        result = response.json()
+            logger.info("Apps Script status: %s", response.status_code)
+            logger.info("Apps Script final URL: %s", response.url)
+            logger.info("Apps Script response: %s", response.text[:1500])
 
-        if not result.get("success"):
-            raise RuntimeError(result.get("error", "Email sending failed"))
+            response.raise_for_status()
 
-        return result
+            result = response.json()
+
+            if not result.get("success"):
+                raise RuntimeError(result.get("error"))
+
+            return result
+
+    except Exception as exc:
+        logger.exception("Google Apps Script email request failed " + str(exc))
+        raise
 
 
 async def send_otp_email(email: str, otp: str):
